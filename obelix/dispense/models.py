@@ -10,9 +10,10 @@ class Corso(models.Model):
 	def __unicode__(self):
 		return self.titolo
 
-class Anno(Corso):
-	def __init__(self):
-		Corso.__init__(self)
-		
+class Anno(models.Model):
+	titolo = models.CharField(max_length=20)
 	num = models.IntegerField()
 	
+	def __unicode__(self):
+		s = self.titolo + " " + str(self.num)
+		return s
