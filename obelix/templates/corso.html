@@ -1,0 +1,16 @@
+<html>
+	<body>
+		<h1>{{Corso.titolo}}</h1>
+		<!
+			if StrCmp(substr(Corso.titolo, 0, 1),"LT")=0 then
+				dim=3
+			else
+				dim=2
+		endif
+		>
+		{% for i=0 in dim %}
+			<p><a href="/dispense/{{corso.titolo}}/anno"></a>anno</p>
+		{% endfor %}
+		<p>ciao</p>
+	</body>
+</html>
