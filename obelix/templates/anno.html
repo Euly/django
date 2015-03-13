@@ -1,9 +1,9 @@
 <html>
 	<body>
 		<h1>LT-Fisica</h1>
-		{% for Corso in dispense %}
+		{% for Anno in dispense %}
 		<div>
-			<p>sono un anno nella dispensa</p>
+			<p>{{Anno.titolo}}</p>
 		</div>
 		{% endfor %}
 		<p>ciao</p>
