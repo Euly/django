@@ -6,8 +6,15 @@ from dispense.models import Corso, Anno
 
 def dispense(request):
 	return render_to_response('dispense.html',
-							  {'dispense': Corso.objects.all()})
+							  {'corsi': Corso.objects.all()})
 
-def anno(request):
+def anno(request, titolo_cdl):
+	cdl = Corso.objects.get(titolo = titolo_cdl)
+	anni = []
+	k = 0
+	for i in Anno.objects.all():
+		if i.corso == cdl :
+			anni.append(i.num)
+			
 	return render_to_response('anno.html',
-							  {'anno': Corso.objects.all()})
+							  {'titolo': titolo_cdl, 'anni': anni})

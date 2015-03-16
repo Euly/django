@@ -1,7 +1,7 @@
 <html>
 	<body>
 		<h1>Dispense</h1>
-		{% for Corso in dispense %}
+		{% for Corso in corsi %}
 		<div>
 			<h2><a href="/dispense/{{Corso.titolo}}/anno">{{Corso.titolo}}</a></h2>
 			<p>{{Corso.descrizione}}</p>
