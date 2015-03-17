@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+		<h1>{{titolo}}</h1>
+		{% for anno in anni %}
+		<div>
+			<p>Anno {{anno}}</p>
+		</div>
+		{% endfor %}
+
+{% endblock %}

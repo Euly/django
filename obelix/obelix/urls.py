@@ -6,13 +6,12 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
 	url(r'^dispense/', include('dispense.urls')),
-    # Examples:
-    # url(r'^$', 'obelix.views.home', name='home'),
-    # url(r'^obelix/', include('obelix.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/login/$',  'dispense.views.login'),
+    url(r'^accounts/auth/$',  'dispense.views.auth_view'),    
+    url(r'^accounts/logout/$', 'dispense.views.logout'),
+    url(r'^accounts/loggedin/$', 'dispense.views.loggedin'),
+    url(r'^accounts/invalid/$', 'dispense.views.invalid_login'),    
+    url(r'^accounts/register/$', 'dispense.views.register_user'),
+    url(r'^accounts/register_success/$', 'dispense.views.register_success'),
 )

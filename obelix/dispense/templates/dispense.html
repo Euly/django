@@ -1,5 +1,7 @@
-<html>
-	<body>
+{% extends "base.html" %}
+
+{% block content %}
+
 		<h1>Dispense</h1>
 		{% for Corso in corsi %}
 		<div>
@@ -7,5 +9,5 @@
 			<p>{{Corso.descrizione}}</p>
 		</div>
 		{% endfor %}
-	</body>
-</html>
+
+{% endblock %}

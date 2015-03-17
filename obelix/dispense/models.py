@@ -11,10 +11,6 @@ class Corso(models.Model):
 		return self.titolo
 
 class Anno(models.Model):
-	titolo = models.CharField(max_length=20)
 	num = models.IntegerField()
 	corso = models.ForeignKey(Corso)
 	
-	def __unicode__(self):
-		s = self.titolo + " " + str(self.num)
-		return s
