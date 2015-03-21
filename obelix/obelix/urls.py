@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^accounts/invalid/$', 'obelix.views.invalid_login'),    
     url(r'^accounts/register/$', 'obelix.views.register_user'),
     url(r'^accounts/register_success/$', 'obelix.views.register_success'),
+    url(r'^accounts/register_failed/$', 'obelix.views.register_failed'),
 )

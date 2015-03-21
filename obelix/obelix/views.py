@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import Registrazione
+from django.db.models.query import RawQuerySet
+from dispense.models import Studente
 
 
 def login(request):
@@ -35,9 +37,21 @@ def logout(request):
 def register_user(request):
     if request.method == 'POST':
         form = Registrazione(request.POST)
+        
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/accounts/register_success')
+			nome_html = form.cleaned_data['first_name']
+			cognome_html = form.cleaned_data['last_name']
+			matricola_html = form.cleaned_data['matricola']
+			
+			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+				if m.matricola == matricola_html :
+					if m.nome == nome_html and m.cognome == cognome_html :
+						form.save()
+						return HttpResponseRedirect('/accounts/register_success')
+					else :
+						break
+			
+			return HttpResponseRedirect('/accounts/register_failed')
         
     args = {}
     args.update(csrf(request))
@@ -48,4 +62,7 @@ def register_user(request):
 
 def register_success(request):
     return render_to_response('register_success.html')
+    
+def register_failed(request):
+    return render_to_response('register_failed.html')
 

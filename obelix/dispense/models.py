@@ -14,3 +14,11 @@ class Anno(models.Model):
 	num = models.IntegerField()
 	corso = models.ForeignKey(Corso)
 	
+class Studente(models.Model):
+	nome = models.CharField(max_length=70)
+	cognome = models.CharField(max_length=50)
+	matricola = models.PositiveIntegerField()
+	
+	def __unicode__(self):
+		return self.nome + " " + self.cognome + " " + str(self.matricola)
+		
