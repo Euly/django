@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block sidebar %}
+<ul>
+	<li><a href="/cdl/all">Corsi di Laurea</a></li>
+	<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
+</ul>
+{% endblock %}
 
-		<h1>{{titolo_ins}}</h1>
-		
-		<p>Ciao Pippo</p>
+
+{% block content %}
+	<h1>{{titolo_ins}}</h1>
+	
+	{% for d in dispense %}
+		<div>
+			<h2><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">{{d.titolo}}</a></h2>
+			<p>{{d.descrizione}}</p>
+			<p>{{d.mi_piace}} Studenti a cui piace questa dispensa</p>
+		</div>
+	{% endfor %}
 
 {% endblock %}

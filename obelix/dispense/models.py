@@ -24,3 +24,17 @@ class Insegnamento(models.Model):
 	
 	def __unicode__(self):
 		return self.titolo
+
+def get_upload_file_name(filename):
+	return settings.UPLOAD_FILE_PATTERN % (filename)
+
+class Dispensa(models.Model):
+	titolo = models.CharField(max_length=100)
+	#documento = models.FileField(upload_to=get_upload_file_name)
+	descrizione = models.TextField()
+	data = models.DateTimeField('Data pubblicazione')
+	#mi_piace = models.PositiveIntegerField(default=0)
+	insegnamento = models.ForeignKey(Insegnamento)
+	
+	def __unicode__(self):
+		return self.titolo
