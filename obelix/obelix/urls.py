@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	url(r'^dispense/', include('dispense.urls')),
+	url(r'^cdl/', include('dispense.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$',  'obelix.views.login'),
     url(r'^accounts/auth/$',  'obelix.views.auth_view'),    

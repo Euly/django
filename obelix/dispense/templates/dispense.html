@@ -2,10 +2,10 @@
 
 {% block content %}
 
-		<h1>Dispense</h1>
+		<h1>Corsi di Laurea</h1>
 		{% for Corso in corsi %}
 		<div>
-			<h2><a href="/dispense/{{Corso.titolo}}">{{Corso.titolo}}</a></h2>
+			<h2><a href="/cdl/{{Corso.titolo}}">{{Corso.titolo}}</a></h2>
 			<p>{{Corso.descrizione}}</p>
 		</div>
 		{% endfor %}

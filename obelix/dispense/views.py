@@ -18,3 +18,8 @@ def insegnamento(request, titolo_cdl):
 	return render_to_response('insegnamenti.html',
 							  {'titolo': titolo_cdl, 'insegnamenti': insegnamenti})
 							  
+def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	t = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	return render_to_response('dettaglio_insegnamento.html',
+							  {'titolo_ins': titolo_ins})
