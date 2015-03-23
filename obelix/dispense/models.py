@@ -9,10 +9,6 @@ class Corso(models.Model):
 	
 	def __unicode__(self):
 		return self.titolo
-
-class Anno(models.Model):
-	num = models.IntegerField()
-	corso = models.ForeignKey(Corso)
 	
 class Studente(models.Model):
 	nome = models.CharField(max_length=70)
@@ -22,3 +18,9 @@ class Studente(models.Model):
 	def __unicode__(self):
 		return self.nome + " " + self.cognome + " " + str(self.matricola)
 		
+class Insegnamento(models.Model):
+	titolo = models.CharField(max_length=100)
+	corso = models.ForeignKey(Corso)
+	
+	def __unicode__(self):
+		return self.titolo
