@@ -5,4 +5,4 @@ class DispensaForm(forms.ModelForm):
 	
 	class Meta:
 		model = Dispensa
-		fields = ('titolo', 'descrizione', 'data')
+		fields = ('titolo', 'descrizione', 'documento')

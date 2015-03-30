@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<form action="/cdl/all/" method="post">{% csrf_token %}
+<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi/" method="post" enctype="multipart/form-data">{% csrf_token %}
 <ul>
 {{form.as_ul}}
 </ul>
