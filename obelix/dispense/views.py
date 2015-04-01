@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
+from django.core.servers.basehttp import FileWrapper
 
 # Create your views here.
 # Creo la vista di dispense
@@ -71,3 +72,27 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	args['titolo_ins'] = titolo_ins
 	
 	return render_to_response('aggiungi_dispensa.html', args)
+
+def scarica(request, titolo_cdl, titolo_ins, titolo_file):
+	
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	dispense = []
+	
+	for d in Dispensa.objects.all():
+		if d.insegnamento == materia:
+			dispense.append(d)
+	
+	
+	for f in dispense:
+		path_file = []
+		path_file = f.documento.path.split('/')
+		nome_file = path_file[len(path_file) -1 ]
+	
+		if nome_file == titolo_file:
+			wrapper = FileWrapper(f.documento)
+			response = HttpResponse(wrapper)	
+			return response
+
+	return HttpResponseRedirect("/cdl/all")
