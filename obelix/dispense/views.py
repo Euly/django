@@ -9,12 +9,15 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
 from django.core.servers.basehttp import FileWrapper
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # Creo la vista di dispense
+@login_required()
 def cdl(request):
 	return render_to_response('cdl.html',
 							  {'corsi': Corso.objects.all()})
+
 
 def insegnamento(request, titolo_cdl):
 	cdl = Corso.objects.get(titolo = titolo_cdl)

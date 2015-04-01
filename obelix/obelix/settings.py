@@ -164,3 +164,5 @@ LOGGING = {
 }
 
 UPLOAD_FILE_PATTERN = "assets/uploaded_files/%s_%s"
+
+LOGIN_URL = "/accounts/login/"
