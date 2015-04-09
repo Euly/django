@@ -53,11 +53,24 @@ def register_user(request):
 		form = RegistrationForm(request.POST)
 		args['form'] = form
 		if form.is_valid() :
-			#matricola come primary key .
 			#inserire il matching matricola 
 			#controllare email tra gli user esistenti, se presente rifiuta alt. accetta
-	
-			form.save() 
+			
+			nome_html = form.cleaned_data['first_name']
+			cognome_html = form.cleaned_data['last_name']
+			matricola_html = form.cleaned_data['matricola']
+			
+			ok = False
+			
+			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+				if m.matricola == matricola_html :
+					if m.nome == nome_html and m.cognome == cognome_html :
+						form.save()
+						ok = True
+						break
+			
+			if ok == False :
+				return HttpResponseRedirect('/accounts/register_failed')
 
 			username_html = form.cleaned_data['username']
 			email_html = form.cleaned_data['email']			
@@ -66,7 +79,7 @@ def register_user(request):
 			key_expires = datetime.datetime.today() + datetime.timedelta(2)
 
             
-			user=User.objects.get(username=username_html)
+			user = User.objects.get(username=username_html)
 			
                                                                                                                                           
 			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)

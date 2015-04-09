@@ -165,8 +165,8 @@ LOGGING = {
 
 UPLOAD_FILE_PATTERN = "assets/uploaded_files/%s_%s"
 AUTH_PROFILE_MODULE = "UserProfile"
-LOGIN_URL = "/accounts/login"
-LOGIN_REDIRECT_URL = "/accounts/loggedin"
+#LOGIN_URL = "/accounts/login"
+#LOGIN_REDIRECT_URL = "/accounts/loggedin"
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'obelixfim@gmail.com'
