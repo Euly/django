@@ -25,8 +25,29 @@
 #	return render_to_response('register.html', args)
 
 
-
 1 -> limitare validazione email a @studenti.unimore.it
+		- substring da @ confrontata con @studenti.unimore
+		  se ok
+				-> prosegui con la registrazione
+		  alt
+				-> blocca
+				
+2 -> nuovo link di attivazione :
+		- nuova pagina html
+		- inserisci email
+		- controlla email
+					-> controlla email
+							se non presente
+								-> err. utente non registrato
+							alt.
+								-> se user.is_active = True
+										errore -> sei gia'  attivo
+							alt.
+								-> nuovo link di attivazione
+								
+ldapsearch -x -ZZ description="Studente di INFORMATICA (D.M.270/04)" | less
+ldapsearch -x -ZZ "(ou=INFORMATICA)" > pippo.txt
 
 
-2 -> limitare la visualizzazione se non attivi e non loggati
+sed -n 's/description//p' pippo
+

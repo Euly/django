@@ -20,10 +20,10 @@ class Corso(models.Model):
 class Studente(models.Model):
 	nome = models.CharField(max_length=70)
 	cognome = models.CharField(max_length=50)
-	matricola = models.PositiveIntegerField()
+	email = models.CharField(max_length=50)
 	
 	def __unicode__(self):
-		return self.nome + " " + self.cognome + " " + str(self.matricola)
+		return self.nome + " " + self.cognome + " " + str(self.email)
 		
 class Insegnamento(models.Model):
 	titolo = models.CharField(max_length=100)

@@ -8,7 +8,6 @@ from dispense.models import Studente
 from dispense.models import UserProfile	
 from django.template import RequestContext
 from django.utils import timezone
-import datetime
 from forms import *
 from django.core.mail import send_mail
 import hashlib, datetime, random
@@ -53,17 +52,15 @@ def register_user(request):
 		form = RegistrationForm(request.POST)
 		args['form'] = form
 		if form.is_valid() :
-			#inserire il matching matricola 
-			#controllare email tra gli user esistenti, se presente rifiuta alt. accetta
 			
 			nome_html = form.cleaned_data['first_name']
 			cognome_html = form.cleaned_data['last_name']
-			matricola_html = form.cleaned_data['matricola']
+			email_html = form.cleaned_data['email']			
 			
 			ok = False
 			
 			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
-				if m.matricola == matricola_html :
+				if m.email == email_html :
 					if m.nome == nome_html and m.cognome == cognome_html :
 						form.save()
 						ok = True
@@ -72,20 +69,16 @@ def register_user(request):
 			if ok == False :
 				return HttpResponseRedirect('/accounts/register_failed')
 
-			username_html = form.cleaned_data['username']
-			email_html = form.cleaned_data['email']			
+			username_html = form.cleaned_data['username']		
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
-			key_expires = datetime.datetime.today() + datetime.timedelta(2)
+			key_expires = timezone.now() + datetime.timedelta(2)
+			#key_expires = datetime.datetime.today() + datetime.timedelta(2)
 
-            
-			user = User.objects.get(username=username_html)
-			
-                                                                                                                                          
+			user = User.objects.get(username=username_html)			                                                                                                                              
 			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)
 			new_profile.save()
 
-            
 			email_subject = 'Attiva Account'
 			email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (username_html, activation_key)
 
