@@ -3,17 +3,31 @@
 {% block content %}
 
   {% if form.errors %}
-    <p class="error">Sorry, that's not a valid username or password</p>
+    <p class="error">I dati inseriti non sono validi</p>
   {% endif %}
 
   <form action="/accounts/auth/" method="post">{% csrf_token %}
-    <label for="username">User name:</label>
+ 
+    
+    <!--<p>Clicca <a href="/accounts/resetta_password/">qui</a> per recuperare i tuoi dati</p> -->
+    <input type="submit" value="Login" />
+    <br>
+    <br>
+    <b><label for="username">Username:</label>
     <input type="text" name="username" value="" id="username">
+    <br>
+    <br>
     <label for="password">Password:</label>
     <input type="password" name="password" value="" id="password">
-
-    <input type="submit" value="login" />
+    <br>
+    </b>
     
-  </form>
-
+	</form>
+	
+   <form action="/accounts/resetta_password/" method="get">{% csrf_token %}
+   <br>
+   <input type="submit" value="Recupera Password" />
+   </form>
+  
 {% endblock %}
+

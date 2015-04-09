@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'dispense',
     'django_extensions',
 )
@@ -164,5 +164,15 @@ LOGGING = {
 }
 
 UPLOAD_FILE_PATTERN = "assets/uploaded_files/%s_%s"
+AUTH_PROFILE_MODULE = "UserProfile"
+LOGIN_URL = "/accounts/login"
+LOGIN_REDIRECT_URL = "/accounts/loggedin"
 
-LOGIN_URL = "/accounts/login/"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'obelixfim@gmail.com'
+EMAIL_HOST_PASSWORD = 'dbdjob@@'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+

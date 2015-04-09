@@ -1,0 +1,11 @@
+from dispense.models import Corso
+c = Corso(titolo="LT-Fisica", descrizione="Materiale per il corso di laurea triennale in fisica.")
+c.save()
+c = Corso(titolo="LT-Informatica", descrizione="Materiale per il corso di laurea triennale in informatica.")
+c.save()
+c = Corso(titolo="LT-Matematica", descrizione="Materiale per il corso di laurea triennale in matematica.")
+c.save()
+c = Corso(titolo="LM-Fisica", descrizione="Materiale per il corso di laurea magistrale in fisica.")
+c.save()
+c = Corso(titolo="LM-Matematica", descrizione="Materiale per il corso di laurea magistrale in matematica.")
+c.save()
