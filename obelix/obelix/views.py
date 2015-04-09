@@ -53,7 +53,7 @@ def register_user(request):
 		form = RegistrationForm(request.POST)
 		args['form'] = form
 		if form.is_valid() :
-			#matricola come primary key 
+			#matricola come primary key .
 			#inserire il matching matricola 
 			#controllare email tra gli user esistenti, se presente rifiuta alt. accetta
 	
@@ -76,7 +76,7 @@ def register_user(request):
 			email_subject = 'Attiva Account'
 			email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (username_html, activation_key)
 
-			send_mail(email_subject, email_body, 'obelixfim@gmail.com', [email_html], fail_silently=False)
+			send_mail(email_subject, email_body, 'obelixfim@gmail.com.com', [email_html], fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
 		else :
