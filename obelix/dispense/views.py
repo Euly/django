@@ -40,14 +40,12 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 			dispense.append(d)
 	
 	return render_to_response('dettaglio_insegnamento.html',
-							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl, 'dispense': dispense})
+							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl, 'dispense': dispense, 'request': request})
 
 @login_required						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
-	
-	
 	
 	if request.POST:
 		form = DispensaForm(request.POST, request.FILES)
@@ -60,7 +58,8 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										descrizione=descrizione_html, 
 										data_pub=timezone.now(),
 										insegnamento=materia,
-										documento=documento_html)
+										documento=documento_html,
+										utente=request.user.username)
 			
 			messages.add_message(request, messages.SUCCESS, "Aggiunta riuscita")
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
@@ -76,6 +75,17 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	args['titolo_ins'] = titolo_ins
 	
 	return render_to_response('aggiungi_dispensa.html', args)
+
+@login_required
+def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	d = Dispensa.objects.get(id=dispensa_id)
+	d.delete()
+			
+	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+		
 
 
 @login_required

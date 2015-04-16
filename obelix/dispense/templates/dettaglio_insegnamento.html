@@ -17,6 +17,13 @@
 			<p>{{d.descrizione}}</p>
 			<p>{{d.mi_piace}} Studenti a cui piace questa dispensa</p>
 			<p>Data pubblicazione: {{d.data_pub}}</p> 
+			
+			{% if d.utente == request.user.username %}
+				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
+					<input type="submit" value="Cancella" />
+				</form>
+			{% endif %}
+			
 		</div>
 	{% endfor %}
 

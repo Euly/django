@@ -42,6 +42,7 @@ class Dispensa(models.Model):
 	data_pub = models.DateTimeField('Data pubblicazione')
 	mi_piace = models.PositiveIntegerField(default=0)
 	insegnamento = models.ForeignKey(Insegnamento)
+	utente = models.CharField(max_length=30)
 	
 	def __unicode__(self):
 		return self.titolo

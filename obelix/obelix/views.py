@@ -21,6 +21,7 @@ def login(request):
 	
 	if request.user.is_authenticated() :
 		return HttpResponseRedirect('/cdl/all')
+		
 	return render_to_response('login.html', d)
 							  
 def auth_view(request):
