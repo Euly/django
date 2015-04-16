@@ -17,7 +17,10 @@ from django.contrib.auth.decorators import login_required
 
 def login(request):
 	d = {}
-	d.update(csrf(request))    
+	d.update(csrf(request))
+	
+	if request.user.is_authenticated() :
+		return HttpResponseRedirect('/cdl/all')
 	return render_to_response('login.html', d)
 							  
 def auth_view(request):
