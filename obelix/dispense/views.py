@@ -10,15 +10,14 @@ from django.conf import settings
 from django.utils import timezone
 from django.core.servers.basehttp import FileWrapper
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-# Creo la vista di dispense
-#@login_required()
+@login_required    
 def cdl(request):
 	return render_to_response('cdl.html',
 							  {'corsi': Corso.objects.all()})
 
-
+@login_required
 def insegnamento(request, titolo_cdl):
 	cdl = Corso.objects.get(titolo = titolo_cdl)
 	insegnamenti = []
@@ -29,7 +28,8 @@ def insegnamento(request, titolo_cdl):
 			
 	return render_to_response('insegnamenti.html',
 							  {'titolo': titolo_cdl, 'insegnamenti': insegnamenti})
-							  
+
+@login_required						  
 def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -41,7 +41,8 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 	
 	return render_to_response('dettaglio_insegnamento.html',
 							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl, 'dispense': dispense})
-							  
+
+@login_required						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -76,6 +77,8 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	
 	return render_to_response('aggiungi_dispensa.html', args)
 
+
+@login_required
 def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)

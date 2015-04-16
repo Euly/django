@@ -12,6 +12,8 @@ from forms import *
 from django.core.mail import send_mail
 import hashlib, datetime, random
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 def login(request):
 	d = {}
@@ -41,6 +43,7 @@ def not_active(request):
 def invalid_login(request):
 	return render_to_response('invalid_login.html')
 
+@login_required
 def logout(request):
 	auth.logout(request)
 	return render_to_response('logout.html')
@@ -58,17 +61,17 @@ def register_user(request):
 			email_html = form.cleaned_data['email']			
 			
 			
-			ok = False
+			#ok = False
 			
-			if email_html.find("@studenti.unimore.it") != -1 :			
-				for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
-					if m.email == email_html :
-						if m.nome == nome_html and m.cognome == cognome_html :
-							form.save()
-							ok = True
-							break
-			if ok == False :
-				return HttpResponseRedirect('/accounts/register_failed')
+			#if email_html.find("@studenti.unimore.it") != -1 :			
+			#	for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+			#		if m.email == email_html :
+			#			if m.nome == nome_html and m.cognome == cognome_html :
+			#				form.save()
+			#				ok = True
+			#				break
+			#if ok == False :
+			#	return HttpResponseRedirect('/accounts/register_failed')
 
 			username_html = form.cleaned_data['username']		
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            

@@ -11,13 +11,13 @@ class RegistrationForm(UserCreationForm):
 		model = User
 		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')   
 
-	def clean_email(self):
-		email = self.cleaned_data["email"]
-		try:
-			User._default_manager.get(email=email)
-		except User.DoesNotExist:
-			return email
-		raise forms.ValidationError('duplicate email')
+	#def clean_email(self):
+	#	email = self.cleaned_data["email"]
+	#	try:
+	#		User._default_manager.get(email=email)
+	#	except User.DoesNotExist:
+	#		return email
+	#	raise forms.ValidationError('duplicate email')
 		 
 	def save(self, commit=True):        
 		user = super(RegistrationForm, self).save(commit=False)
