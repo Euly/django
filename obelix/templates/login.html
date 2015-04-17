@@ -7,23 +7,26 @@
 	{% endif %}
 
 	<form action="/accounts/auth/" method="post">{% csrf_token %}
-    <input type="submit" value="Login" />
-    <br>
-    <br>
-    <b><label for="username">Username:</label>
-    <input type="text" name="username" value="" id="username">
-    <br>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" value="" id="password">
-    <br>
-    </b>
-    </form>
-	
+	<br><br>
+		<b><label for="username">Username:</label>
+			<input type="text" name="username" value="" id="username">
+			<br>
+			<br>
+			<label for="password">Password:</label>
+			<input type="password" name="password" value="" id="password">
+			<br>
+			<input type="submit" value="Login" />
+		</b>
+	</form>
+
    <form action="/accounts/resetta_password/" method="get">{% csrf_token %}
    <br>
    <input type="submit" value="Recupera Password" />
    </form>
   
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/register/">Registrati</a>
 {% endblock %}
 

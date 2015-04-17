@@ -36,36 +36,48 @@
 			border: 1px solid #000 ;
 			padding: 10px ;
 		}
+		
+		#titolo {
+			font-size: 100px;
+			color: white;
+			background-color: silver ; 
+		}
+		
 	</style>
 </head>
 
 <body>
 	<div id="page">
+		<div id="titolo">
+			<div align=center>
+				{% block titolo %}
+					Obelix 2.0
+				{% endblock %}
+			</div>
+		</div>
+		
+		<div id="sidebar">
+			{% block sidebar %}
+			<ul>
+				<li><a href="/cdl/all">Corsi di Laurea</a></li>
+				<li><a href="/admin/">Admin</a></li>
+			</ul>
+			{% endblock %}
+		</div>
+	
+		<div id="sidebar-right">
+			{% block sidebar-right %}
+				<a href="/accounts/register/">Registrati</a>
+				<br>
+				<a href="/accounts/login/">Sign in</a>
+				<br>
+				<a href="/accounts/logout/">Sign out</a>
+			{% endblock %}
+		</div>
 
-	<div id="sidebar">
-		{% block sidebar %}
-		<ul>
-			<li><a href="/cdl/all">Corsi di Laurea</a></li>
-			<li><a href="/admin/">Admin</a></li>
-		</ul>
-		{% endblock %}
-	</div>
-	
-	<div id="sidebar-right">
-		{% block sidebar-right %}
-			<a href="/accounts/register/">Registrati</a>
-			<br>
-			<a href="/accounts/login/">Sign in</a>
-			<br>
-			<a href="/accounts/logout/">Sign out</a>
-		{% endblock %}
-	</div>
-
-	<div id="content">
-		{% block content %}{% endblock %}
-	</div>
-	
-	
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
 	
 	</div>
 	
