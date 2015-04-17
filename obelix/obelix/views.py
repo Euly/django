@@ -31,13 +31,13 @@ def auth_view(request):
 	username_html = request.POST.get('username', '')
 	password_html = request.POST.get('password', '')
 	user = auth.authenticate(username=username_html, password=password_html)
-	user_id = user.id
     
 	if user is not None:
 		if user.is_active:
 			auth.login(request, user)
 			return HttpResponseRedirect('/accounts/loggedin')
 		else:
+			user_id = user.id
 			return render_to_response('not_active.html', {'user_id': user_id})
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
@@ -67,7 +67,7 @@ def register_user(request):
 			nome_html = form.cleaned_data['first_name']
 			cognome_html = form.cleaned_data['last_name']
 			email_html = form.cleaned_data['email']			
-			
+			form.save()
 			
 			#ok = False
 			
@@ -123,7 +123,7 @@ def register_confirm(request, activation_key):
 
 	user.is_active = True
 	user.save()
-	return render_to_response('attivazione.html')
+	return render_to_response('login.html')
 
 
 #@login_required

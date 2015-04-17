@@ -2,7 +2,12 @@
 
 {% block content %}
 
-  <h2>Ehi, {{full_name}} hai gia' attivato il tuo account</h2>
-  <p>Clicca <a href="/accounts/login/">qui</a> per loggarti.</p>
+  <p>Ehi, <b>{{full_name}}</b> hai già attivato il tuo account!</p>
 
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/login/">Sign in</a>
+	<br>
+	<a href="/accounts/resetta_password/">Recupera dati</a>
 {% endblock %}

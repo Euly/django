@@ -2,8 +2,14 @@
 
 {% block content %}
 
-  <h2>Il tuo utente non e' stato attivato. Controlla tua casella email.</h2>
-  <p>Click <a href="/accounts/login/">qui</a> per un nuovo login.</p>
-  <p>Click <a href="/accounts/nuova_attivazione/{{user_id}}">qui</a> per un nuovo link attivazione.</p>
+  <h2>Il tuo account non risulta attivo.</h2> 
+  <p>Controlla tua casella mail.</p>
+  <p>Clicca <a href="/accounts/nuova_attivazione/{{user_id}}">qui</a> per un nuovo link attivazione.</p>
 
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/logout/">Sign out</a>
+	<br>
+	<a href="/accounts/resetta_password/">Recupera dati</a>
 {% endblock %}
