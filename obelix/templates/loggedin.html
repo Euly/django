@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 
-{% block content %}
+{% block sidebar-right %}
 
-  <h2>Ehi, {{full_name}} Log-in completato</h2>
-  <p>Clicca <a href="/accounts/logout/">qui</a> per il log-out.</p>
+	<p>Benvenuto, <b>{{full_name}}</b></p>
+	<a href="/accounts/logout/">Sign out</a>
 
 {% endblock %}
