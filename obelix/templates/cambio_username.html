@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}      
+      
+<form action="/accounts/cambio_username/" method="post">{% csrf_token %}
+	<label>Nuovo username</label>
+	<br>
+	<input id="new_username" name="new_username" type="text" required />
+	<input type="submit" value="Cambia" /> 
+</form>
+
+{% endblock %}     

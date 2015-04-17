@@ -26,10 +26,8 @@ class RegistrationForm(UserCreationForm):
 			user.is_active = False
 			user.save()
 		return user
-        
-        
-        
-        
+
+
         
         
         

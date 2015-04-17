@@ -139,13 +139,34 @@ def nuova_attivazione(request, user_id):
 	
 	else:
 		utente = User.objects.get(id = user_id)
-				
-		#if user.is_active == False:	
-		
 		utente.key_expires = timezone.now() + datetime.timedelta(2)		
-		
 		email_subject = 'Attiva Account'
 		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)
 		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], fail_silently=False)
 
-		return render_to_response('nuova_attivazione.html')        
+		return render_to_response('nuova_attivazione.html') 
+
+@login_required
+def cambio_username(request):
+	args = {}
+	args.update(csrf(request))
+	
+	if request.method == 'POST':
+		username_html = form.cleaned_data['nuovo username']
+			
+		if User.objects.get(username=username_html) is NULL :
+			utente = request.user
+			utente.username = username_html
+			utente.save()
+			return HttpResponseRedirect('/accounts/loggedin')
+	else :
+		HttpResponseRedirect('/accounts/cambio_username/')
+
+	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
+	
+	
+	
+	
+	
+	
+	
