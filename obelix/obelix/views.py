@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 import hashlib, datetime, random
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from obelix.settings import EMAIL_HOST_USER
 
 def home(request):
 	return render_to_response('home.html')
@@ -30,13 +31,14 @@ def auth_view(request):
 	username_html = request.POST.get('username', '')
 	password_html = request.POST.get('password', '')
 	user = auth.authenticate(username=username_html, password=password_html)
+	user_id = user.id
     
 	if user is not None:
 		if user.is_active:
 			auth.login(request, user)
 			return HttpResponseRedirect('/accounts/loggedin')
 		else:
-			return HttpResponseRedirect('/accounts/not_active')
+			return render_to_response('not_active.html', {'user_id': user_id})
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
 		
@@ -92,7 +94,7 @@ def register_user(request):
 			email_subject = 'Attiva Account'
 			email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (username_html, activation_key)
 
-			send_mail(email_subject, email_body, 'obelixfim@gmail.com', [email_html], fail_silently=False)
+			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
 		else :
@@ -124,3 +126,26 @@ def register_confirm(request, activation_key):
 	return render_to_response('attivazione.html')
 
 
+#@login_required
+def nuova_attivazione(request, user_id):
+	
+	#if request.user.is_authenticated():
+	#se l'utente e' loggato e attivo (is.active == True) ritorna True alt. false
+	
+	user_profile = UserProfile.objects.get(user_id = user_id)
+			
+	if request.user.is_authenticated():		
+		return render_to_response('att_already_done.html')
+	
+	else:
+		utente = User.objects.get(id = user_id)
+				
+		#if user.is_active == False:	
+		
+		utente.key_expires = timezone.now() + datetime.timedelta(2)		
+		
+		email_subject = 'Attiva Account'
+		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)
+		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], fail_silently=False)
+
+		return render_to_response('nuova_attivazione.html')        

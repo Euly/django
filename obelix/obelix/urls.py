@@ -26,10 +26,10 @@ urlpatterns = patterns('',
 	url(r'^accounts/password/resetta_password/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', 
 	{'post_reset_redirect' : '/accounts/password/modificata/'}),
 	url(r'^accounts/password/modificata/$','django.contrib.auth.views.password_reset_complete'),
+	url(r'^accounts/nuova_attivazione/(?P<user_id>\d+)$', 'obelix.views.nuova_attivazione'),
+
 	
 
-	#url(r'^accounts/nuova_attivazione', 'obelix.views.nuova_attivazione'),
-    
 	)
 
 
