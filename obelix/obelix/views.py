@@ -123,7 +123,7 @@ def register_confirm(request, activation_key):
 
 	user.is_active = True
 	user.save()
-	return render_to_response('login.html')
+	return HttpResponseRedirect('/accounts/login')
 
 
 #@login_required
@@ -150,23 +150,25 @@ def nuova_attivazione(request, user_id):
 def cambio_username(request):
 	args = {}
 	args.update(csrf(request))
-	
+		
 	if request.method == 'POST':
-		username_html = form.cleaned_data['nuovo username']
-			
-		if User.objects.get(username=username_html) is NULL :
-			utente = request.user
-			utente.username = username_html
-			utente.save()
-			return HttpResponseRedirect('/accounts/loggedin')
+		form = ChangeUsernameForm(request.POST)
+		args['form'] = form
+		if form.is_valid():
+			username_html = form.cleaned_data['new_username']
+			try:
+				User.objects.get(username=username_html)
+			except User.DoesNotExist:
+				utente = request.user
+				utente.username = username_html
+				utente.save()
+				return HttpResponseRedirect('/accounts/loggedin')
+			raise forms.ValidationError('Username gia esistente')
+			#sostituire raise con il rimando alla pagina cambio username piu' messaggio di errore
+				
 	else :
-		HttpResponseRedirect('/accounts/cambio_username/')
+		args['form'] = ChangeUsernameForm()
 
 	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
-	
-	
-	
-	
-	
-	
-	
+		
+

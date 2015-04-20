@@ -1,0 +1,6 @@
+<form action="/accounts/cambio_username/" method="post">
+	{% csrf_token %}
+	<label>Nuovo username</label>
+	<input id="new_username" name="new_username" type="text" maxlength="35">
+	<input type="submit" value="OK"> 
+</form>

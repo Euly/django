@@ -28,6 +28,24 @@ class RegistrationForm(UserCreationForm):
 		return user
 
 
+class ChangeUsernameForm(forms.Form):
+	new_username = forms.CharField(required=True)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
