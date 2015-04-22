@@ -112,3 +112,40 @@ def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 			return response
 
 	return HttpResponseRedirect("/cdl/all")
+
+@login_required
+def like_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	if dispensa_id:
+		d = Dispensa.objects.get(id=dispensa_id)
+		d.mi_piace = d.mi_piace + 1
+		d.save()
+		
+	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+	
+@login_required
+def unlike_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	if dispensa_id:
+		d = Dispensa.objects.get(id=dispensa_id)
+		d.non_mi_piace = d.non_mi_piace + 1
+		d.save()
+		
+	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+	
+
+
+
+
+
+
+
+
+
+
+
+

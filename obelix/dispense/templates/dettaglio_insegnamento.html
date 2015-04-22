@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block sidebar %}
 <ul>
@@ -14,15 +15,37 @@
 	{% for d in dispense %}
 		<div>
 			<h2><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></h2>
-			<p>{{d.descrizione}}</p>
-			<p>{{d.mi_piace}} Studenti a cui piace questa dispensa</p>
-			<p>Data pubblicazione: {{d.data_pub}}</p> 
+			<p><b>Descrizione: </b>{{d.descrizione}}</p>
+			<p><b>Data pubblicazione: </b>{{d.data_pub}}</p> 
 			
-			{% if d.utente == request.user.username %}
+			<table>
+				<tr><td>
+				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}">
+					<b>+ {{d.mi_piace}} </b>
+					<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/like.png' %}" width=56% height=50% align="absmiddle">
+					</button>
+				</form></td>
+				
+				<td>
+				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/unlike/{{d.id}}">
+					<b>− {{d.non_mi_piace}} </b>
+					<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/unlike.png' %}" width=50% height=45% align="absmiddle">
+					</button>
+				</form></td>
+				<td>
+				{% if d.utente == request.user.username %}
 				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
-					<input type="submit" value="Cancella" />
+					<button type="submit">Cancella</button>
 				</form>
-			{% endif %}
+				{% endif %}
+				</td>
+				</tr>
+			</table>
+			
+			
+			
 			
 		</div>
 	{% endfor %}
