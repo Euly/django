@@ -18,11 +18,11 @@ class RegistrationForm(UserCreationForm):
 		if email.find("@studenti.unimore.it") == -1 :
 			raise forms.ValidationError("Utilizzare email universitaria")
 		
-		try:
-			User._default_manager.get(email=email)
-		except User.DoesNotExist:
-			return email
-		raise forms.ValidationError("Email gia' utilizzata")
+		#try:
+		#	User._default_manager.get(email=email)
+		#except User.DoesNotExist:
+		#	return email
+		#raise forms.ValidationError("Email gia' utilizzata")
 		
 		
 		 
