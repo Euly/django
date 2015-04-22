@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class RegistrationForm(UserCreationForm):
-	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Indirizzo Email '}))
+	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
 	first_name = forms.CharField(required=True)
 	last_name = forms.CharField(required=True)
 	
@@ -11,13 +11,20 @@ class RegistrationForm(UserCreationForm):
 		model = User
 		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')   
 
-	#def clean_email(self):
-	#	email = self.cleaned_data["email"]
-	#	try:
-	#		User._default_manager.get(email=email)
-	#	except User.DoesNotExist:
-	#		return email
-	#	raise forms.ValidationError('duplicate email')
+	def clean_email(self):
+		email = self.cleaned_data["email"]
+		
+		
+		if email.find("@studenti.unimore.it") == -1 :
+			raise forms.ValidationError("Utilizzare email universitaria")
+		
+		try:
+			User._default_manager.get(email=email)
+		except User.DoesNotExist:
+			return email
+		raise forms.ValidationError("Email gia' utilizzata")
+		
+		
 		 
 	def save(self, commit=True):        
 		user = super(RegistrationForm, self).save(commit=False)

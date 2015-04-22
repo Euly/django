@@ -69,25 +69,24 @@ def register_user(request):
 			email_html = form.cleaned_data['email']			
 			username_html = form.cleaned_data['username']	
 			
-			form.save()
+			#form.save()
 			
-			#ok = False
 			
-			#if email_html.find("@studenti.unimore.it") != -1 :			
-			#	for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
-			#		if m.email == email_html :
-			#			if m.nome == nome_html and m.cognome == cognome_html :
-			#				form.save()
-			#				ok = True
-			#				break
-			#if ok == False :
-			#	return HttpResponseRedirect('/accounts/register_failed')
+			ok = False
+						
+			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+				if m.email == email_html :
+					if m.nome == nome_html and m.cognome == cognome_html :
+						form.save()
+						ok = True
+						break
+			if ok == False :
+				return HttpResponseRedirect('/accounts/register_failed')
 
 				
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
 			key_expires = timezone.now() + datetime.timedelta(2)
-			#key_expires = datetime.datetime.today() + datetime.timedelta(2)
 
 			user = User.objects.get(username=username_html)			                                                                                                                              
 			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)
