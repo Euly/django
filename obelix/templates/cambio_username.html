@@ -4,16 +4,24 @@
       
 <form action="/accounts/cambio_username/" method="post">{% csrf_token %}
 	
-	<div class="fieldWrapper">
+	<br>
+	<label>Nuovo username</label>
+	<table width = "60%" cellpadding = "10" frame = "none" >
 		
-		<label>Nuovo username</label><br>
-		{{ form.new_username }}
-		{% for error in form.non_field_errors %}
-			{{error}}
-		{% endfor %}	
-	</div>    
+		<tr>
+		<div class="fieldWrapper">
+			<td width="30%"> {{ form.new_username }}</td>
+			<td width="70%"> {% for error in form.non_field_errors %}
+				{{error}}
+			{% endfor %}
+			</td>	
+		</div>    
+		</tr>
 	
-	<input type="submit" name="submit" value="OK">
+	</table>
+	
+	<br>
+	<input type="submit" name="submit" value="Ti avevo voluto bene">
 </form>
 
 {% endblock %}     

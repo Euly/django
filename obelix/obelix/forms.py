@@ -35,13 +35,15 @@ class ChangeUsernameForm(forms.Form):
 		username_html = self.cleaned_data.get('new_username')
 		
 		if not username_html:
-			raise forms.ValidationError("No vuoto")
+			raise forms.ValidationError("* No vuoto")
 
 		try:
 			User.objects.get(username=username_html)
 		except User.DoesNotExist:
 			return username_html
-		raise forms.ValidationError({'new_username': ["Username non disponibile"]})
+		raise forms.ValidationError("*Username non disponibile")
+		
+		#raise forms.ValidationError({'new_username': ["Username non disponibile"]})
 			
         
         
