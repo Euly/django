@@ -67,6 +67,8 @@ def register_user(request):
 			nome_html = form.cleaned_data['first_name']
 			cognome_html = form.cleaned_data['last_name']
 			email_html = form.cleaned_data['email']			
+			username_html = form.cleaned_data['username']	
+			
 			form.save()
 			
 			#ok = False
@@ -81,7 +83,7 @@ def register_user(request):
 			#if ok == False :
 			#	return HttpResponseRedirect('/accounts/register_failed')
 
-			username_html = form.cleaned_data['username']		
+				
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
 			key_expires = timezone.now() + datetime.timedelta(2)
@@ -97,8 +99,8 @@ def register_user(request):
 			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
-		else :
-			return HttpResponseRedirect('/accounts/register_failed')
+		#else :
+		#	return HttpResponseRedirect('/accounts/register_failed')
 	else :
 		args['form'] = RegistrationForm()
 
@@ -126,7 +128,7 @@ def register_confirm(request, activation_key):
 	return HttpResponseRedirect('/accounts/login')
 
 
-#@login_required
+@login_required
 def nuova_attivazione(request, user_id):
 	
 	#if request.user.is_authenticated():
@@ -156,15 +158,11 @@ def cambio_username(request):
 		args['form'] = form
 		if form.is_valid():
 			username_html = form.cleaned_data['new_username']
-			try:
-				User.objects.get(username=username_html)
-			except User.DoesNotExist:
-				utente = request.user
-				utente.username = username_html
-				utente.save()
-				return HttpResponseRedirect('/accounts/loggedin')
-			raise forms.ValidationError('Username gia esistente')
-			#sostituire raise con il rimando alla pagina cambio username piu' messaggio di errore
+			User.objects.get(username=username_html)
+			utente = request.user
+			utente.username = username_html
+			utente.save()
+			return HttpResponseRedirect('/accounts/loggedin')
 				
 	else :
 		args['form'] = ChangeUsernameForm()

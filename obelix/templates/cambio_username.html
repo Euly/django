@@ -1,11 +1,18 @@
+
 {% extends "base.html" %}
 {% block content %}      
       
 <form action="/accounts/cambio_username/" method="post">{% csrf_token %}
+	
 	<div class="fieldWrapper">
+		
 		<label>Nuovo username</label><br>
 		{{ form.new_username }}
+		{% for error in form.non_field_errors %}
+			{{error}}
+		{% endfor %}	
 	</div>    
+	
 	<input type="submit" name="submit" value="OK">
 </form>
 

@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
+
+
+
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Indirizzo Email '}))
 	first_name = forms.CharField(required=True)
@@ -10,14 +14,6 @@ class RegistrationForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')   
-
-	#def clean_email(self):
-	#	email = self.cleaned_data["email"]
-	#	try:
-	#		User._default_manager.get(email=email)
-	#	except User.DoesNotExist:
-	#		return email
-	#	raise forms.ValidationError('duplicate email')
 		 
 	def save(self, commit=True):        
 		user = super(RegistrationForm, self).save(commit=False)
@@ -43,9 +39,6 @@ class ChangeUsernameForm(forms.Form):
 			return username_html
 		raise forms.ValidationError({'new_username': ["Username non disponibile"]})
 			
-        
-        
-        
         
         
         
