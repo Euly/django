@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}      
+ 
+
+						
+<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{dispensa_id}}/" method="post">{% csrf_token %}
+	<br>
+	{% for field in form %} 
+		<table width = "100%" cellpadding = "10" frame = "none" >
+		<tr>
+			<div class="fieldWrapper">
+			<td width="15%"> {{ field.label_tag }}</td>
+		</tr>
+		<tr>
+			<td width="80%">{{ field }}</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td width="60%"><input type="submit" name="submit" value="Aggiungi Commento"></td>
+		</tr>
+	</table>
+	
+	<br>
+</form>
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/logout/">Log out</a>
+{% endblock %}
+
+
+					

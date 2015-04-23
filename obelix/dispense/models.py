@@ -82,3 +82,12 @@ class UserProfile(models.Model):
 
 	class Meta:
 		verbose_name_plural=u'User profiles'
+		
+
+class Commentarium (models.Model):
+	homo = models.IntegerField()
+	volumen = models.ForeignKey(Dispensa)
+	scriptum = models.TextField()
+	#tempus = models.DateTimeField(auto_now_add=True)
+
+
