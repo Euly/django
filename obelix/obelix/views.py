@@ -168,4 +168,18 @@ def cambio_username(request):
 
 	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
 		
-
+@login_required
+def profilo_utente(request):
+	
+	#io voglio tutte le dispense corrispondenti a quell' utente
+	#da modificare modello dispense
+	
+	utente = request.user.username
+	
+	pubblicazioni = []
+	
+	for p in Dispensa.objects.all():
+		if p.utente == utente:
+			pubblicazioni.append(p)
+	
+	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'request': request})

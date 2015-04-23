@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+{% block content %}      
+
+<table width = "60%" cellpadding = "10" frame = "none" >
+	<div>
+	<tr>
+			<td width="20%">Nome: </td>
+			<td width="60%">{{ request.user.first_name }} </td>
+	</tr>
+	<tr>
+			<td width="20%">Cognome: </td>
+			<td width="60%">{{ request.user.last_name }} </td>
+	</tr>
+	<tr>
+			<td width="20%">Username: </td>
+			<td width="60%">{{ request.user.username }} </td>
+	</tr>
+			<td width="20%">Email: </td>
+			<td width="60%">{{ request.user.email }} </td>
+	</tr>
+	</div>
+</table>
+
+<br><br>
+<table width = "80%" cellpadding = "10" frame = "none" >
+	<tr>
+		<td width="100%">
+			<b>Questo e' l'elenco delle tue pubblicazioni:</b>
+		</td>
+	</tr>
+	{% for p in pubblicazioni %}
+	<tr>
+		<td width="100%">
+			<a href="/cdl/{{p.insegnamento.corso}}/{{p.insegnamento}}/">{{p.titolo}}</a></a>
+		</td>				
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/cambio_username/">Cambio Username</a>
+	<br>
+	<a href="/accounts/logout/">Sign out</a>
+	<br>
+{% endblock %}

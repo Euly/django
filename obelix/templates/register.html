@@ -1,4 +1,4 @@
-	{% extends "base.html" %}
+{% extends "base.html" %}
 {% block content %}      
  
 <form class="form-register" action="/accounts/register/" method="post">{% csrf_token %}
@@ -12,9 +12,9 @@
 	{% for field in form %} 
 		<tr>
 			<div class="fieldWrapper">
-				<td width="25%"> {{ field.label_tag }}</td>
+				<td width="25%">{{ field.label_tag }}</td>
 				<td width="25%">{{ field }} </td>
-				<td width="50" >
+				<td width="50%" >
 				<font color="red">
 				{% if field.errors %}
 					{{ field.errors.as_text }}

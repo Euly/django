@@ -8,50 +8,60 @@
 </ul>
 {% endblock %}
 
-
 {% block content %}
 	<h1>{{titolo_ins}}</h1>
 	
 	{% for d in dispense %}
+		<table width = "80%" cellpadding = "10" frame = "none" >
 		<div>
-			<h2><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></h2>
-			<p><b>Descrizione: </b>{{d.descrizione}}</p>
-			<p><b>Data pubblicazione: </b>{{d.data_pub}}</p> 
-			
-			<table>
-				<tr><td>
-				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}">
-					<b>+ {{d.mi_piace}} </b>
-					<button type="submit" style="background-color:transparent; border-color:transparent;">
-						<img src="{% static 'assets/images/like.png' %}" width=56% height=50% align="absmiddle">
-					</button>
-				</form></td>
-				
-				<td>
-				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/unlike/{{d.id}}">
-					<b>− {{d.non_mi_piace}} </b>
-					<button type="submit" style="background-color:transparent; border-color:transparent;">
-						<img src="{% static 'assets/images/unlike.png' %}" width=50% height=45% align="absmiddle">
-					</button>
-				</form></td>
-				<td>
-				{% if d.utente == request.user.username %}
-				<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
-					<button type="submit">Cancella</button>
-				</form>
-				{% endif %}
+			<tr>
+				<td width="30%"><b>Nome file:</b></td>
+				<td width="30%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a>
+				<td width = "40%">
+					{% if d.utente == request.user.username %}
+						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
+							<button type="submit">Cancella</button>
+						</form>
+					{% endif %}
 				</td>
-				</tr>
-			</table>
+			</tr>
 			
-			
-			
-			
+			<tr>
+				<td width="40%"><b>Descrizione: </b></td>
+				<td width="60%" align = "justify">{{d.descrizione}}</td>
+			</tr>
+				<td width="40%"><b>Data pubblicazione:</b></td>
+				<td width="60%">{{d.data_pub}}</td>
+			<tr>
+				<td width="40%"><b>Autore:</b></td>
+				<td width="60%">{{request.user.email}}</td>
+			</tr>
+		
+			<tr>
+				<td>
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}">
+						<b>+ {{d.mi_piace}} </b>
+						<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/like.png' %}" width=56% height=50% align="absmiddle">
+						</button>
+					</form>
+				</td>
+				<td>
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/unlike/{{d.id}}">
+						<b>− {{d.non_mi_piace}} </b>
+						<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/unlike.png' %}" width=50% height=45% align="absmiddle">
+						</button>
+					</form>
+				</td>
+			</tr>
 		</div>
+		</table>
+		<br><br>
 	{% endfor %}
 
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/logout/">Sign out</a>
+	<a href="/accounts/logout/">Log out</a>
 {% endblock %}

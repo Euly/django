@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/password/modificata/$','django.contrib.auth.views.password_reset_complete'),
 	url(r'^accounts/nuova_attivazione/(?P<user_id>\d+)/$', 'obelix.views.nuova_attivazione'),
 	url(r'^accounts/cambio_username/$', 'obelix.views.cambio_username'),
+	url(r'^accounts/profilo_utente/$', 'obelix.views.profilo_utente'),
 	)
 
 
