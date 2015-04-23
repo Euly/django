@@ -17,7 +17,7 @@ from obelix.settings import EMAIL_HOST_USER
 from dispense.models import Dispensa
 
 def home(request):
-	return render_to_response('home.html')
+	return render_to_response('home.html', {'request': request} )
 
 def login(request):
 	d = {}

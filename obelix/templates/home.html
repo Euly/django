@@ -5,18 +5,17 @@
 {% endblock %}
 
 {% block sidebar-right %}
-	{% if user.is_authenticated%}
-		<a href="/accounts/register/">Registrati</a>
-		<br>
-	{% endif %}
-	{% if user.is_anonymous  %}
-		<a href="/accounts/login/">Log in</a>
-		<br>
-	{% else %}
+	
+	{% if request.user.is_authenticated %}
 		<a href="/accounts/logout/">Log out</a>
 		<br>
+	{% else %}
+		<a href="/accounts/register/">Registrati</a>
+		<br>
+		<a href="/accounts/login/">Log in</a>
+		<br>
+		<a href="/accounts/resetta_password/">Recupera dati</a>
+		<br>
 	{% endif %}
-	<a href="/accounts/resetta_password/">Recupera dati</a>
-	<br>
 	
 {% endblock %}
