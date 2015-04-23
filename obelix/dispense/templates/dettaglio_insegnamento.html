@@ -18,7 +18,7 @@
 				<td width="30%"><b>Nome file:</b></td>
 				<td width="30%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a>
 				<td width = "40%">
-					{% if d.utente == request.user.username %}
+					{% if d.utente == request.user.id %}
 						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
 							<button type="submit">Cancella</button>
 						</form>

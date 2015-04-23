@@ -43,7 +43,7 @@ class Dispensa(models.Model):
 	mi_piace = models.PositiveIntegerField(default=0)
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	insegnamento = models.ForeignKey(Insegnamento)
-	utente = models.CharField(max_length=30)
+	utente = models.IntegerField()
 	
 	def __unicode__(self):
 		return self.titolo

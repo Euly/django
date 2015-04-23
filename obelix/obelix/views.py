@@ -14,6 +14,7 @@ import hashlib, datetime, random
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
+from dispense.models import Dispensa
 
 def home(request):
 	return render_to_response('home.html')
@@ -174,7 +175,7 @@ def profilo_utente(request):
 	#io voglio tutte le dispense corrispondenti a quell' utente
 	#da modificare modello dispense
 	
-	utente = request.user.username
+	utente = request.user.id
 	
 	pubblicazioni = []
 	

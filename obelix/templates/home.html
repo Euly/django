@@ -5,16 +5,18 @@
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/register/">Registrati</a>
-	<br>
+	{% if user.is_authenticated%}
+		<a href="/accounts/register/">Registrati</a>
+		<br>
+	{% endif %}
 	{% if user.is_anonymous  %}
 		<a href="/accounts/login/">Log in</a>
+		<br>
 	{% else %}
 		<a href="/accounts/logout/">Log out</a>
 		<br>
 	{% endif %}
-	
 	<a href="/accounts/resetta_password/">Recupera dati</a>
 	<br>
-	<a href="/accounts/cambio_username/">Cambio utente</a>
+	
 {% endblock %}
