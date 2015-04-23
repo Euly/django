@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, Insegnamento, Dispensa
+from dispense.models import Corso, Insegnamento, Dispensa, Opinione
 from forms import DispensaForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -120,6 +120,31 @@ def like_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	if dispensa_id:
 		d = Dispensa.objects.get(id=dispensa_id)
+		
+		try:
+		# controllo se ho gia' cliccato uno dei due bottoni
+			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
+			
+			# non posso mettere piu' di un like
+			if opinione.positiva == True:
+				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			
+			# se ho cambiato idea tolgo il non mi piace
+			if opinione.negativa == True:
+				opinione.negativa = False
+				opinione.positiva = True
+				opinione.save()
+				d.non_mi_piace = d.non_mi_piace - 1
+				
+				
+		
+		except:
+			# se invece non ho ancora cliccato nessun bottone devo 
+			# creare un nuovo oggetto di tipo Opinione
+			opinione = Opinione.objects.create(utente=request.user,
+											   dispensa=d,
+											   positiva=True)
+		
 		d.mi_piace = d.mi_piace + 1
 		d.save()
 		
@@ -132,6 +157,27 @@ def unlike_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	if dispensa_id:
 		d = Dispensa.objects.get(id=dispensa_id)
+		
+		try:
+		# controllo se ho gia' cliccato uno dei due bottoni
+			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
+			
+			# non posso mettere piu' di un unlike
+			if opinione.negativa == True:
+				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			
+			# se ho cambiato idea tolgo il mi piace
+			if opinione.positiva == True:
+				opinione.positiva = False
+				opinione.negativa = True
+				opinione.save()
+				d.mi_piace = d.mi_piace - 1
+				
+				
+		except:
+			opinione = Opinione.objects.create(utente=request.user,
+											   dispensa=d,
+											   negativa=True)		
 		d.non_mi_piace = d.non_mi_piace + 1
 		d.save()
 		

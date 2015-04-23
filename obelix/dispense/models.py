@@ -48,6 +48,30 @@ class Dispensa(models.Model):
 	def __unicode__(self):
 		return self.titolo
 
+class Opinione(models.Model):
+	utente = models.ForeignKey(User)
+	dispensa = models.ForeignKey(Dispensa)
+	positiva = models.BooleanField(default=False)
+	negativa = models.BooleanField(default=False)
+	
+	def __unicode__(self):
+		t = "true"
+		f = "false"
+		o = "opinione "
+		if self.positiva == True:
+			o = o + t + " "
+		else:
+			o = o + f + " "
+		
+		if self.negativa == True:
+			o = o + t + " "
+		else:
+			o = o + f + " "
+		return o
+	
+	class Meta:
+		unique_together = (("utente", "dispensa"),)
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
