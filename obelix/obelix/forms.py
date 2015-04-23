@@ -13,12 +13,12 @@ class RegistrationForm(UserCreationForm):
 
 	def clean_email(self):
 		email = self.cleaned_data["email"]
+		return email
 		
-		
-		if email.find("@studenti.unimore.it") == -1 :
-			raise forms.ValidationError("Utilizzare email universitaria")
-		else:
-			return email
+		#if email.find("@studenti.unimore.it") == -1 :
+		#	raise forms.ValidationError("Utilizzare email universitaria")
+		#else:
+		#	return email
 		
 		#1 email <--> 1 account:	
 		#try:

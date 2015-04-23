@@ -65,7 +65,8 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										data_pub=timezone.now(),
 										insegnamento=materia,
 										documento=documento_html,
-										utente=request.user.id)
+										utente=request.user.id,
+										email=request.user.email)
 			
 			messages.add_message(request, messages.SUCCESS, "Aggiunta riuscita")
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))

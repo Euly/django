@@ -38,7 +38,7 @@
 				<td width="60%">{{d.data_pub}}</td>
 			<tr>
 				<td width="40%"><b>Autore:</b></td>
-				<td width="60%">{{request.user.email}}</td>
+				<td width="60%">{{d.email}}</td>
 			</tr>
 		
 			<tr>
@@ -62,20 +62,34 @@
 			<tr>
 				<td width="60%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Commenta</a></td>
 			</tr>
-			
-			{% for c in commenti %}
-			<tr>
-				<table width="80%" border="1" cellspacing="6" cellpadding="5">
-				{% if c.volumen == d %}
-					<td width="30%">Utente: {{c.email}}<br><br>{{c.tempus}}</td>
-					<td width="70%" align = "justify">{{c.scriptum}}</td>
-				{% endif %}
-				</table>
-			</tr>
-			{% endfor %}
-			
 		</div>
 		</table>
+		<p>
+		
+		{% for c in commenti %}
+		<table width = "80%" cellpadding = "10" frame = "none" >
+			{% if c.volumen == d %}
+				<div>
+				<tr>
+					<td width="20%"><b>Commento:</b></td>
+					<td width="80%" align = "justify">{{c.scriptum}}</td>
+				</tr>
+				<tr>
+					<td width="40%"><b>Utente:</b></td>
+					<td width="60%">{{c.email}}</td>
+				</tr>
+				<tr>
+					<td width="40%"><b>Data pubblicazione:</b></td>
+					<td width="60%">{{c.tempus}}</td>
+				<tr>		
+				<br><br>			
+				{% endif %}
+		</div>
+		</table>
+		</p>
+		{% endfor %}
+				
+	</table>
 	{% endfor %}
 
 

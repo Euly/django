@@ -44,6 +44,7 @@ class Dispensa(models.Model):
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	insegnamento = models.ForeignKey(Insegnamento)
 	utente = models.IntegerField()
+	email = models.EmailField()
 	
 	def __unicode__(self):
 		return self.titolo
