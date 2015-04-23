@@ -34,6 +34,8 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
+	dispense = []
+	
 	for d in Dispensa.objects.all():
 		if d.insegnamento == materia:
 			dispense.append(d)
