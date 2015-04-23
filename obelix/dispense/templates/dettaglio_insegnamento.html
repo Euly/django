@@ -58,11 +58,18 @@
 			<tr>
 				<td width="60%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Commenta</a></td>
 			</tr>
+			{% for c in commenti %}
+			<tr>
+				<table width="80%" border="1" cellspacing="6" cellpadding="5">
+				{% if c.volumen == d %}
+					<td width="30%">Utente: <br><br> {{c.email}}</td>
+					<td width="70%" align = "justify">{{c.scriptum}}</td>
+				{% endif %}
+				</table>
+			</tr>
+			{% endfor %}
 		</div>
-		
 		</table>
-		
-		<br><br>
 	{% endfor %}
 
 {% endblock %}

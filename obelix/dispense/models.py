@@ -76,7 +76,8 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField(default=datetime.date.today())
-      
+    
+	
 	def __str__(self):
 		return self.user.username
 
@@ -88,6 +89,7 @@ class Commentarium (models.Model):
 	homo = models.IntegerField()
 	volumen = models.ForeignKey(Dispensa)
 	scriptum = models.TextField()
-	#tempus = models.DateTimeField(auto_now_add=True)
+	email = models.EmailField()
+	tempus = models.DateTimeField(auto_now_add=True)
 
 

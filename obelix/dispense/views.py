@@ -35,13 +35,18 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
 	dispense = []
+	commenti = []
 	
 	for d in Dispensa.objects.all():
 		if d.insegnamento == materia:
 			dispense.append(d)
+			for c in Commentarium.objects.all():
+				if c.volumen == d:
+					commenti.append(c)
 	
 	return render_to_response('dettaglio_insegnamento.html',
-							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl, 'dispense': dispense, 'request': request})
+							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl,
+							   'dispense': dispense, 'commenti': commenti, 'request': request})
 
 @login_required						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
@@ -200,7 +205,8 @@ def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
 		if form.is_valid():			
 			scriptum_html = form.cleaned_data['scriptum']
 			d = Dispensa.objects.get(id=dispensa_id)
-			s = Commentarium.objects.create(homo=request.user.id,  volumen=d, scriptum=scriptum_html)
+			s = Commentarium.objects.create(homo=request.user.id,  volumen=d, scriptum=scriptum_html,
+											email=request.user.email)
 			
 			##					data_pub=timezone.now()
 			
