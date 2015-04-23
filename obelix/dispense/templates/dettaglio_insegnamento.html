@@ -3,13 +3,17 @@
 
 {% block sidebar %}
 <ul>
+	<li><a href="/admin/">Admin</a></li>
+	<li><a href="/home/">Home</a></li>
 	<li><a href="/cdl/all">Corsi di Laurea</a></li>
+	<li><a href="/accounts/profilo_utente">Profilo</a></li>
 	<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
 </ul>
 {% endblock %}
 
 {% block content %}
 	<h1>{{titolo_ins}}</h1>
+
 	
 	{% for d in dispense %}
 		<table width = "80%" cellpadding = "10" frame = "none" >
@@ -58,19 +62,23 @@
 			<tr>
 				<td width="60%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Commenta</a></td>
 			</tr>
+			
 			{% for c in commenti %}
 			<tr>
 				<table width="80%" border="1" cellspacing="6" cellpadding="5">
 				{% if c.volumen == d %}
-					<td width="30%">Utente: <br><br> {{c.email}}</td>
+					<td width="30%">Utente: {{c.email}}<br><br>{{c.tempus}}</td>
 					<td width="70%" align = "justify">{{c.scriptum}}</td>
 				{% endif %}
 				</table>
 			</tr>
 			{% endfor %}
+			
 		</div>
 		</table>
 	{% endfor %}
+
+
 
 {% endblock %}
 

@@ -208,8 +208,6 @@ def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
 			s = Commentarium.objects.create(homo=request.user.id,  volumen=d, scriptum=scriptum_html,
 											email=request.user.email)
 			
-			##					data_pub=timezone.now()
-			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= CommentariumForm()
