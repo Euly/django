@@ -134,13 +134,13 @@ def nuova_attivazione(request, user_id):
 	#if request.user.is_authenticated():
 	#se l'utente e' loggato e attivo (is.active == True) ritorna True alt. false
 	
-	user_profile = UserProfile.objects.get(user_id = user_id)
+	#user_profile = UserProfile.objects.get(user_id = user_id)
 			
 	if request.user.is_authenticated():		
 		return render_to_response('att_already_done.html')
 	
 	else:
-		utente = User.objects.get(id = user_id)
+		utente = UserProfile.objects.get(user_id = request.user.id)
 		utente.key_expires = timezone.now() + datetime.timedelta(2)		
 		email_subject = 'Attiva Account'
 		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)

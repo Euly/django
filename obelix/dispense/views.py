@@ -11,6 +11,9 @@ from django.utils import timezone
 from django.core.servers.basehttp import FileWrapper
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
+import subprocess
+import os.path
+Temp_Path = os.path.realpath('.')
 
 @login_required    
 def cdl(request):
@@ -89,6 +92,7 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
 	d = Dispensa.objects.get(id=dispensa_id)
+	subprocess.check_output("rm "+Temp_Path+"/static/"+str(d.documento), shell=True)
 	d.delete()
 			
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
