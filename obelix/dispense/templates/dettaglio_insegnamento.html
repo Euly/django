@@ -3,13 +3,17 @@
 
 {% block sidebar %}
 <ul>
+	<li><a href="/admin/">Admin</a></li>
+	<li><a href="/home/">Home</a></li>
 	<li><a href="/cdl/all">Corsi di Laurea</a></li>
+	<li><a href="/accounts/profilo_utente">Profilo</a></li>
 	<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
 </ul>
 {% endblock %}
 
 {% block content %}
 	<h1>{{titolo_ins}}</h1>
+
 	
 	{% for d in dispense %}
 		<table width = "80%" cellpadding = "10" frame = "none" >
@@ -34,7 +38,7 @@
 				<td width="60%">{{d.data_pub}}</td>
 			<tr>
 				<td width="40%"><b>Autore:</b></td>
-				<td width="60%">{{request.user.email}}</td>
+				<td width="60%">{{d.email}}</td>
 			</tr>
 		
 			<tr>
@@ -55,10 +59,40 @@
 					</form>
 				</td>
 			</tr>
+			<tr>
+				<td width="60%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Commenta</a></td>
+			</tr>
 		</div>
 		</table>
-		<br><br>
+		<p>
+		
+		{% for c in commenti %}
+		<table width = "80%" cellpadding = "10" frame = "none" >
+			{% if c.volumen == d %}
+				<div>
+				<tr>
+					<td width="20%"><b>Commento:</b></td>
+					<td width="80%" align = "justify">{{c.scriptum}}</td>
+				</tr>
+				<tr>
+					<td width="40%"><b>Utente:</b></td>
+					<td width="60%">{{c.email}}</td>
+				</tr>
+				<tr>
+					<td width="40%"><b>Data pubblicazione:</b></td>
+					<td width="60%">{{c.tempus}}</td>
+				<tr>		
+				<br><br>			
+				{% endif %}
+		</div>
+		</table>
+		</p>
+		{% endfor %}
+				
+	</table>
 	{% endfor %}
+
+
 
 {% endblock %}
 

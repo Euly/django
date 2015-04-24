@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, Insegnamento, Dispensa, Opinione
-from forms import DispensaForm
+from dispense.models import Corso, Insegnamento, Dispensa, Opinione, Commentarium
+from forms import DispensaForm, CommentariumForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse
@@ -33,14 +33,20 @@ def insegnamento(request, titolo_cdl):
 def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
 	dispense = []
+	commenti = []
 	
 	for d in Dispensa.objects.all():
 		if d.insegnamento == materia:
 			dispense.append(d)
+			for c in Commentarium.objects.all():
+				if c.volumen == d:
+					commenti.append(c)
 	
 	return render_to_response('dettaglio_insegnamento.html',
-							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl, 'dispense': dispense, 'request': request})
+							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl,
+							   'dispense': dispense, 'commenti': commenti, 'request': request})
 
 @login_required						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
@@ -59,7 +65,8 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										data_pub=timezone.now(),
 										insegnamento=materia,
 										documento=documento_html,
-										utente=request.user.id)
+										utente=request.user.id,
+										email=request.user.email)
 			
 			messages.add_message(request, messages.SUCCESS, "Aggiunta riuscita")
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
@@ -184,7 +191,34 @@ def unlike_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 	
 
+@login_required
+def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	args = {}
+	args.update(csrf(request))
+	
+	if request.method == 'POST':
+		form = CommentariumForm(request.POST)
+		args['form'] = form
 
+		if form.is_valid():			
+			scriptum_html = form.cleaned_data['scriptum']
+			d = Dispensa.objects.get(id=dispensa_id)
+			s = Commentarium.objects.create(homo=request.user.id,  volumen=d, scriptum=scriptum_html,
+											email=request.user.email)
+			
+			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+	else:
+		args['form']= CommentariumForm()
+		
+	
+	args['titolo_cdl'] = titolo_cdl
+	args['titolo_ins'] = titolo_ins
+	args['dispensa_id'] = dispensa_id
+	
+	return render_to_response('addo.html', args, context_instance=RequestContext(request))
 
 
 

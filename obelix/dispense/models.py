@@ -44,6 +44,7 @@ class Dispensa(models.Model):
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	insegnamento = models.ForeignKey(Insegnamento)
 	utente = models.IntegerField()
+	email = models.EmailField()
 	
 	def __unicode__(self):
 		return self.titolo
@@ -76,9 +77,20 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField(default=datetime.date.today())
-      
+    
+	
 	def __str__(self):
 		return self.user.username
 
 	class Meta:
 		verbose_name_plural=u'User profiles'
+		
+
+class Commentarium (models.Model):
+	homo = models.IntegerField()
+	volumen = models.ForeignKey(Dispensa)
+	scriptum = models.TextField()
+	email = models.EmailField()
+	tempus = models.DateTimeField(auto_now_add=True)
+
+

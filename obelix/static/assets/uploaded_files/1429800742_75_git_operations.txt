@@ -1,0 +1,6 @@
+git add -A
+git commit -m "messaggio."
+git pull --rebase
+//on branch master Go on else STOP  --> git rebase --continue after changement
+git push
+
