@@ -70,19 +70,19 @@ def register_user(request):
 			email_html = form.cleaned_data['email']			
 			username_html = form.cleaned_data['username']	
 			
-			form.save()
+			#form.save()
 			
 			
-			#ok = False
+			ok = False
 						
-			#for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
-			#	if m.email == email_html :
-			#		if m.nome == nome_html and m.cognome == cognome_html :
-			#			form.save()
-			#			ok = True
-			#			break
-			#if ok == False :
-			#	return HttpResponseRedirect('/accounts/register_failed')
+			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+				if (m.email) == email_html :
+					if (m.nome).upper() == nome_html.upper() and (m.cognome).upper() == cognome_html.upper() :
+						form.save()
+						ok = True
+						break
+			if ok == False :
+				return HttpResponseRedirect('/accounts/register_failed')
 
 				
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
