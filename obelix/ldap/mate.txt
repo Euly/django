@@ -1,0 +1,596 @@
+# extended LDIF
+#
+# LDAPv3
+# base <dc=unimore,dc=it> (default) with scope subtree
+# filter: (ou=MATEMATICA)
+# requesting: ALL
+#
+
+# 32689, people, unimore.it
+dn: uid=32689,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 15743
+description: Studente di MATEMATICA
+sn: TURRINI
+homeDirectory: /homel/n32689
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 15743
+shadowMin: 0
+givenName: MARCO
+shadowFlag: 134542148
+shadowInactive: -1
+cn: MARCO TURRINI
+gecos: MARCO TURRINI
+unimoremailprincipale: 32689@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 32689@studenti.unimore.it
+uid: 32689
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-32486
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+shadowLastChange: 16322
+
+# 21987, people, unimore.it
+dn: uid=21987,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 15737
+description: Studente di MATEMATICA
+sn: PERGREFFI
+homeDirectory: /homel/n21987
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 15737
+shadowMin: 0
+givenName: SILVIO
+shadowFlag: 134542148
+shadowInactive: -1
+cn: SILVIO PERGREFFI
+gecos: SILVIO PERGREFFI
+unimoremailprincipale: 21987@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 21987@studenti.unimore.it
+uid: 21987
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-32474
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 42175, people, unimore.it
+dn: uid=42175,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 30560
+description: Studente di MATEMATICA
+sn: ASTI
+homeDirectory: /homel/n42175
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 30560
+shadowMin: 0
+givenName: DARIO
+shadowFlag: 134542148
+shadowInactive: -1
+cn: DARIO ASTI
+gecos: DARIO ASTI
+loginShell: /bin/mosh
+uid: 42175
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-62120
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+unimoremailprincipale: 42175@studenti.unimore.it
+mail: 42175@studenti.unimore.it
+
+# 53451, people, unimore.it
+dn: uid=53451,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 45651
+description: Studente di MATEMATICA
+sn: RIGOLON
+homeDirectory: /homel/n53451
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 45651
+shadowMin: 0
+givenName: CHIARA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: CHIARA RIGOLON
+gecos: CHIARA RIGOLON
+loginShell: /bin/mosh
+shadowLastChange: 13514
+uid: 53451
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-92302
+unimoremailprincipale: 53451@studenti.unimore.it
+mail: 53451@studenti.unimore.it
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+eduPersonAffiliation: alum
+ou: alum
+ou: people
+ou: MATEMATICA
+
+# 58527, people, unimore.it
+dn: uid=58527,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 63428
+description: Studente di MATEMATICA
+sn: BENASSI
+homeDirectory: /homel/n58527
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 63428
+shadowMin: 0
+givenName: LUCIA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: LUCIA BENASSI
+gecos: LUCIA BENASSI
+loginShell: /bin/mosh
+shadowLastChange: 13514
+uid: 58527
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-127856
+unimoremailprincipale: 58527@studenti.unimore.it
+mail: 58527@studenti.unimore.it
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+eduPersonAffiliation: alum
+ou: alum
+ou: people
+ou: MATEMATICA
+
+# 54398, people, unimore.it
+dn: uid=54398,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 54489
+description: Studente di MATEMATICA
+sn: COSTANZINI
+homeDirectory: /homel/n54398
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 54489
+shadowMin: 0
+givenName: ELENA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: ELENA COSTANZINI
+gecos: ELENA COSTANZINI
+loginShell: /bin/mosh
+shadowLastChange: 13514
+uid: 54398
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-109978
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+unimoremailprincipale: 54398@studenti.unimore.it
+mail: 54398@studenti.unimore.it
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 59014, people, unimore.it
+dn: uid=59014,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 63906
+description: Studente di MATEMATICA
+sn: PEGGI
+homeDirectory: /homel/n59014
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 63906
+shadowMin: 0
+givenName: VIVIANA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: VIVIANA PEGGI
+gecos: VIVIANA PEGGI
+loginShell: /bin/mosh
+uid: 59014
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-128812
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+unimoremailprincipale: 59014@studenti.unimore.it
+mail: 59014@studenti.unimore.it
+
+# 59791, people, unimore.it
+dn: uid=59791,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 64699
+description: Studente di MATEMATICA
+sn: LANZARINI
+homeDirectory: /homel/n59791
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 64699
+shadowMin: 0
+givenName: SARA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: SARA LANZARINI
+gecos: SARA LANZARINI
+loginShell: /bin/mosh
+shadowLastChange: 13514
+uid: 59791
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-130398
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+unimoremailprincipale: 59791@studenti.unimore.it
+mail: 59791@studenti.unimore.it
+
+# 61235, people, unimore.it
+dn: uid=61235,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 66126
+description: Studente di MATEMATICA
+sn: HARBOULI
+homeDirectory: /homel/n61235
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 66126
+shadowMin: 0
+givenName: ZHOUR
+shadowFlag: 134542148
+shadowInactive: -1
+cn: ZHOUR HARBOULI
+gecos: ZHOUR HARBOULI
+unimoremailprincipale: 61235@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 61235@studenti.unimore.it
+uid: 61235
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-133252
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 61313, people, unimore.it
+dn: uid=61313,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 66204
+description: Studente di MATEMATICA
+sn: PALTRINIERI
+homeDirectory: /homel/n61313
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 66204
+shadowMin: 0
+givenName: NICOLA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: NICOLA PALTRINIERI
+gecos: NICOLA PALTRINIERI
+unimoremailprincipale: 61313@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 61313@studenti.unimore.it
+uid: 61313
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-133408
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 61875, people, unimore.it
+dn: uid=61875,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 66777
+description: Studente di MATEMATICA
+sn: BIAGINI
+homeDirectory: /homel/n61875
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 66777
+shadowMin: 0
+givenName: ANDREA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: ANDREA BIAGINI
+gecos: ANDREA BIAGINI
+unimoremailprincipale: 61875@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 61875@studenti.unimore.it
+shadowLastChange: 13514
+uid: 61875
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-134554
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 64429, people, unimore.it
+dn: uid=64429,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 70307
+description: Studente di MATEMATICA
+sn: GIBERTI
+homeDirectory: /homel/n64429
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 70307
+shadowMin: 0
+givenName: ANDREA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: ANDREA GIBERTI
+gecos: ANDREA GIBERTI
+unimoremailprincipale: 64429@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 64429@studenti.unimore.it
+uid: 64429
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-141614
+shadowLastChange: 13514
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 65390, people, unimore.it
+dn: uid=65390,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 71547
+description: Studente di MATEMATICA
+sn: BELLEI
+homeDirectory: /homel/n65390
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 71547
+shadowMin: 0
+givenName: LISA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: LISA BELLEI
+gecos: LISA BELLEI
+unimoremailprincipale: 65390@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 65390@studenti.unimore.it
+shadowLastChange: 13514
+uid: 65390
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-144094
+eduPersonAffiliation: alum
+ou: alum
+ou: people
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+
+# 65515, people, unimore.it
+dn: uid=65515,ou=people,dc=unimore,dc=it
+shadowExpire: -1
+gidNumber: 71679
+description: Studente di MATEMATICA
+sn: CORSINI
+homeDirectory: /homel/n65515
+shadowWarning: 7
+shadowMax: 99999
+uidNumber: 71679
+shadowMin: 0
+givenName: ALESSIA
+shadowFlag: 134542148
+shadowInactive: -1
+cn: ALESSIA CORSINI
+gecos: ALESSIA CORSINI
+unimoremailprincipale: 65515@studenti.unimore.it
+loginShell: /bin/mosh
+mail: 65515@studenti.unimore.it
+uid: 65515
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-144358
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+ou: people
+ou: studenti
+ou: MATEMATICA
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+shadowLastChange: 16155
+
+# 112185, people, unimore.it
+dn: uid=112185,ou=people,dc=unimore,dc=it
+uid: 112185
+uidNumber: 148630
+sn: MURGOLO
+gidNumber: 148630
+gecos: TERESA ERSILIA MURGOLO
+shadowFlag: 134542148
+shadowMin: 0
+shadowWarning: 7
+cn: TERESA ERSILIA MURGOLO
+homeDirectory: /homel/n112185
+givenName: TERESA ERSILIA
+shadowInactive: -1
+sambaSID: S-1-5-21-3124769388-3895531602-742500631-298260
+shadowMax: 99999
+shadowExpire: -1
+loginShell: /bin/mosh
+objectClass: organizationalPerson
+objectClass: schacPersonalCharacteristics
+objectClass: person
+objectClass: unimoreAccount
+objectClass: posixAccount
+objectClass: eduMember
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: eduPerson
+objectClass: inetOrgPerson
+objectClass: top
+shadowLastChange: 16245
+eduPersonAffiliation: member
+eduPersonAffiliation: student
+description: Studente di MATEMATICA
+ou: studenti
+ou: people
+ou: MATEMATICA
+unimoremailprincipale: 112185@studenti.unimore.it
+mail: 112185@studenti.unimore.it
+
+# search result
+search: 3
+result: 0 Success
+
+# numResponses: 16
+# numEntries: 15
