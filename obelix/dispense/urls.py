@@ -10,8 +10,6 @@ urlpatterns = patterns ('',
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/cancella/(?P<dispensa_id>\d+)/$', 'dispense.views.cancella_dispensa'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/like/(?P<dispensa_id>\d+)/$', 'dispense.views.like_dispensa'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/unlike/(?P<dispensa_id>\d+)/$', 'dispense.views.unlike_dispensa'),
-	
-	
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/commento/(?P<dispensa_id>\d+)/$', 'dispense.views.adiungo'),
 
 )
