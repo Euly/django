@@ -70,19 +70,19 @@ def register_user(request):
 			email_html = form.cleaned_data['email']			
 			username_html = form.cleaned_data['username']	
 			
-			#form.save()
+			form.save()
 			
 			
-			ok = False
+			#ok = False
 						
-			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
-				if (m.email) == email_html :
-					if (m.nome).upper() == nome_html.upper() and (m.cognome).upper() == cognome_html.upper() :
-						form.save()
-						ok = True
-						break
-			if ok == False :
-				return HttpResponseRedirect('/accounts/register_failed')
+			#for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
+			#	if (m.email) == email_html :
+			#		if (m.nome).upper() == nome_html.upper() and (m.cognome).upper() == cognome_html.upper() :
+			#			form.save()
+			#			ok = True
+			#			break
+			#if ok == False :
+			#	return HttpResponseRedirect('/accounts/register_failed')
 
 				
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
@@ -99,8 +99,7 @@ def register_user(request):
 			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
-		#else :
-		#	return HttpResponseRedirect('/accounts/register_failed')
+			return HttpResponseRedirect('/accounts/register_failed')
 	else :
 		args['form'] = RegistrationForm()
 
@@ -128,20 +127,20 @@ def register_confirm(request, activation_key):
 	return HttpResponseRedirect('/accounts/login')
 
 
-@login_required
+
 def nuova_attivazione(request, user_id):
+	
+	user_profile = UserProfile.objects.get(user_id = user_id)
 	
 	#if request.user.is_authenticated():
 	#se l'utente e' loggato e attivo (is.active == True) ritorna True alt. false
 	
-	#user_profile = UserProfile.objects.get(user_id = user_id)
-			
 	if request.user.is_authenticated():		
 		return render_to_response('att_already_done.html')
 	
 	else:
-		utente = UserProfile.objects.get(user_id = request.user.id)
-		utente.key_expires = timezone.now() + datetime.timedelta(2)		
+		utente = User.objects.get(id = user_id)
+		user_profile.key_expires = timezone.now() + datetime.timedelta(2)		
 		email_subject = 'Attiva Account'
 		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)
 		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], fail_silently=False)
