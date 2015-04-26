@@ -125,7 +125,7 @@ def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 	return HttpResponseRedirect("/cdl/all")
 
 @login_required
-def like_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
+def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
@@ -136,64 +136,47 @@ def like_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 		# controllo se ho gia' cliccato uno dei due bottoni
 			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
 			
-			# non posso mettere piu' di un like
-			if opinione.positiva == True:
+			# non posso mettere piu' di un like o unlike
+			if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
 				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 			
-			# se ho cambiato idea tolgo il non mi piace
-			if opinione.negativa == True:
+			# se ho cambiato idea tolgo l'opinione precendente
+			if flag == "like" and opinione.negativa == True:
 				opinione.negativa = False
 				opinione.positiva = True
 				opinione.save()
 				d.non_mi_piace = d.non_mi_piace - 1
 				
-				
-		
-		except:
-			# se invece non ho ancora cliccato nessun bottone devo 
-			# creare un nuovo oggetto di tipo Opinione
-			opinione = Opinione.objects.create(utente=request.user,
-											   dispensa=d,
-											   positiva=True)
-		
-		d.mi_piace = d.mi_piace + 1
-		d.save()
-		
-	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
-	
-@login_required
-def unlike_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
-	corso_ins = Corso.objects.get(titolo=titolo_cdl)
-	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
-	
-	if dispensa_id:
-		d = Dispensa.objects.get(id=dispensa_id)
-		
-		try:
-		# controllo se ho gia' cliccato uno dei due bottoni
-			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
-			
-			# non posso mettere piu' di un unlike
-			if opinione.negativa == True:
-				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
-			
-			# se ho cambiato idea tolgo il mi piace
-			if opinione.positiva == True:
+			elif flag == "unlike" and opinione.positiva == True:
 				opinione.positiva = False
 				opinione.negativa = True
 				opinione.save()
 				d.mi_piace = d.mi_piace - 1
 				
-				
 		except:
-			opinione = Opinione.objects.create(utente=request.user,
-											   dispensa=d,
-											   negativa=True)		
-		d.non_mi_piace = d.non_mi_piace + 1
+			# se invece non ho ancora cliccato nessun bottone devo 
+			# creare un nuovo oggetto di tipo Opinione
+			if flag == "like":
+				opinione = Opinione.objects.create(utente=request.user,
+												   dispensa=d,
+												   positiva=True)
+			elif flag == "unlike":
+				opinione = Opinione.objects.create(utente=request.user,
+												   dispensa=d,
+												   negativa=True)
+		
+		# dopo tutti i controlli posso finalmente aggiungere il like o
+		# l'unlike alla dispensa selezionata
+		if flag == "like":
+			d.mi_piace = d.mi_piace + 1
+			
+		elif flag == "unlike":
+			d.non_mi_piace = d.non_mi_piace + 1
+		
 		d.save()
 		
 	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
-	
+
 
 @login_required
 def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
