@@ -12,10 +12,12 @@
 {% endblock %}
 
 {% block content %}
+	
 	<h1>{{titolo_ins}}</h1>
+
 	{% for d in dispense %}
-		<table width = "80%" cellpadding = "10" frame = "none" >
 		<div>
+		<table width = "70%" cellpadding = "10" frame = "none" >
 			<tr>
 				<td width="30%"><b>Nome file:</b></td>
 				<td width="30%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a>
@@ -57,41 +59,38 @@
 					</form>
 				</td>
 			</tr>
-			<tr>
-				<td width="60%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Commenta</a></td>
-			</tr>
-		</div>
+			
 		</table>
-		<p>
-		
-		{% for c in commenti %}
-		<table width = "80%" cellpadding = "10" frame = "none" >
-			{% if c.volumen == d %}
-				<div>
-				<tr>
-					<td width="20%"><b>Commento:</b></td>
-					<td width="80%" align = "justify">{{c.scriptum}}</td>
-				</tr>
-				<tr>
-					<td width="40%"><b>Utente:</b></td>
-					<td width="60%">{{c.email}}</td>
-				</tr>
-				<tr>
-					<td width="40%"><b>Data pubblicazione:</b></td>
-					<td width="60%">{{c.tempus}}</td>
-				<tr>		
-				<br><br>			
-				{% endif %}
 		</div>
+
+
+	<a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Aggiunti commento</a></td>
+			
+
+	<div class="nascosto1">
+	<a href="#" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none';}" >Mostra/Nascondi commenti &#9660;&#9650;</a>
+	</div><div><div class="nascosto1" style="display: none;">
+
+	{% for c in commenti %}
+		<table>
+				{% if c.volumen == d %}
+					<tr>
+						<td align = "justify">{{c.scriptum}}</td>
+					</tr>
+					<tr>
+						<td>Autore: {{c.email}}</td>
+					</tr>
+					<tr>
+						<td>{{c.tempus}}</td>
+					<tr>		
+						{% endif %}
+					</tr>
+					<tr><td></td></tr>
 		</table>
-		</p>
-		{% endfor %}
-				
-	</table>
 	{% endfor %}
+	</div></div>
 
-
-
+	{% endfor %}
 {% endblock %}
 
 {% block sidebar-right %}
