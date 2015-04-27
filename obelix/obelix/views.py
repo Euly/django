@@ -176,13 +176,13 @@ def profilo_utente(request):
 	#io voglio tutte le dispense corrispondenti a quell' utente
 	#da modificare modello dispense
 	
-	utente = request.user.id
+	utente = request.user
 	
 	pubblicazioni = []
 	
-	for p in Dispensa.objects.all():
-		if p.utente == utente:
-			pubblicazioni.append(p)
+	for d in Dispensa.objects.all():
+		if d.utente == utente:
+			pubblicazioni.append(d)
 	
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'request': request})
 
