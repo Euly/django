@@ -6,7 +6,7 @@
 </head>
 
 <body style="height: 100%;">
-	<div id="page">
+	<div id="page" style="height: 100%;">
 		<div id="titolo">
 			<div align=center>
 				{% block titolo %}
@@ -17,11 +17,13 @@
 		
 		<div id="sidebar">
 		{% block sidebar %}
+			<ul>
 				<li><a href="/admin/">Admin</a></li>
 				<li><a href="/home/">Home</a></li>
 				<li><a href="/cdl/all/">Corsi di Laurea</a></li>
 				<li><a href="/accounts/profilo_utente/">Profilo</a></li>
 				<li><a href="/volumica/">Volumica</a></li>
+			</ul>
 		{% endblock %}
 		</div>
 			
@@ -34,7 +36,15 @@
 		{% block sidebar-right %}
 		{% endblock %}
 		</div>
-	
+		
+	</div>
+	<br>
+	<div id="footer" >
+		<div align="center" >
+			{% block ringraziamenti %}
+			Sito realizzato da Diana Sighinolfi e Massimiliano Tortoli.
+			{% endblock %}
+		</div>
 	</div>
 </body>
 </html>
