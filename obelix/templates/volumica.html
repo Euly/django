@@ -2,13 +2,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block sidebar %}
-	<li><a href="/admin/">Admin</a></li>
-	<li><a href="/home/">Home</a></li>
-	<li><a href="/volumica/">Volumica</a></li>
-	<li><a href="/cdl/all/">Corsi di Laurea</a></li>
-	<li><a href="/accounts/profilo_utente">Profilo</a></li>
-{% endblock %}
 {% block content %}
 	<h1>Volumica</h1>
 	<div align="justify">
@@ -36,4 +29,8 @@
 		
 		
 	</div>
+{% endblock %}
+
+{% block sidebar-right %}
+	<a href="/accounts/logout/">Log out</a>
 {% endblock %}
