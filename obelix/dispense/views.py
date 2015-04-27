@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from dispense.models import Corso, Insegnamento, Dispensa, Opinione, Commentarium
 from forms import DispensaForm, CommentariumForm
+from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse
@@ -33,7 +34,7 @@ def insegnamento(request, titolo_cdl):
 							  {'titolo': titolo_cdl, 'insegnamenti': insegnamenti})
 
 @login_required						  
-def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
+def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
@@ -46,6 +47,14 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 			for c in Commentarium.objects.all():
 				if c.dispensa == d:
 					commenti.append(c)
+	
+	if ordine is not None:
+		if ordine == "cron_reverse":
+			dispense.reverse()
+		elif ordine == "likes":
+			quick_sort(dispense)
+			dispense.reverse()
+			
 	
 	return render_to_response('dettaglio_insegnamento.html',
 							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl,
@@ -172,6 +181,7 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 			
 		elif flag == "unlike":
 			d.non_mi_piace = d.non_mi_piace + 1
+		
 		
 		d.save()
 		

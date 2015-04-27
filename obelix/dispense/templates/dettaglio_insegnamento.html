@@ -15,6 +15,7 @@
 	
 	<h1>{{titolo_ins}}</h1>
 
+	
 	{% for d in dispense %}
 		<div>
 		<table width = "70%" cellpadding = "10" frame = "none" >
@@ -75,7 +76,7 @@
 		<table>
 				{% if c.dispensa == d %}
 					<tr>
-						<td align = "justify">{{c.commento}}</td>
+						<td align = "justify">{{c.commento}} </td>
 					</tr>
 					<tr>
 						<td>Autore: {{c.utente.email}}</td>
@@ -98,7 +99,7 @@
 		</table>
 	{% endfor %}
 	</div></div>
-
+	
 	{% endfor %}
 {% endblock %}
 

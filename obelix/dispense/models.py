@@ -51,9 +51,10 @@ class Dispensa(models.Model):
 
 class Opinione(models.Model):
 	utente = models.ForeignKey(User)
-	dispensa = models.ForeignKey(Dispensa, primary_key=True)
+	dispensa = models.ForeignKey(Dispensa)
 	positiva = models.BooleanField(default=False)
 	negativa = models.BooleanField(default=False)
+	
 	
 	def __unicode__(self):
 		t = "true"
