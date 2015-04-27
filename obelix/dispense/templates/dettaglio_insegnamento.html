@@ -82,8 +82,17 @@
 					</tr>
 					<tr>
 						<td>{{c.data_pub}}</td>
-					<tr>		
-						{% endif %}
+					</tr>		
+					
+					{% if c.utente.id == request.user.id %}
+						<tr>
+						<td>
+						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/rimuovi/{{c.id}}"><button type="submit">Rimuovi</button></form>
+						</td>
+						</tr>
+					{%endif%}
+					
+				{% endif %}
 					</tr>
 					<tr><td></td></tr>
 		</table>

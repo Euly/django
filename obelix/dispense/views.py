@@ -208,7 +208,16 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	return render_to_response('commento.html', args, context_instance=RequestContext(request))
 
 
-
+@login_required
+def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
+	
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	c = Commentarium.objects.get(id=commento_id)
+	c.delete()
+			
+	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 
 
 
