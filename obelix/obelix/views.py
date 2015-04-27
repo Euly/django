@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from dispense.models import Dispensa
 
+
 def home(request):
 	return render_to_response('home.html', {'request': request} )
 
@@ -85,11 +86,12 @@ def register_user(request):
 			#	return HttpResponseRedirect('/accounts/register_failed')
 
 				
+			user = User.objects.get(username=username_html)			                                                                                                                              
+			
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
 			key_expires = timezone.now() + datetime.timedelta(2)
-
-			user = User.objects.get(username=username_html)			                                                                                                                              
+			
 			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)
 			new_profile.save()
 

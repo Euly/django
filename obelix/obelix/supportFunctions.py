@@ -1,9 +1,9 @@
 
 
-def bubble_sort(alist):
-	for passnum in range(len(alist)-1,0,-1):
-		for i in range(passnum):
-			if alist[i].mi_piace - alist[i].non_mi_piace < alist[i+1].mi_piace - alist[i+1].non_mi_piace :
-				temp = alist[i]
-				alist[i] = alist[i+1]
-				alist[i+1] = temp
+def bubble_sort(dispense):
+	for i in range(len(dispense)-1,0,-1):
+		for i in range(i):
+			if dispense[i].mi_piace - dispense[i].non_mi_piace < dispense[i+1].mi_piace - dispense[i+1].non_mi_piace :
+				temp = dispense[i]
+				dispense[i] = dispense[i+1]
+				dispense[i+1] = temp

@@ -43,8 +43,8 @@ class Dispensa(models.Model):
 	mi_piace = models.PositiveIntegerField(default=0)
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	insegnamento = models.ForeignKey(Insegnamento)
-	utente = models.IntegerField()
-	email = models.EmailField()
+	utente = models.ForeignKey(User) #di chi era la dispensa nella visualizzazione
+	
 	
 	def __unicode__(self):
 		return self.titolo
