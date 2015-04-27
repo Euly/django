@@ -16,3 +16,4 @@ def quick_sort(items):
 		quick_sort(smaller_items)
 		quick_sort(larger_items)
 		items[:] = smaller_items + [items[pivot_index]] + larger_items
+

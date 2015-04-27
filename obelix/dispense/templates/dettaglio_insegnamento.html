@@ -14,7 +14,13 @@
 {% block content %}
 	
 	<h1>{{titolo_ins}}</h1>
-
+	
+	<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+		<option value="" >Seleziona ordine</option>
+		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
+		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
+		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
+	</select>
 	
 	{% for d in dispense %}
 		<div>
