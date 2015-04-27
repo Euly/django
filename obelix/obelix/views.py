@@ -183,3 +183,7 @@ def profilo_utente(request):
 			pubblicazioni.append(p)
 	
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'request': request})
+
+@login_required
+def volumica(request):
+	return render_to_response('volumica.html')
