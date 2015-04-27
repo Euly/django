@@ -44,7 +44,7 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins):
 		if d.insegnamento == materia:
 			dispense.append(d)
 			for c in Commentarium.objects.all():
-				if c.volumen == d:
+				if c.dispensa == d:
 					commenti.append(c)
 	
 	return render_to_response('dettaglio_insegnamento.html',
@@ -191,7 +191,7 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 		args['form'] = form
 
 		if form.is_valid():			
-			commento = form.cleaned_data['commento']
+			commento_html = form.cleaned_data['commento']
 			d = Dispensa.objects.get(id=dispensa_id)
 			s = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
 											
