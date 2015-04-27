@@ -1,19 +1,9 @@
 
-def quick_sort(items):
 
-	if len(items) > 1:
-		pivot_index = len(items) / 2
-		smaller_items = []
-		larger_items = []
-
-		for i, val in enumerate(items):
-			if i != pivot_index:
-				if val < items[pivot_index].mi_piace:
-					smaller_items.append(val)
-				else:
-					larger_items.append(val)
-
-		quick_sort(smaller_items)
-		quick_sort(larger_items)
-		items[:] = smaller_items + [items[pivot_index]] + larger_items
-
+def bubble_sort(alist):
+	for passnum in range(len(alist)-1,0,-1):
+		for i in range(passnum):
+			if alist[i].mi_piace - alist[i].non_mi_piace < alist[i+1].mi_piace - alist[i+1].non_mi_piace :
+				temp = alist[i]
+				alist[i] = alist[i+1]
+				alist[i+1] = temp

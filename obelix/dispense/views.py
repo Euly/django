@@ -52,8 +52,7 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 		if ordine == "cron_reverse":
 			dispense.reverse()
 		elif ordine == "likes":
-			quick_sort(dispense)
-			dispense.reverse()
+			bubble_sort(dispense)
 			
 	
 	return render_to_response('dettaglio_insegnamento.html',
@@ -146,8 +145,8 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
 			
 			# non posso mettere piu' di un like o unlike
-			if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
-				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			#if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
+			#	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 			
 			# se ho cambiato idea tolgo l'opinione precendente
 			if flag == "like" and opinione.negativa == True:
