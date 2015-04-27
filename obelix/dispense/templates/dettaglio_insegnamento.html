@@ -73,15 +73,15 @@
 
 	{% for c in commenti %}
 		<table>
-				{% if c.volumen == d %}
+				{% if c.dispensa == d %}
 					<tr>
-						<td align = "justify">{{c.scriptum}}</td>
+						<td align = "justify">{{c.commento}}</td>
 					</tr>
 					<tr>
-						<td>Autore: {{c.email}}</td>
+						<td>Autore: {{c.utente.email}}</td>
 					</tr>
 					<tr>
-						<td>{{c.tempus}}</td>
+						<td>{{c.data_pub}}</td>
 					<tr>		
 						{% endif %}
 					</tr>

@@ -87,10 +87,9 @@ class UserProfile(models.Model):
 		
 
 class Commentarium (models.Model):
-	homo = models.IntegerField()
-	volumen = models.ForeignKey(Dispensa)
-	scriptum = models.TextField()
-	email = models.EmailField()
-	tempus = models.DateTimeField(auto_now_add=True)
+	utente = models.ForeignKey(User)
+	dispensa = models.ForeignKey(Dispensa)
+	commento = models.TextField()
+	data_pub = models.DateTimeField(auto_now_add=True)
 
 

@@ -13,5 +13,5 @@ class CommentariumForm(forms.ModelForm):
 	
 	class Meta:
 		model = Commentarium
-		fields = ('scriptum',)
+		fields = ('commento',)
         

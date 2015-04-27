@@ -179,7 +179,7 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 
 
 @login_required
-def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
+def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
@@ -191,10 +191,10 @@ def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
 		args['form'] = form
 
 		if form.is_valid():			
-			scriptum_html = form.cleaned_data['scriptum']
+			commento = form.cleaned_data['commento']
 			d = Dispensa.objects.get(id=dispensa_id)
-			s = Commentarium.objects.create(homo=request.user.id,  volumen=d, scriptum=scriptum_html,
-											email=request.user.email)
+			s = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
+											
 			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	else:
@@ -205,7 +205,7 @@ def adiungo(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['titolo_ins'] = titolo_ins
 	args['dispensa_id'] = dispensa_id
 	
-	return render_to_response('addo.html', args, context_instance=RequestContext(request))
+	return render_to_response('commento.html', args, context_instance=RequestContext(request))
 
 
 

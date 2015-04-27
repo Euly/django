@@ -9,5 +9,5 @@ urlpatterns = patterns ('',
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/assets/uploaded_files/(?P<titolo_file>[\d+|\_|\-|\w+|\/|\.|\s]*)/$', 'dispense.views.scarica'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/cancella/(?P<dispensa_id>\d+)/$', 'dispense.views.cancella_dispensa'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/(?P<flag>like|unlike)/(?P<dispensa_id>\d+)/$', 'dispense.views.like_dispensa'),
-	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/commento/(?P<dispensa_id>\d+)/$', 'dispense.views.adiungo'),
+	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/commento/(?P<dispensa_id>\d+)/$', 'dispense.views.aggiungi_commento'),
 )
