@@ -5,44 +5,23 @@
 	Implementazione:
 	- crea Notifica																				FATTO		
 	- aggiungi dispensa e verifica onetoone con notifica										FATTO
-	- aggiungi dispensa e verifica manytomany con notifica	
-	- aggiungi commento e verifica manytomany con notifica										FATTO	
-	- evitare che venga mandata notifica a chi carica la dispensa sul momento					FATTO
-
-	- aggiunti stampa notifiche a profilo.utente																				
+	- aggiungi dispensa e verifica manytomany con notifica_destinatari	
+	- aggiungi commento e verifica manytomany con notifica_destinatari							FATTO	
+	- aggiunti stampa notifiche a profilo.utente												FATTP								
 	- verifica notifiche con due user diversi													FATTO						
 	- attiva/disattiva notifiche globali user													FATTO															
-	- attiva/disattiva notifiche locali user																	
-	
-	
-	Possibilita' di disiscriversi:
-	- Totale: Campo aggiornamenti presenti in User-Profile	(controllo)							FATTO								
-	- Parziale: Rimozione da many to many																											
-	
-																
-	-Se uno ricommenta di default si riattiva l'inserimento										FATTO								
+	- attiva/disattiva notifiche locali user													FATTO					
+	- unica notifica per ogni dispensa															FATTO			
+	- se uno ricommenta di default si riattiva l'inserimento									FATTO
+	- vuoi iscriverti a questa discussione?															
+	- Elimina notifica, rimuove la notifica dal profilo senza disisciversi,							
+	  verrebbe visualizzata nuovamente ad ogni aggiornamento di pagina,							?
+	- evitare che venga mandata notifica a chi carica la dispensa sul momento					?
+	- Aggiugnere  Commenta o Clicca per Iscriverti agli aggiornamenti della dispensa			?
 -->
 
 
 
-Accedi a tutte notifiche
-Seleziona solo quelle dove e' presente l'user e visualizzale
-Forse per questo mi era utile averle tutte? Nelle notifiche!!!!!
-
-Elimina notifica    -> rimuove la notifica dal profilo senza disisciversi (?)
-Disiscrivi notifica -> rimuove l'user dal many to many 
-
-<br><br>
-{% if user_profile.not_globali == True %}
-	<b>Nozie da leggere in:</b><br></br>
-		{% for n in user_profile.notifiche.all %}
-				{{n.insegnamento.titolo}}: <a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a>
-				                    
-				<a href="/accounts/profilo_utente/notifiche_locali/{{n.id}}">Disattiva notifiche per questa dispensa</a>
-				<br>
-		{% endfor %}
-{% endif %}
-{% endblock %}
 
 
 

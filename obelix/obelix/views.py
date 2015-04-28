@@ -214,8 +214,9 @@ def not_locali(request, dispensa_id):
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	d = Dispensa.objects.get(id=dispensa_id)
 	
-	user_profile.notifiche.remove(d)
-	
+	#rimuovere user da d.notifica.destinatari
+	d.notifica.destinatari.remove(user_profile)
+	1
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 	
 	

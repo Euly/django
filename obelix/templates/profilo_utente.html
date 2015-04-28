@@ -55,8 +55,10 @@
 {% if user_profile.not_globali == True %}
 	<br><b>Nozie da leggere in:</b><br>
 	{% for n in notifiche %}
-		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a><br>
-	
+		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a> 
+		<form action="/accounts/profilo_utente/notifiche_locali/{{n.id}}"><button type="submit">Disiscrivimi</button></form>
+		<br>
+		
 	{% endfor%}
 	
 {% endif %}
