@@ -1,5 +1,59 @@
 
-Devo mettere una limitazione:
--> stampa solo i commenti relativi a quella dispensa
+ Notifiche:
+	- Aggiungere campo aggioranmenti user 
+	- Aggiungere campo many to many in dispensa
+	- Inizializzato col creatore della dispensa, aggiornato con i commentatori
+	
+	Ad ogni commento:
+	- Spedire email aggiornamento a utenti presenti nel campo
+	
+	Possibilita' di disiscriversi:
+	- Totale: Campo aggiornamenti presenti in User-Profile
+	- Parziale: Rimozione da many to many.
+	
+	Ottimizzazione:
+	-Non inviare email a chi commenta
+	-Se uno ricommenta di default si riattiva l'inserimento
+	
+	Note:
+	- Per aggiungere campi a manytomany:
+		dispensa.aggiornamenti.add(user)
+		
+	Implementazione:
+	- aggiorna models
+	- crea dispensa e verifica invio email
+	- aggiungi commento e verifica invio email
+	- disattiva notifiche globali user e verifica invio email inserendo un nuovo commento
+	- evitare che venga mandata l'email di aggiornamento a chi pubblica
+	- disattiva notifiche locali user e verifica invio email
+	
+	
+	
+	
 
--> estendere la classe dispensa con i commenti 
+
+{% if dispense %}
+		<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+			<option value="" >Seleziona ordine</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
+		</select>
+{% endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				

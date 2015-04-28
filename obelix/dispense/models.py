@@ -92,5 +92,5 @@ class Commentarium (models.Model):
 	dispensa = models.ForeignKey(Dispensa)
 	commento = models.TextField()
 	data_pub = models.DateTimeField(auto_now_add=True)
-
+	
 

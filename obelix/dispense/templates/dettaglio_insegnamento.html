@@ -15,12 +15,14 @@
 	
 	<h1>{{titolo_ins}}</h1>
 	
-	<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-		<option value="" >Seleziona ordine</option>
-		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
-		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
-		<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
-	</select>
+	{% if dispense %}
+		<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+			<option value="" >Seleziona ordine</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
+			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
+		</select>
+	{% endif%}
 	
 	{% for d in dispense %}
 		<div>
@@ -66,16 +68,13 @@
 					</form>
 				</td>
 			</tr>
-			
+			<tr><td><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Aggiunti commento</a></td></td></tr>
 		</table>
 		</div>
-
-
-	<a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Aggiunti commento</a></td>
-			
+		
 
 	<div class="nascosto1">
-	<a href="#" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none';}" >Mostra/Nascondi commenti &#9660;&#9650;</a>
+	<a href="#" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none';}" >  Mostra/Nascondi commenti &#9660;&#9650;</a>
 	</div><div><div class="nascosto1" style="display: none;">
 
 	{% for c in commenti %}
