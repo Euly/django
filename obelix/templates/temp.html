@@ -1,53 +1,50 @@
 
+
+
+<!--
  Notifiche:
-	- Aggiungere campo aggioranmenti user 
-	- Aggiungere campo many to many in dispensa
-	- Inizializzato col creatore della dispensa, aggiornato con i commentatori
+	- Aggiungere campo aggioramenti user 														FATTO
+	- Aggiungere campo many to many in user_profile												FATTO
+	- Inizializzazione con upper della dispensa													FATTO
+	- Aggiornare con i commentanti																FATTO					
 	
-	Ad ogni commento:
-	- Spedire email aggiornamento a utenti presenti nel campo
-	
-	Possibilita' di disiscriversi:
-	- Totale: Campo aggiornamenti presenti in User-Profile
-	- Parziale: Rimozione da many to many.
-	
-	Ottimizzazione:
-	-Non inviare email a chi commenta
-	-Se uno ricommenta di default si riattiva l'inserimento
 	
 	Note:
-	- Per aggiungere campi a manytomany:
-		dispensa.aggiornamenti.add(user)
+	- Per aggiungere campi a manytomany models.field.add("models")								FATTO																			
 		
 	Implementazione:
-	- aggiorna models
-	- crea dispensa e verifica invio email
-	- aggiungi commento e verifica invio email
-	- disattiva notifiche globali user e verifica invio email inserendo un nuovo commento
-	- evitare che venga mandata l'email di aggiornamento a chi pubblica
-	- disattiva notifiche locali user e verifica invio email
+	- aggiorna user_profile																		FATTO		
+	- aggiungi dispensa e verifica manytomany													FATTO		
+	- aggiungi commento e verifica manytomany													FATTO	
+	- evitare che venga mandata l'email di aggiornamento a chi carica la dispensa
+	  al completamento dell'operazione															FATTO
+	- aggiunti stampa link notifiche sul profilo_utente.html									FATTO				
+	- aggiungi commento e verifica notifica														FATTO				
+	- verifica invio notifiche inserendo un nuovo commento										FATTO						
+	- attiva/disattiva notifiche globali user													FATTO															
+	- attiva/disattiva notifiche locali user																	
 	
 	
+	Possibilita' di disiscriversi:
+	- Totale: Campo aggiornamenti presenti in User-Profile	(controllo)							FATTO								
+	- Parziale: Rimozione da many to many (?)													
+	
+																
+	-Se uno ricommenta di default si riattiva l'inserimento										FATTO								
 	
 	
+-->
 
-
-{% if dispense %}
-		<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-			<option value="" >Seleziona ordine</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
-		</select>
-{% endif%}
-
-
-
-
-
-
-
-
+{% if user_profile.not_globali == True %}
+	<b>Nozie da leggere in:</b><br></br>
+		{% for n in user_profile.notifiche.all %}
+				{{n.insegnamento.titolo}}: <a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a>
+				                    
+				<a href="/accounts/profilo_utente/notifiche_locali/{{n.id}}">Disattiva notifiche per questa dispensa</a>
+				<br>
+		{% endfor %}
+{% endif %}
+{% endblock %}
 
 
 

@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}      
- 				
+
+{% block sidebar %}
+<ul>
+    <li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}">Cancella</a></li>
+</ul>
+{% endblock %}
+
+
 <form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{dispensa_id}}/" method="post">{% csrf_token %}
 	<br>
 		<p>Inserire commento</p>

@@ -15,7 +15,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from dispense.models import Dispensa
+from django.core.servers.basehttp import FileWrapper
 
+import os.path
+path = os.path.realpath('.')
 
 def home(request):
 	return render_to_response('home.html', {'request': request} )
@@ -86,12 +89,11 @@ def register_user(request):
 			#	return HttpResponseRedirect('/accounts/register_failed')
 
 				
-			user = User.objects.get(username=username_html)			                                                                                                                              
-			
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]            
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
 			key_expires = timezone.now() + datetime.timedelta(2)
-			
+
+			user = User.objects.get(username=username_html)			                                                                                                                              
 			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)
 			new_profile.save()
 
@@ -101,6 +103,7 @@ def register_user(request):
 			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
+			return HttpResponseRedirect('/accounts/register_failed')
 	else :
 		args['form'] = RegistrationForm()
 
@@ -175,40 +178,25 @@ def profilo_utente(request):
 	#io voglio tutte le dispense corrispondenti a quell' utente
 	#da modificare modello dispense
 	
-	user_profile = UserProfile.objects.get(user_id = request.user.id)
+	utente = request.user.id
 	
 	pubblicazioni = []
 	
-	for d in Dispensa.objects.all():
-		if d.utente == user_profile.user:
-			pubblicazioni.append(d)
+	for p in Dispensa.objects.all():
+		if p.utente == utente:
+			pubblicazioni.append(p)
 	
-	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile, 'request': request})
+	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'request': request})
 
 @login_required
-def volumica(request):
-	return render_to_response('volumica.html')
+def volumica(request, filename):
+	f = path + "/static/" + str(filename)
 	
-@login_required
-def not_globali(request):
-	
-	user_profile = UserProfile.objects.get(user_id = request.user.id)
-	
-	user_profile.not_globali = not user_profile.not_globali
-	user_profile.save()
-	
-	return HttpResponseRedirect('/accounts/profilo_utente/')
-
-@login_required
-def not_locali(request, dispensa_id):
-	
-	user_profile = UserProfile.objects.get(user_id = request.user.id)
-	d = Dispensa.objects.get(id=dispensa_id)
-	
-	user_profile.notifiche.remove(d)
-	
-	return HttpResponseRedirect('/accounts/profilo_utente/')
-	
-	
+	if filename is None:
+		return render_to_response('volumica.html', {'request': request, 'filename':filename})
+	else:
+		wrapper = FileWrapper(file(f))
+		response = HttpResponse(wrapper)
+		return response
 	
 	

@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, Insegnamento, Dispensa, Opinione, Commentarium
+from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium
 from forms import DispensaForm, CommentariumForm
 from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
 from django.core.servers.basehttp import FileWrapper
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 import subprocess
 import os.path
@@ -78,7 +77,10 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										documento=documento_html,
 										utente=request.user)
 			
-			messages.add_message(request, messages.SUCCESS, "Aggiunta riuscita")
+			user_profile = UserProfile.objects.get(user_id = request.user.id)
+			user_profile.notifiche.add(d)
+			user_profile.save()
+			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 			
 	else:
@@ -201,9 +203,16 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 		if form.is_valid():			
 			commento_html = form.cleaned_data['commento']
 			d = Dispensa.objects.get(id=dispensa_id)
-			s = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
-											
+			c = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
+								
+			user_profile = UserProfile.objects.get(user_id = request.user.id)
+			user_profile.notifiche.add(d)
+			user_profile.save()
 			
+			#for dest in d.destinatari.all():
+				#notificare in profile_user 
+				
+
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= CommentariumForm()
@@ -229,6 +238,7 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 
 
 
+	
 
 
 

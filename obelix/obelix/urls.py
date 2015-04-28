@@ -29,6 +29,8 @@ urlpatterns = patterns('',
 	url(r'^accounts/nuova_attivazione/(?P<user_id>\d+)/$', 'obelix.views.nuova_attivazione'),
 	url(r'^accounts/cambio_username/$', 'obelix.views.cambio_username'),
 	url(r'^accounts/profilo_utente/$', 'obelix.views.profilo_utente'),
+	url(r'^accounts/profilo_utente/notifiche_globali/$', 'obelix.views.not_globali'),
+	url(r'^accounts/profilo_utente/notifiche_locali/(?P<dispensa_id>\d+)/$', 'obelix.views.not_locali'),	
 	url(r'^volumica/$', 'obelix.views.volumica'),  
 	)
 
