@@ -5,8 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/default.css' %}"
 </head>
 
-<body style="height: 100%;">
-	<div id="page" style="height: 100%;">
+<body >
+	<div id="container" >
 		<div id="titolo">
 			<div align=center>
 				{% block titolo %}
@@ -28,21 +28,19 @@
 		</div>
 			
 		<div id="content">
+			
 		{% block content %}{% endblock %}
+		
 		</div>
 			
-		
 		<div id="sidebar-right">
 		{% block sidebar-right %}
 		{% endblock %}
 		</div>
 		
-	</div>
-	<br>
-	<div id="footer" >
-		<div align="center" >
-			{% block ringraziamenti %}
-			Sito realizzato da Diana Sighinolfi e Massimiliano Tortoli.
+		<div id="footer" align="center">
+			{% block footer %}
+				Sito realizzato da Diana Sighinolfi e Massimiliano Tortoli.
 			{% endblock %}
 		</div>
 	</div>
