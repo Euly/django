@@ -14,7 +14,7 @@ import hashlib, datetime, random
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
-from dispense.models import Dispensa
+from dispense.models import Dispensa, Notifica
 
 
 def home(request):
@@ -178,12 +178,21 @@ def profilo_utente(request):
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	
 	pubblicazioni = []
+	notifiche = []
+	
 	
 	for d in Dispensa.objects.all():
 		if d.utente == user_profile.user:
 			pubblicazioni.append(d)
 	
-	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile, 'request': request})
+	for d in Dispensa.objects.all(): # d e' una dispensa 
+		for n in d.notifica.destinatari.all() : # n e' un user_profile 
+			if n.user == user_profile.user: 
+				notifiche.append(d) #lista di dispense
+									#esci ciclo inferiore
+				
+	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
+							 'notifiche' : notifiche, 'request': request})
 
 @login_required
 def volumica(request):

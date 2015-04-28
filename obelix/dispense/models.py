@@ -38,26 +38,11 @@ class Insegnamento(models.Model):
 def get_upload_file_name(istance, filename):
 	return settings.UPLOAD_FILE_PATTERN % (str(time()).replace('.','_'),filename)
 
-class Dispensa(models.Model):
-	titolo = models.CharField(max_length=100)
-	documento = models.FileField(upload_to=get_upload_file_name)
-	descrizione = models.TextField()
-	data_pub = models.DateTimeField('Data pubblicazione')
-	mi_piace = models.PositiveIntegerField(default=0)
-	non_mi_piace = models.PositiveIntegerField(default=0)
-	insegnamento = models.ForeignKey(Insegnamento)
-	utente = models.ForeignKey(User) #di chi era la dispensa nella visualizzazione
-	
-	
-	def __unicode__(self):
-		return self.titolo
-
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField(default=datetime.date.today())
 	not_globali = models.BooleanField(default=True)
-	notifiche = models.ManyToManyField(Dispensa) 
 	
 	def __str__(self):
 		return self.user.username
@@ -65,7 +50,27 @@ class UserProfile(models.Model):
 	class Meta:
 		verbose_name_plural=u'User profiles'
 
+class Notifica (models.Model):
+	#ogni dispensa la collego agli user_profiles iscritti
+	destinatari = models.ManyToManyField(UserProfile) 
 
+class Dispensa(models.Model):
+	insegnamento = models.ForeignKey(Insegnamento)
+	#di chi era la dispensa nella visualizzazione
+	utente = models.ForeignKey(User) 
+	
+	titolo = models.CharField(max_length=100)
+	descrizione = models.TextField()
+	data_pub = models.DateTimeField('Data pubblicazione')
+	documento = models.FileField(upload_to=get_upload_file_name)
+	
+	mi_piace = models.PositiveIntegerField(default=0)
+	non_mi_piace = models.PositiveIntegerField(default=0)
+	notifica = models.OneToOneField(Notifica)
+		
+	def __unicode__(self):
+		return self.titolo
+		
 class Opinione(models.Model):
 	utente = models.ForeignKey(User)
 	dispensa = models.ForeignKey(Dispensa)

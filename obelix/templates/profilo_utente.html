@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
-{% block content %}      
 
+{% block content %}      
 <table width = "60%" cellpadding = "10" frame = "none" >
 	<div>
 	<tr>
@@ -52,18 +52,18 @@
 	{% endfor %}
 </table>
 
-
-<br><br>
 {% if user_profile.not_globali == True %}
-	<b>Nozie da leggere in:</b><br></br>
-		{% for n in user_profile.notifiche.all %}
-				{{n.insegnamento.titolo}}: <a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a>
-				                    
-				<a href="/accounts/profilo_utente/notifiche_locali/{{n.id}}">Disattiva notifiche per questa dispensa</a>
-				<br>
-		{% endfor %}
+	<br><b>Nozie da leggere in:</b><br>
+	{% for n in notifiche %}
+		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a><br>
+	
+	{% endfor%}
+	
 {% endif %}
+
 {% endblock %}
+
+
 
 {% block sidebar-right %}
 	<a href="/accounts/logout/">Log out</a>

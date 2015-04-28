@@ -2,39 +2,37 @@
 
 
 <!--
- Notifiche:
-	- Aggiungere campo aggioramenti user 														FATTO
-	- Aggiungere campo many to many in user_profile												FATTO
-	- Inizializzazione con upper della dispensa													FATTO
-	- Aggiornare con i commentanti																FATTO					
-	
-	
-	Note:
-	- Per aggiungere campi a manytomany models.field.add("models")								FATTO																			
-		
 	Implementazione:
-	- aggiorna user_profile																		FATTO		
-	- aggiungi dispensa e verifica manytomany													FATTO		
-	- aggiungi commento e verifica manytomany													FATTO	
-	- evitare che venga mandata l'email di aggiornamento a chi carica la dispensa
-	  al completamento dell'operazione															FATTO
-	- aggiunti stampa link notifiche sul profilo_utente.html									FATTO				
-	- aggiungi commento e verifica notifica														FATTO				
-	- verifica invio notifiche inserendo un nuovo commento										FATTO						
+	- crea Notifica																				FATTO		
+	- aggiungi dispensa e verifica onetoone con notifica										FATTO
+	- aggiungi dispensa e verifica manytomany con notifica	
+	- aggiungi commento e verifica manytomany con notifica										FATTO	
+	- evitare che venga mandata notifica a chi carica la dispensa sul momento					FATTO
+
+	- aggiunti stampa notifiche a profilo.utente																				
+	- verifica notifiche con due user diversi													FATTO						
 	- attiva/disattiva notifiche globali user													FATTO															
 	- attiva/disattiva notifiche locali user																	
 	
 	
 	Possibilita' di disiscriversi:
 	- Totale: Campo aggiornamenti presenti in User-Profile	(controllo)							FATTO								
-	- Parziale: Rimozione da many to many (?)													
+	- Parziale: Rimozione da many to many																											
 	
 																
 	-Se uno ricommenta di default si riattiva l'inserimento										FATTO								
-	
-	
 -->
 
+
+
+Accedi a tutte notifiche
+Seleziona solo quelle dove e' presente l'user e visualizzale
+Forse per questo mi era utile averle tutte? Nelle notifiche!!!!!
+
+Elimina notifica    -> rimuove la notifica dal profilo senza disisciversi (?)
+Disiscrivi notifica -> rimuove l'user dal many to many 
+
+<br><br>
 {% if user_profile.not_globali == True %}
 	<b>Nozie da leggere in:</b><br></br>
 		{% for n in user_profile.notifiche.all %}
@@ -45,8 +43,6 @@
 		{% endfor %}
 {% endif %}
 {% endblock %}
-
-
 
 
 

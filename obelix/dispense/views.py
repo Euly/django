@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium
+from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium, Notifica
 from forms import DispensaForm, CommentariumForm
 from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
@@ -70,16 +70,22 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 			descrizione_html = form.cleaned_data['descrizione']
 			documento_html = form.cleaned_data['documento']
 			
-			d = Dispensa.objects.create(titolo=titolo_html, 
+			n = Notifica.objects.create()
+			
+			d = Dispensa.objects.create(insegnamento = materia,
+										utente = request.user,
+										titolo=titolo_html, 
 										descrizione=descrizione_html, 
 										data_pub=timezone.now(),
-										insegnamento=materia,
 										documento=documento_html,
-										utente=request.user)
+										notifica=n)
 			
+			#il creatore della dispensa e' il primo ad essere inserito nei destinari
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
-			user_profile.notifiche.add(d)
-			user_profile.save()
+			
+			if user_profile.not_globali :
+				n.destinatari.add(user_profile)
+				n.save()
 			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 			
@@ -206,13 +212,12 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 			c = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
 								
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
-			user_profile.notifiche.add(d)
-			user_profile.save()
 			
-			#for dest in d.destinatari.all():
-				#notificare in profile_user 
-				
-
+			#ogni utente che commenta viene aggiunto alle notifiche
+			if user_profile.not_globali :
+				d.notifica.destinatari.add(user_profile)			
+				d.save()
+			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= CommentariumForm()
