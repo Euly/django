@@ -209,14 +209,19 @@ def not_globali(request):
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 
 @login_required
-def not_locali(request, dispensa_id):
+def not_locali(request, dispensa_id, flag):
 	
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	d = Dispensa.objects.get(id=dispensa_id)
 	
-	#rimuovere user da d.notifica.destinatari
-	d.notifica.destinatari.remove(user_profile)
-	1
+	
+	if flag == "dis":
+		#rimuovere user da d.notifica.destinatari
+		d.notifica.destinatari.remove(user_profile)
+	
+	if flag == "att":
+		d.notifica.destinatari.add(user_profile)
+		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 	
 	

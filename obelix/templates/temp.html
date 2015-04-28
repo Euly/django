@@ -13,11 +13,19 @@
 	- attiva/disattiva notifiche locali user													FATTO					
 	- unica notifica per ogni dispensa															FATTO			
 	- se uno ricommenta di default si riattiva l'inserimento									FATTO
-	- vuoi iscriverti a questa discussione?															
-	- Elimina notifica, rimuove la notifica dal profilo senza disisciversi,							
-	  verrebbe visualizzata nuovamente ad ogni aggiornamento di pagina,							?
+
+	- Aggiungere  Commenta o Clicca per Iscriverti agli aggiornamenti della dispensa			FATTO
 	- evitare che venga mandata notifica a chi carica la dispensa sul momento					?
-	- Aggiugnere  Commenta o Clicca per Iscriverti agli aggiornamenti della dispensa			?
+	
+	
+	#guardo lunghezza lista:
+		se = 1 e' il presente e' il dest. e' l'autore della dispensa non pubblicare.
+		caso -> 1 2 commenta, 2 si toglie -> 1 non vede aggiornamento, invece c'e' 
+		parametro che mi dica che la dispensa e' stata appena creata, true e poi subito false.
+		
+	#	
+	
+	 
 -->
 
 
