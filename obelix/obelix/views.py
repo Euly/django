@@ -174,30 +174,36 @@ def profilo_utente(request):
 	
 	#io voglio tutte le dispense corrispondenti a quell' utente
 	#da modificare modello dispense
+	args = {}
 	
-	user_profile = UserProfile.objects.get(user_id = request.user.id)
+	if request.user.id != 1 :
+		user_profile = UserProfile.objects.get(user_id = request.user.id)
 	
-	pubblicazioni = []
-	notifiche = []
+		pubblicazioni = []
+		notifiche = []
 	
-	#Publication.objects.filter(id=1)
+		#Publication.objects.filter(id=1)
 	
-	for d in Dispensa.objects.all():
-		if d.utente == user_profile.user:
-			pubblicazioni.append(d)
-	
-	for d in Dispensa.objects.all(): # d e' una dispensa 
-		for n in d.notifica.destinatari.all() : # n e' un user_profile 
-			if n.user == user_profile.user : 
-				notifiche.append(d) #lista di dispense
-				#break			#esci ciclo inferiore
-				
-	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
-							 'notifiche' : notifiche, 'request': request})
+		for d in Dispensa.objects.all():
+			if d.utente == user_profile.user:
+				pubblicazioni.append(d)
+		
+		for d in Dispensa.objects.all(): # d e' una dispensa 
+			for n in d.notifica.destinatari.all() : # n e' un user_profile 
+				if n.user == user_profile.user : 
+					notifiche.append(d) #lista di dispense
+					#break			#esci ciclo inferiore
+		
+		args['pubblicazioni'] = pubblicazioni
+		args['user_profile'] = user_profile
+		args['notifiche'] = notifiche
+		args['request'] = request
+		
+	return render_to_response('profilo_utente.html', args)
 
 @login_required
 def volumica(request):
-	return render_to_response('volumica.html')
+	return render_to_response('volumica.html',{'request': request})
 	
 @login_required
 def not_globali(request):

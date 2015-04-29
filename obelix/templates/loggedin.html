@@ -2,7 +2,7 @@
 
 {% block sidebar-right %}
 
-	<p>Utente: <b>{{full_name}}</b></p>
-	<a href="/accounts/logout/">Log out</a>
+	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
+	per uscire clicca <a href="/accounts/logout/">qui</a>.
 
 {% endblock %}

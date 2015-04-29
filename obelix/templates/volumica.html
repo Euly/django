@@ -16,21 +16,26 @@
 		<p>Tutto il materiale è a disposizione degli studenti del dipartimento
 		FIM previa <b>prenotazione</b> tramite il servizio messo a disposizione
 		dai rappresentanti degli studenti.</p>
-		<p>Si invita pertanto la gentile utenza a leggere attentamente:<b>
-		<li>regolamento</li>
-		<li>sanzioni</li>
-		</b><br><br>
-		redatto dai rappresentanti degli studenti</p>
-		<p>La lista dei documenti e dei libri già catalogati e presenti nell'armadio di Fisica
-		è reperibile direttamente sulle ante dell'armadio, in alternativa è
-		possibile scaricarla direttamente da
-		<a href="https://drive.google.com/folderview?id=0B0KZ0-JaYPSdflFBYVppRUMydy15bGx6TDAwOXVfazNFcGVvZzk0eE1ZNloyMzhKanBtUFk&usp=sharing">
-		qui</a>.</p>
-		
-		
+		<p>Si invita pertanto la gentile utenza a leggere attentamente il
+		<b>regolamento</b> e le eventuali <b>sanzioni</b> nei documenti
+		redatti dai rappresentanti degli studenti.</p>
+		<p>La lista dei documenti e dei libri già catalogati e presenti 
+		nell'armadio di Fisica è reperibile direttamente sulle ante 
+		dell'armadio, in alternativa è possibile scaricarla direttamente 
+		dalla cartella condivisa di Google Drive.</p>
+		<p><b>NB:</b> è possibile accedere al materiale <u>solo se</u> 
+		non avete effettuato l'accesso su Google con l'account 
+		studenti.unimore.it in quanto il dominio dell'università non 
+		permette la condivisione dei file al di fuori dello stesso.</p>
+	</div>
+	<div align="right">
+		<a href="https://drive.google.com/open?id=0B0KZ0-JaYPSdflFBYVppRUMydy15bGx6TDAwOXVfazNFcGVvZzk0eE1ZNloyMzhKanBtUFk&authuser=0">
+			Accedi al materiale
+		</a>
 	</div>
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/logout/">Log out</a>
+	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
+	per uscire clicca <a href="/accounts/logout/">qui</a>.
 {% endblock %}

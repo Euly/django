@@ -2,12 +2,27 @@
 
 {% block content %}
 	<h1>Benvenuto in Obelix 2.0</h1>
+	<div align="justify">
+		<p>Obelix è un servizio dedicato agli studenti del Dipartimento di 
+		Scienze Fisiche Informatiche e Matematiche Unimore.</p>
+		<p>Nasce nel 2010 come server degli studenti della facoltà di 
+		Fisica; in seguito, con la nascita del nuovo Dipartimento FIM, si
+		è deciso di ampliare il servizio a tutti gli studenti dello stesso.</p>
+		<p>La principale funzionalità del server è di permettere la fruizione
+		di materiale didattico fra gli studenti del Dipartimento 
+		FIM.</p>
+		<p>È inoltre possibile, ed altamente consigliato, arricchire tale
+		materiale aggiungendo le dispense nella pagina del singolo 
+		insegnamento.</p>
+	</div>
+	
 {% endblock %}
 
 {% block sidebar-right %}
 	
 	{% if request.user.is_authenticated %}
-		<a href="/accounts/logout/">Log out</a>
+		Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
+		per uscire clicca <a href="/accounts/logout/">qui</a>.
 		<br>
 	{% else %}
 		<a href="/accounts/register/">Registrati</a>

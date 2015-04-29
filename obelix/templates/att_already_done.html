@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/login/">Log in</a>
+	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
+	per uscire clicca <a href="/accounts/logout/">qui</a>.
 	<br>
 	<a href="/accounts/resetta_password/">Recupera dati</a>
 {% endblock %}

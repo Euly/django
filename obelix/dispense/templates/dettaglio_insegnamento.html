@@ -8,6 +8,7 @@
 	<li><a href="/cdl/all">Corsi di Laurea</a></li>
 	<li><a href="/accounts/profilo_utente">Profilo</a></li>
 	<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
+	<li><a href="/volumica/">Volumica</a></li>
 </ul>
 {% endblock %}
 
@@ -114,5 +115,6 @@
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/logout/">Log out</a>
+	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
+	per uscire clicca <a href="/accounts/logout/">qui</a>.
 {% endblock %}

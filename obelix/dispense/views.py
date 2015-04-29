@@ -18,7 +18,8 @@ Temp_Path = os.path.realpath('.')
 @login_required    
 def cdl(request):
 	return render_to_response('cdl.html',
-							  {'corsi': Corso.objects.all()})
+							  {'corsi': Corso.objects.all(),
+							   'request': request})
 
 @login_required
 def insegnamento(request, titolo_cdl):
@@ -30,7 +31,9 @@ def insegnamento(request, titolo_cdl):
 			insegnamenti.append(i.titolo)
 			
 	return render_to_response('insegnamenti.html',
-							  {'titolo': titolo_cdl, 'insegnamenti': insegnamenti})
+							  {'titolo': titolo_cdl, 
+							   'insegnamenti': insegnamenti,
+							   'request': request})
 
 @login_required						  
 def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
@@ -55,8 +58,11 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 			
 	
 	return render_to_response('dettaglio_insegnamento.html',
-							  {'titolo_ins': titolo_ins, 'titolo_cdl': titolo_cdl,
-							   'dispense': dispense, 'commenti': commenti, 'request': request})
+							 {'titolo_ins': titolo_ins, 
+							  'titolo_cdl': titolo_cdl,
+							  'dispense': dispense, 
+							  'commenti': commenti, 
+							  'request': request})
 
 @login_required						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
@@ -98,6 +104,7 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	args['form'] = form
 	args['titolo_cdl'] = titolo_cdl
 	args['titolo_ins'] = titolo_ins
+	args['request'] = request
 	
 	return render_to_response('aggiungi_dispensa.html', args)
 
@@ -112,10 +119,8 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	#se non cancello la notifica rimane nel database
 	d.notifica.delete()
 	d.delete()
-			
-	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
-		
 
+	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 
 @login_required
 def scarica(request, titolo_cdl, titolo_ins, titolo_file):
@@ -223,7 +228,7 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 				
 			if d.notifica.controllo == True :
 				user_profile = UserProfile.objects.get(user_id = d.utente.id)
-				if user_profile.not_globali
+				if user_profile.not_globali:
 					d.notifica.controllo = False
 					d.notifica.destinatari.add(user_profile)
 					d.save()
@@ -236,6 +241,7 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['titolo_cdl'] = titolo_cdl
 	args['titolo_ins'] = titolo_ins
 	args['dispensa_id'] = dispensa_id
+	args['request'] = request
 	
 	return render_to_response('commento.html', args, context_instance=RequestContext(request))
 

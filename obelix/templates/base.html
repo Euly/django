@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/azzurro.css' %}"
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/default.css' %}"
 </head>
 
 <body >
@@ -39,9 +39,25 @@
 		</div>
 		
 		<div id="footer" align="center">
-			{% block footer %}
-				Sito realizzato da Diana Sighinolfi e Massimiliano Tortoli.
-			{% endblock %}
+			<table style="width: 100%;">
+				<tr>
+					<td style="width: 33.333%;">
+					</td>
+					<td style="width: 33.333%;">
+						{% block footer %}
+							<div class="evidenzio">
+							Sito realizzato da Diana Sighinolfi e Massimiliano Tortoli.
+							</div>
+						{% endblock %}
+					</td>
+					
+					<td style="width: 33.333%; padding-right: 10px;" align="right">
+						<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/2.0/">
+							<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/2.0/88x31.png" height="70%"/>
+						</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>

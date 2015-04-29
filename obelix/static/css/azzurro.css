@@ -94,7 +94,7 @@ html>body #content {
 	left: 0 ;
 	z-index: 5 ;
 	height: 30px ;
-	line-height: 30px;
+	!line-height: 30px;
 	background-color: rgba(94,134,193,0.5) ;
 	text-align: center ;
 	font-size: 12px;

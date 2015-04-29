@@ -94,10 +94,13 @@ html>body #content {
 	left: 0 ;
 	z-index: 5 ;
 	height: 30px ;
-	line-height: 30px;
 	background-color: rgba(34,139,34,0.5) ;
 	text-align: center ;
 	font-size: 12px;
+}
+
+.evidenzio {
+	background-color: rgba(214,230,193,0.6) ;
 }
 
 * html #footer {
