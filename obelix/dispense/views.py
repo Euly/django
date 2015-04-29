@@ -81,13 +81,13 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										notifica=n)
 			
 			#il creatore della dispensa e' il primo ad essere inserito nei destinari
-			user_profile = UserProfile.objects.get(user_id = request.user.id)
+			#user_profile = UserProfile.objects.get(user_id = request.user.id)
 			
-			if user_profile.not_globali :
-				n.destinatari.add(user_profile)
-				n.save()
+			#if user_profile.not_globali :
+				#n.destinatari.add(user_profile)
+				#n.save()
 			
-			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 			
 	else:
 		form = DispensaForm()
@@ -215,11 +215,18 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 			c = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
 								
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
-			
+									
 			#ogni utente che commenta viene aggiunto alle notifiche
 			if user_profile.not_globali :
 				d.notifica.destinatari.add(user_profile)			
 				d.save()
+				
+			if d.notifica.controllo == True :
+				user_profile = UserProfile.objects.get(user_id = d.utente.id)
+				if user_profile.not_globali
+					d.notifica.controllo = False
+					d.notifica.destinatari.add(user_profile)
+					d.save()
 			
 			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	else:

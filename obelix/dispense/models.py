@@ -26,7 +26,6 @@ class Studente(models.Model):
 	def __unicode__(self):
 		return self.nome + " " + self.cognome + " " + str(self.email)
 		
-
 		
 class Insegnamento(models.Model):
 	titolo = models.CharField(max_length=100)
@@ -52,7 +51,8 @@ class UserProfile(models.Model):
 
 class Notifica (models.Model):
 	#ogni dispensa la collego agli user_profiles iscritti
-	destinatari = models.ManyToManyField(UserProfile) 
+	destinatari = models.ManyToManyField(UserProfile)
+	controllo = models.IntegerField(default=True) ;
 
 class Dispensa(models.Model):
 	insegnamento = models.ForeignKey(Insegnamento)

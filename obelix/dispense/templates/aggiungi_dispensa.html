@@ -2,7 +2,7 @@
 
 {% block sidebar %}
 <ul>
-    <li><a href="/cdl/all">Cancella</a></li>
+    <li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}">Cancella</a></li>
 </ul>
 {% endblock %}
 
@@ -26,9 +26,8 @@
 		</tr>
 		{% endfor %}
 	</table>
-		
-<br>
-<input type="submit" name="submit" value="Aggiungi dispensa">
+	<br>
+	<input type="submit" name="submit" value="Aggiungi dispensa">
 </form>
 {% endblock %}
 

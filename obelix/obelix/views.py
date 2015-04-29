@@ -180,6 +180,7 @@ def profilo_utente(request):
 	pubblicazioni = []
 	notifiche = []
 	
+	#Publication.objects.filter(id=1)
 	
 	for d in Dispensa.objects.all():
 		if d.utente == user_profile.user:
@@ -187,9 +188,9 @@ def profilo_utente(request):
 	
 	for d in Dispensa.objects.all(): # d e' una dispensa 
 		for n in d.notifica.destinatari.all() : # n e' un user_profile 
-			if n.user == user_profile.user: 
+			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
-									#esci ciclo inferiore
+				#break			#esci ciclo inferiore
 				
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							 'notifiche' : notifiche, 'request': request})
