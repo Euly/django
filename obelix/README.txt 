@@ -2,4 +2,5 @@
 # mysql -u root -p < creo_database.sql
 # python manage.py syncdb
 # python manage.py shell < scripts/start.py
+# python manage.py shell < scripts/estendo_superuser.py
 # python manage.py runserver

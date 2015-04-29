@@ -191,17 +191,9 @@ def profilo_utente(request):
 				ultimo_comm.append(c)
 				break			
 	
-	#return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
-							 #'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
+	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
+							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
-	
-	args = {}
-	args['pubblicazioni'] = pubblicazioni
-	args['user_profile'] = user_profile
-	args['notifiche'] = notifiche
-	args['request'] = request
-		
-	return render_to_response('profilo_utente.html', args)
 
 @login_required
 def volumica(request):
