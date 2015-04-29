@@ -108,6 +108,9 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	d = Dispensa.objects.get(id=dispensa_id)
 	subprocess.check_output("rm "+Temp_Path+"/static/"+str(d.documento), shell=True)
+	
+	#se non cancello la notifica rimane nel database
+	d.notifica.delete()
 	d.delete()
 			
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))

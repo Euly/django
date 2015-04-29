@@ -221,6 +221,7 @@ def not_locali(request, dispensa_id, flag):
 	
 	if flag == "att":
 		d.notifica.destinatari.add(user_profile)
+		d.save()
 		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 	
