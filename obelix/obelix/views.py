@@ -4,8 +4,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm
 from django.db.models.query import RawQuerySet
-from dispense.models import Studente
-from dispense.models import UserProfile	
+from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium	
 from django.template import RequestContext
 from django.utils import timezone
 from forms import *
@@ -14,7 +13,6 @@ import hashlib, datetime, random
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
-from dispense.models import Dispensa, Notifica
 
 
 def home(request):
@@ -174,30 +172,34 @@ def profilo_utente(request):
 	
 	#io voglio tutte le dispense corrispondenti a quell' utente
 	#da modificare modello dispense
+	
+	user_profile = UserProfile.objects.get(user_id = request.user.id)
+	
+	pubblicazioni = []  #dispense
+	notifiche = []		#dispense
+	ultimo_comm = []			#user
+	
+	for d in Dispensa.objects.all():
+		if d.utente == user_profile.user:
+			pubblicazioni.append(d)
+	
+	for d in Dispensa.objects.all(): # d e' una dispensa 
+		for n in d.notifica.destinatari.all() : # n e' un user_profile 
+			if n.user == user_profile.user : 
+				notifiche.append(d) #lista di dispense
+				c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
+				ultimo_comm.append(c)
+				break			
+	
+	#return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
+							 #'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
+	
+	
 	args = {}
-	
-	if request.user.id != 1 :
-		user_profile = UserProfile.objects.get(user_id = request.user.id)
-	
-		pubblicazioni = []
-		notifiche = []
-	
-		#Publication.objects.filter(id=1)
-	
-		for d in Dispensa.objects.all():
-			if d.utente == user_profile.user:
-				pubblicazioni.append(d)
-		
-		for d in Dispensa.objects.all(): # d e' una dispensa 
-			for n in d.notifica.destinatari.all() : # n e' un user_profile 
-				if n.user == user_profile.user : 
-					notifiche.append(d) #lista di dispense
-					#break			#esci ciclo inferiore
-		
-		args['pubblicazioni'] = pubblicazioni
-		args['user_profile'] = user_profile
-		args['notifiche'] = notifiche
-		args['request'] = request
+	args['pubblicazioni'] = pubblicazioni
+	args['user_profile'] = user_profile
+	args['notifiche'] = notifiche
+	args['request'] = request
 		
 	return render_to_response('profilo_utente.html', args)
 
