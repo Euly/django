@@ -36,50 +36,29 @@
 	</div>
 </table>
 
-<br>
-
-	<table width = "80%" cellpadding = "10" frame = "none" >
-		<div>
-		<tr>
-			<td width="30%">
-				<b>Questo e' l'elenco delle tue pubblicazioni:</b>
-			</td>
-		</tr>
-		{% for p in pubblicazioni %}
-		<tr>
-			<td width="100%"><a href="/cdl/{{p.insegnamento.corso}}/{{p.insegnamento}}/">{{p.titolo}}</a></td>				
-		</tr>
-		{% endfor %}
-		</div>
-	</table>
 <br><br>
-
-<b>Notifiche in:</b><br>
-{% if user_profile.not_globali == True %}
-	<table width="60%">
-	{% for disp in notifiche %}
+<table width = "80%" cellpadding = "10" frame = "none" >
 	<tr>
-		<td width="50%"><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
-	</tr>
-	<tr>
-		<td width="100">{{disp.insegnamento}}</td> 
-	</tr>
-	<tr>
-		<td>Ultimo commento di:</td>
-		<td>
-			{% for ultimo in ultimo_comm %}
-				{% if disp.id == ultimo.dispensa.id %}
-					{{ultimo.utente.username}}
-				{% endif %}
-			{% endfor %}
+		<td width="100%">
+			<b>Questo è l'elenco delle tue pubblicazioni:</b>
 		</td>
 	</tr>
+	{% for p in pubblicazioni %}
 	<tr>
-		<td><form action="/accounts/profilo_utente/notifiche_locali/{{disp.id}}/dis"><button type="submit">Disiscrivimi</button></form></td>
+		<td width="100%">
+			<a href="/cdl/{{p.insegnamento.corso}}/{{p.insegnamento}}/">{{p.titolo}}</a></a>
+		</td>				
 	</tr>
-	<tr><td><br></td></tr>
-		{% endfor %}
-	</table>
+	{% endfor %}
+</table>
+
+{% if user_profile.not_globali == True %}
+	<br><b>Nozie da leggere in:</b><br>
+	{% for n in notifiche %}
+		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a> 
+		<form action="/accounts/profilo_utente/notifiche_locali/{{n.id}}/dis"><button type="submit">Disiscrivimi</button></form>
+		<br>
+	{% endfor%}
 {% endif %}
 
 {% endblock %}
@@ -87,9 +66,11 @@
 
 
 {% block sidebar-right %}
-	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
-	per uscire clicca <a href="/accounts/logout/">qui</a>.
-	<br>
-	<a href="/accounts/cambio_username/">Cambio Username</a>
-	<br>
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/cambio_username/">Cambio Username</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}

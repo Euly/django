@@ -2,13 +2,18 @@
 
 {% block content %}
 
-  <p>Ehi, <b>{{full_name}}</b> hai già attivato il tuo account!</p>
+  <p>Ehi, <b>{{request.user.username}}</b> hai già attivato il tuo account!</p>
 
 {% endblock %}
 
 {% block sidebar-right %}
-	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
-	per uscire clicca <a href="/accounts/logout/">qui</a>.
-	<br>
-	<a href="/accounts/resetta_password/">Recupera dati</a>
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+		{% else %}
+			<li><a href="/accounts/login/">Accedi</a></li>
+			<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}

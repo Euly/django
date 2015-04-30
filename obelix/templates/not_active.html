@@ -3,12 +3,18 @@
 {% block content %}
 
   <h2>Il tuo account non risulta attivo.</h2> 
-  <p>Controlla tua casella mail.</p>
+  <p>Controlla tua casella mail {{request.user.email}}.</p>
   <p>Clicca <a href="/accounts/nuova_attivazione/{{user_id}}">qui</a> per un nuovo link attivazione.</p>
 
 {% endblock %}
 
 {% block sidebar-right %}
-	<a href="/accounts/resetta_password/">Recupera dati</a>
-	<br>
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+		{% else %}
+			<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}

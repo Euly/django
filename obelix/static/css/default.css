@@ -113,9 +113,9 @@ html>body #content {
 	bottom: 30px ;
 	left: 0 ;
 	z-index: 4 ;
-	padding-left: 20px ;
-	padding-top: 20px ;
-	width: 180px ;
+	!padding-left: 20px ;
+	!padding-top: 20px ;
+	width: 200px ;
 	background-color: rgba(214,230,193,0.6) ;
 	text-align: left ;
 }
@@ -130,9 +130,9 @@ html>body #content {
 	bottom: 30px ;
 	right: 0 ;
 	z-index: 4 ;
-	padding-left: 20px ;
-	padding-top: 20px ;
-	width: 180px ;
+	!padding-left: 20px ;
+	!padding-top: 20px ;
+	width: 200px ;
 	background-color: rgba(214,230,193,0.6) ;
 	text-align: left ;
 }
@@ -140,12 +140,13 @@ html>body #content {
 * html #sidebar-right {
 	height: 99.999% ;
 }
-
+<!--
 ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
+-->
 
 p {
 	display: block;
@@ -153,4 +154,34 @@ p {
 	margin-bottom: 1em;
 	margin-left: 0;
 	margin-right: 0;
+}
+
+#navbar {
+	width: 198px; ;
+	text-align: center ;
+}
+#navbar ul {
+	margin: 0 ;
+	padding: 0 ;
+	list-style: none ;
+}
+#navbar li {
+	margin: 0 ;
+	padding: 0 ;
+	display: block ;
+	list-style: none ;
+	color: #fff ;
+	border: 1px outset rgba(250,255,224,0.85) ;
+	background-color: rgba(100,180,34,0.5) ;
+	font-family: Arial, Helvetica, sans-serif ;
+}
+#navbar li a {
+	color: #fff ;
+	width: 198px; ;
+	text-decoration: none ;
+	display: block ;
+}
+#navbar li a:hover {
+	color: #fff ;
+	background-color: rgba(0,100,0,0.8) ;
 }

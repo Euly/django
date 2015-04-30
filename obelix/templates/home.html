@@ -18,19 +18,3 @@
 	
 {% endblock %}
 
-{% block sidebar-right %}
-	
-	{% if request.user.is_authenticated %}
-		Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
-		per uscire clicca <a href="/accounts/logout/">qui</a>.
-		<br>
-	{% else %}
-		<a href="/accounts/register/">Registrati</a>
-		<br>
-		<a href="/accounts/login/">Log in</a>
-		<br>
-		<a href="/accounts/resetta_password/">Recupera dati</a>
-		
-	{% endif %}
-	
-{% endblock %}

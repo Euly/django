@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
@@ -38,23 +39,20 @@ def auth_view(request):
 			return HttpResponseRedirect('/accounts/loggedin')
 		else:
 			user_id = user.id
-			return render_to_response('not_active.html', {'user_id': user_id})
+			return render_to_response('not_active.html', {'user_id': user_id, 'request': request})
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
 		
-def loggedin(request):
-	return render_to_response('loggedin.html', {'full_name': request.user.username})
-
 def not_active(request):
-	return render_to_response('not_active.html')
+	return render_to_response('not_active.html', {'request': request})
 	
 def invalid_login(request):
-	return render_to_response('invalid_login.html')
+	return render_to_response('invalid_login.html', {'request': request})
 
 @login_required
 def logout(request):
 	auth.logout(request)
-	return render_to_response('home.html')
+	return render_to_response('home.html', {'request': request})
 	
 def register_user(request):
 	args = {}
@@ -101,29 +99,31 @@ def register_user(request):
 			return HttpResponseRedirect('/accounts/register_success')
 	else :
 		args['form'] = RegistrationForm()
-
+	
+	args['request'] = request
+	
 	return render_to_response('register.html', args, context_instance=RequestContext(request))
 
 def register_success(request):
-    return render_to_response('register_success.html')
+    return render_to_response('register_success.html', {'request': request})
     
 def register_failed(request):
-    return render_to_response('register_failed.html')
+    return render_to_response('register_failed.html', {'request': request})
     
     
 def register_confirm(request, activation_key):
 	user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
 		
 	if user_profile.key_expires < timezone.now():
-		return render_to_response('attivazione_scaduta.html')
+		return render_to_response('attivazione_scaduta.html', {'request': request})
 		
 	user = user_profile.user
 	if user.is_active :
-		return render_to_response('att_already_done.html')
+		return render_to_response('att_already_done.html', {'request': request})
 
 	user.is_active = True
 	user.save()
-	return HttpResponseRedirect('/accounts/login')
+	return HttpResponseRedirect('/accounts/login', {'request': request})
 
 
 
@@ -135,7 +135,7 @@ def nuova_attivazione(request, user_id):
 	#se l'utente e' loggato e attivo (is.active == True) ritorna True alt. false
 	
 	if request.user.is_authenticated():		
-		return render_to_response('att_already_done.html')
+		return render_to_response('att_already_done.html', {'request': request})
 	
 	else:
 		utente = User.objects.get(id = user_id)
@@ -144,7 +144,7 @@ def nuova_attivazione(request, user_id):
 		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)
 		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], fail_silently=False)
 
-		return render_to_response('nuova_attivazione.html') 
+		return render_to_response('nuova_attivazione.html', {'request': request}) 
 
 @login_required
 def cambio_username(request):
@@ -165,6 +165,8 @@ def cambio_username(request):
 	else :
 		args['form'] = ChangeUsernameForm()
 
+	args['request'] = request
+	
 	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
 		
 @login_required
@@ -194,7 +196,6 @@ def profilo_utente(request):
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
-
 @login_required
 def volumica(request):
 	return render_to_response('volumica.html',{'request': request})
@@ -225,7 +226,3 @@ def not_locali(request, dispensa_id, flag):
 		d.save()
 		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
-	
-	
-	
-	

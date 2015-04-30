@@ -3,14 +3,6 @@
 {% block content %}
 
   <h2>Congratulazioni, sei registrato!</h2>
-  <p>Controlla la tua mail universitaria per attivare il tuo nuovo account.</p>
+  <p>Controlla la tua mail universitaria {{request.user.email}} per attivare il tuo nuovo account.</p>
 
-{% endblock %}
-
-{% block sidebar-right %}
-	<a href="/accounts/login/">Log in</a>
-	<br>
-	<a href="/accounts/resetta_password/">Recupera dati</a>
-	<br>
-	
 {% endblock %}

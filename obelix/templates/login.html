@@ -23,9 +23,16 @@
   
 {% endblock %}
 
+
 {% block sidebar-right %}
-	<a href="/accounts/register/">Registrati</a>
-	<br>
-	<a href="/accounts/resetta_password/">Recupera dati</a>
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+		{% else %}
+			<li><a href="/accounts/register/">Registrati</a></li>
+			<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}
 

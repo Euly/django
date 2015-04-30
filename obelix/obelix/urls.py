@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/auth/$',  'obelix.views.auth_view'),
 	url(r'^accounts/not_active/$', 'obelix.views.not_active'),    
 	url(r'^accounts/logout/$', 'obelix.views.logout'),
-	url(r'^accounts/loggedin/$', 'obelix.views.loggedin'),
+	url(r'^accounts/loggedin/$',RedirectView.as_view(url='/home/')),
 	url(r'^accounts/invalid/$', 'obelix.views.invalid_login'),    
 	url(r'^accounts/register/$', 'obelix.views.register_user'),
 	url(r'^accounts/register_success/$', 'obelix.views.register_success'),
@@ -33,6 +33,3 @@ urlpatterns = patterns('',
 	url(r'^accounts/profilo_utente/notifiche_locali/(?P<dispensa_id>\d+)/(?P<flag>att|dis)/$', 'obelix.views.not_locali'),	
 	url(r'^volumica/$', 'obelix.views.volumica'),  
 	)
-
-
-            

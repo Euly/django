@@ -3,10 +3,19 @@
 
 {% block content %}
 
-  <p>Nuovo link di attivazione mandato, controlla la tua casella di posta.</p>
+  <p>Nuovo link di attivazione mandato, controlla la tua casella di posta 
+  {{request.user.email}}.</p>
   
 {% endblock %}
 
+
 {% block sidebar-right %}
-	<a href="/accounts/resetta_password/">Recupera dati</a>
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+		{% else %}
+			<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}

@@ -15,27 +15,44 @@
 			</div>
 		</div>
 		
+		
 		<div id="sidebar">
-		{% block sidebar %}
-			<ul>
-				<li><a href="/admin/">Admin</a></li>
-				<li><a href="/home/">Home</a></li>
-				<li><a href="/cdl/all/">Corsi di Laurea</a></li>
-				<li><a href="/accounts/profilo_utente/">Profilo</a></li>
-				<li><a href="/volumica/">Volumica</a></li>
-			</ul>
-		{% endblock %}
+			<div id="navbar">
+				{% block sidebar %}
+					<ul>
+						{% if request.user.is_superuser %}
+						<li><a href="/admin/">Admin</a></li>
+						{% endif %}
+						<li><a href="/home/">Home</a></li>
+						<li><a href="/cdl/all/">Corsi di Laurea</a></li>
+						<li><a href="/accounts/profilo_utente/">Profilo</a></li>
+						<li><a href="/volumica/">Volumica</a></li>
+					</ul>
+				{% endblock %}
+			</div>
 		</div>
 			
 		<div id="content">
-			
 		{% block content %}{% endblock %}
 		
 		</div>
 			
 		<div id="sidebar-right">
-		{% block sidebar-right %}
-		{% endblock %}
+			<div id="navbar">
+				{% block sidebar-right %}
+					<ul>
+					{% if request.user.is_authenticated %}
+						<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+						<li><a href="/accounts/logout/">Esci</a></li>
+					{% else %}
+						<li><a href="/accounts/register/">Registrati</a></li>
+						<li><a href="/accounts/login/">Accedi</a></li>
+						<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+					{% endif %}
+					</ul>
+				{% endblock %}
+				
+			</div>
 		</div>
 		
 		<div id="footer" align="center">
