@@ -7,14 +7,13 @@
 	<p>Ricordiamo alla gentile utenza che l'iscrizione è consentita solo agli studenti del dipartimento FIM.</p>
 	
 	<table width = "100%" cellpadding = "10" frame = "none" >
-	<caption> <b> Compila i seguenti campi per la registrazione </b></caption>
-	
+	<caption><p> <b> Compila i seguenti campi per la registrazione </b> </p></caption>	
 	{% for field in form %} 
 		<tr>
 			<div class="fieldWrapper">
-				<td width="25%">{{ field.label_tag }}</td>
-				<td width="25%">{{ field }} </td>
-				<td width="50%" >
+				<td width="33.333%">{{ field.label_tag }}</td>
+				<td width="33.333%">{{ field }} </td>
+				<td width="33.333%" >
 				<font color="red">
 				{% if field.errors %}
 					{{ field.errors.as_text }}
@@ -23,10 +22,19 @@
 			</div>
 		</tr>
 	{% endfor %}
-
+		<tr>
+			<td width="33.333%"></td>
+			<td width="33.333%"></td>
+			<td width="33.333%">
+				<div align="center">
+					<br>
+					<input type="submit" name="submit" class="btn" value="Registrami">
+				</div>
+			</td>
+			
+		</tr>
 	</table>
-	
-	<input type="submit" name="submit" class="btn btn-primary" value="Registrami">
+
 </form>
 {% endblock %}
 

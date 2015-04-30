@@ -156,7 +156,7 @@ def cambio_username(request):
 		args['form'] = form
 		if form.is_valid():
 			username_html = form.cleaned_data['new_username']
-			User.objects.get(username=username_html)
+			#User.objects.get(username=username_html)
 			utente = request.user
 			utente.username = username_html
 			utente.save()
