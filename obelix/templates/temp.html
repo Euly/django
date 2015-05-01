@@ -2,27 +2,51 @@
 
 
 <!--
-	Implementazione:
-	- crea Notifica																				FATTO		
-	- aggiungi dispensa e verifica onetoone con notifica										FATTO
-	- aggiungi dispensa e verifica manytomany con notifica_destinatari	
-	- aggiungi commento e verifica manytomany con notifica_destinatari							FATTO	
-	- aggiunti stampa notifiche a profilo.utente												FATTP								
-	- verifica notifiche con due user diversi													FATTO						
-	- attiva/disattiva notifiche globali user													FATTO															
-	- attiva/disattiva notifiche locali user													FATTO					
-	- unica notifica per ogni dispensa															FATTO			
-	- se uno ricommenta di default si riattiva l'inserimento									FATTO
-
-	- Aggiungere  Commenta o Clicca per Iscriverti agli aggiornamenti della dispensa			FATTO
-	- Evitare che venga mandata notifica a chi carica la dispensa sul momento					FATTO
-	- EVitare che venga mandata notifica a chi commenta sul momento	
-			
-		   
-	Espediente True -> Funziona.
-	Ci vorrebbe un True per ogni Notifica (True creatore) / User_Profiles (Commentatore)
-
+	Profilo di obelix.
+	- Deve vedere tutto.
+	- Nella pagina principale vede le sue pubblicazioni.
+	In una pagina secondaria in una tabella opportunatamente gestita,
+	vede tutte le pubblicazioni.
+	
+	
+	Superpoteri di obelix:
+	Deve potere cancellare tutto, dispense e commenti.
+	Aggiungere if superuser in apparizione bottone cancella per d/c.
+	-------------------------------------------------------------------- 
 	 
+
+	Segnalazioni.
+	Segnalare una dispensa o un commento, con una descrizione.
+	Se segnalato, l'oggetto in questione non puo' essere cancellato da utenti normali.
+	
+	Campo rimovibile: su dispensa -> blocca cancellazione anche dei commenti
+	
+	
+	Descrizione: max 500 caratteri.
+	onetoone user
+	onetone dispensa
+	id dispensa/commento
+	
+	--------------------------------------------------------------------
+	
+	
+	Ban.
+	Obelix puo' bannare utenti, su segnalazione.
+	Obelix puo' bannare utente, di propria iniziativa.
+	Ban:
+		-> settare a false user.is_active
+	
+	Campo bannati: -> Default = False
+	Attivazione se e solo ban = false altrimenti messaggio.
+	
+	Menu:
+	Visualizza Pubblicazioni
+	Visualizza Notifiche
+	
+	Visualizza Pubblicazioni Totali
+	Visualizza Studenti Bannati
+	Visualliza Ban Studenti
+	 -------------------------------------------------------------------
 -->
 
 

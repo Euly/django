@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block sidebar %}
+	<li><a href="/admin/">Admin</a></li>
+	<li><a href="/home/">Home</a></li>
+	<li><a href="/volumica/">Volumica</a></li>
+	<li><a href="/cdl/all/">Corsi di Laurea</a></li>
+	<li><a href="/accounts/profilo_utente">Profilo</a></li>
+{% endblock %}
+{% block content %}
+	<h1>Volumica</h1>
+	<div align="justify">
+		<p>L'iniziativa che prende il nome di <b>Volumica</b> si occupa della
+		raccolta e catalogazione di libri, riviste o dispense di natura 
+		scientifica da parte dei rappresentanti degli studenti del dipartimento
+		di Scienze Fisiche Informatiche e Matematiche Unimore.</p>
+		<p>I libri si trovano suddivisi fra due armadi dislocati negli edifici
+		di Fisica e di Matematica; l'armadio di fisica è collocato nella stanza
+		dedicata agli studenti al primo piano, quello di matematica si trova
+		invece nel laboratorio base situato al piano terra.</p>
+		<p>Tutto il materiale è a disposizione degli studenti del dipartimento
+		FIM previa <b>prenotazione</b> tramite il servizio messo a disposizione
+		dai rappresentanti degli studenti.</p>
+		<p>Si invita pertanto la gentile utenza a leggere attentamente il <b>
+		<a href="/volumica/regolamento.pdf" download="regolamento.pdf">regolamento</a></b> 
+		redatto dai rappresentanti degli studenti e le eventuali <b>
+		<a href="/volumica/sanzioni.pdf" download="/static/sanzioni.pdf">sanzioni</a></b> applicate
+		a coloro che non rispettano il suddetto regolamento.</p>
+		<p>La lista dei libri già catalogati e presenti nell'armadio di Fisica
+		è reperibile direttamente sulle ante dell'armadio, in alternativa è
+		possibile scaricarla direttamente da <a href="/volumica/libri_fisica" download="/static/libri_fisica.pdf">
+		qui</a>.</p>
+		
+		<p>Filename is {{filename}}.</p>
+	</div>
+{% endblock %}
