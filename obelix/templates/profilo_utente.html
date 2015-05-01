@@ -4,6 +4,7 @@
 {% block content %}      
 <table  cellpadding = "10" frame = "none" >
 	<div>
+		{% if request.user.is_superuser != True %}
 		<tr>
 			<td width="33.333%"><b><label>Nome: </label></b></td>
 			<td width="33.333%">{{ request.user.first_name | capfirst}} </td>
@@ -14,6 +15,7 @@
 			<td width="33.333%">{{ request.user.last_name | capfirst}} </td>
 			<td width="33.333%"></td>
 		</tr>
+		{% endif %}
 		<tr>
 			<td width="33.333%"><b><label>Username: </label></b></td>
 			<td width="33.333%">{{ request.user.username }} </td>

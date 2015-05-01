@@ -34,7 +34,7 @@ class RegistrationForm(UserCreationForm):
 			raise forms.ValidationError('Numeri non consentiti come primo carattere.')
 				
 		elif len(username_html) < 3 :
-			raise forms.ValidationError('Username troppo corto.')
+			raise forms.ValidationError('Almeno 3 caratteri.')
 				
 		return username_html
 		 
