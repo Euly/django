@@ -27,7 +27,16 @@ class RegistrationForm(UserCreationForm):
 		#	return email
 		#raise forms.ValidationError("Email gia' utilizzata")
 		
-		
+	def clean_username(self):
+		username_html = self.cleaned_data['username']
+	
+		if username_html[0].isdigit():
+			raise forms.ValidationError('Numeri non consentiti come primo carattere.')
+				
+		elif len(username_html) < 3 :
+			raise forms.ValidationError('Username troppo corto.')
+				
+		return username_html
 		 
 	def save(self, commit=True):        
 		user = super(RegistrationForm, self).save(commit=False)

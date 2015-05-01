@@ -65,7 +65,7 @@ def register_user(request):
 			nome_html = form.cleaned_data['first_name']
 			cognome_html = form.cleaned_data['last_name']
 			email_html = form.cleaned_data['email']			
-			username_html = form.cleaned_data['username']	
+			username_html = form.cleaned_data['username']
 			
 			form.save()
 			
