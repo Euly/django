@@ -31,7 +31,6 @@ urlpatterns = patterns('',
 	url(r'^accounts/profilo_utente/$', 'obelix.views.profilo_utente'),
 	url(r'^accounts/profilo_utente/notifiche_globali/$', 'obelix.views.not_globali'),
 	url(r'^accounts/profilo_utente/notifiche_locali/(?P<dispensa_id>\d+)/(?P<flag>att|dis)/$', 'obelix.views.not_locali'),	
-	
 	url(r'^accounts/profilo_utente/superuser/dispense/$', 'obelix.views.dispense_globali'),		   
 	url(r'^accounts/profilo_utente/superuser/segnalazioni/$', 'obelix.views.profilo_utente'),
 	url(r'^accounts/profilo_utente/superuser/ban/$', 'obelix.views.profilo_utente'),
