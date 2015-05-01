@@ -165,6 +165,22 @@ td {
 	height: 30px ;
 }
 
+select {
+	-moz-appearance: none ;
+	color: #fff ;
+	font-family: SunSans-Regular, sans-serif  ;
+	font-size: 16px ;
+	background-color: rgba(100,180,34,0.5) ;
+	padding: 5px 10px 5px 10px ;
+	text-decoration: none ;
+}
+
+option {
+	color: black ;
+	background-color: rgba(250,255,224,0.85) ;
+	text-decoration: none ;
+}
+
 .btn {
 	color: #fff ;
 	-webkit-border-radius: 60 ;
@@ -184,7 +200,7 @@ td {
 }
 
 #navbar {
-	width: 198px; ;
+	width: 200px; ;
 	text-align: center ;
 }
 #navbar ul {
@@ -199,12 +215,14 @@ td {
 	list-style: none ;
 	color: #fff ;
 	border: 1px outset rgba(250,255,224,0.85) ;
+	border-left: 0 ;
+	border-right: 0 ;
 	background-color: rgba(100,180,34,0.5) ;
 	font-family: SunSans-Regular, sans-serif  ;
 }
 #navbar li a {
 	color: #fff ;
-	width: 198px; ;
+	width: 200px; ;
 	text-decoration: none ;
 	display: block ;
 }

@@ -2,42 +2,54 @@
 {% extends "base.html" %}
 
 {% block content %}      
-<table width = "60%" cellpadding = "10" frame = "none" >
+<table  cellpadding = "10" frame = "none" >
 	<div>
-	<tr>
-			<td width="20%">Nome: </td>
-			<td width="60%">{{ request.user.first_name }} </td>
-	</tr>
-	<tr>
-			<td width="20%">Cognome: </td>
-			<td width="60%">{{ request.user.last_name }} </td>
-	</tr>
-	<tr>
-			<td width="20%">Username: </td>
-			<td width="60%">{{ request.user.username }} </td>
-	</tr>
-			<td width="20%">Email: </td>
-			<td width="60%">{{ request.user.email }} </td>
-	<tr>
-			<td width="20%">Notifiche: </td>
-			<td width="60%">
+		<tr>
+			<td width="33.333%"><b><label>Nome: </label></b></td>
+			<td width="33.333%">{{ request.user.first_name | capfirst}} </td>
+			<td width="33.333%"></td>
+		</tr>
+		<tr>
+			<td width="33.333%"><b><label>Cognome: </label></b></td>
+			<td width="33.333%">{{ request.user.last_name | capfirst}} </td>
+			<td width="33.333%"></td>
+		</tr>
+		<tr>
+			<td width="33.333%"><b><label>Username: </label></b></td>
+			<td width="33.333%">{{ request.user.username }} </td>
+			<td width="33.333%"></td>
+		</tr>
+			<td width="33.333%"><b><label>Email: </label></b></td>
+			<td width="33.333%">{{ request.user.email }} </td>
+			<td width="33.333%"></td>
+		<tr>
+			<td width="33.333%"><b><label>Notifiche: </label></b></td>
+			<td width="33.333%">
 				{% if user_profile.not_globali == True %}
-							Attivate
-						{% else%}
-							Disattivate
-						{% endif%}
+					Attivate
+				{% else%}
+					Disattivate
+				{% endif%}
 			</td>
-			<td>
-				<form action="/accounts/profilo_utente/notifiche_globali">
-					<button type="submit" value="Submit">Attiva/Disattiva</button>
-				</form>
+			<td width="33.333%">
+				<div align="center">
+					<form action="/accounts/profilo_utente/notifiche_globali">
+						<button type="submit" value="Submit" class="btn">
+							{% if user_profile.not_globali == True %}
+								Disattiva
+							{% else%}
+								Attiva
+							{% endif%}
+						</button>
+					</form>
+				</div>
 			</td>
-	</tr>
+		</tr>
 	</div>
 </table>
 
 <br><br>
-<table width = "80%" cellpadding = "10" frame = "none" >
+<table cellpadding = "10" frame = "none" >
 	<tr>
 		<td width="100%">
 			<b>Questo è l'elenco delle tue pubblicazioni:</b>
@@ -53,7 +65,7 @@
 </table>
 
 {% if user_profile.not_globali == True %}
-	<br><b>Nozie da leggere in:</b><br>
+	<br><b>Notizie da leggere in:</b><br>
 	{% for n in notifiche %}
 		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a> 
 		<form action="/accounts/profilo_utente/notifiche_locali/{{n.id}}/dis"><button type="submit">Disiscrivimi</button></form>

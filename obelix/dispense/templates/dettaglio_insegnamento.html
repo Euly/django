@@ -2,32 +2,40 @@
 {% load static %}
 
 {% block sidebar %}
-<ul>
-	<li><a href="/admin/">Admin</a></li>
-	<li><a href="/home/">Home</a></li>
-	<li><a href="/cdl/all">Corsi di Laurea</a></li>
-	<li><a href="/accounts/profilo_utente">Profilo</a></li>
-	<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
-	<li><a href="/volumica/">Volumica</a></li>
-</ul>
+	<ul>
+		{% if request.user.is_superuser %}
+			<li><a href="/admin/">Admin</a></li>
+		{% endif %}
+		
+		<li><a href="/home/">Home</a></li>
+		<li><a href="/cdl/all/">Corsi di Laurea</a></li>
+		<li><a href="/accounts/profilo_utente/">Profilo</a></li>
+		<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
+		<li><a href="/volumica/">Volumica</a></li>
+	</ul>
 {% endblock %}
 
 {% block content %}
-	
-	<h1>{{titolo_ins}}</h1>
-	
-	{% if dispense %}
-		<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-			<option value="" >Seleziona ordine</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse">Recenti</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes">Gradimento</option>
-			<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/">Data aggiunta</option>
-		</select>
-	{% endif%}
+	<table>
+		<tr>
+			<td width="90%"><h1>{{titolo_ins}}</h1></td>
+			<td width="9.999%">
+				{% if dispense %}
+					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+						<option value="" class="opt">Seleziona ordine</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse" class="opt">Recenti</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes" class="opt">Gradimento</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/" class="opt">Data aggiunta</option>
+					</select>
+				{% endif%}
+			</td>
+		</tr>
+	</table>
+	<br>
 	
 	{% for d in dispense %}
 		<div>
-		<table width = "70%" cellpadding = "10" frame = "none" >
+		<table cellpadding = "10" frame = "none" >
 			<tr>
 				<td width="25%"><b>Nome file:</b></td>
 				<td width="25%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></td>
@@ -112,9 +120,4 @@
 	{% endfor %}
 
 <br><br>
-{% endblock %}
-
-{% block sidebar-right %}
-	Hai eseguito l'accesso come <strong>{{request.user.username}}</strong>,
-	per uscire clicca <a href="/accounts/logout/">qui</a>.
 {% endblock %}
