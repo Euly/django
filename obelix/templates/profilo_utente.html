@@ -70,7 +70,7 @@
 		{% if request.user.is_authenticated %}
 			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
 			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/cambio_username/">Cambio Username</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
 		{% endif %}
 	</ul>
 {% endblock %}

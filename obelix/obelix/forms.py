@@ -41,17 +41,17 @@ class RegistrationForm(UserCreationForm):
 class ChangeUsernameForm(forms.Form):
 	new_username = forms.CharField(required=True)
 	
-	def clean(self):
-		username_html = self.cleaned_data.get('new_username')
+	#def clean(self):
+		#username_html = self.cleaned_data.get('new_username')
 		
-		if not username_html:
-			raise forms.ValidationError("* Campo obbligatorio")
+		#if not username_html:
+			#raise forms.ValidationError("* Campo obbligatorio")
 
-		try:
-			User.objects.get(username=username_html)
-		except User.DoesNotExist:
-			return username_html
-		raise forms.ValidationError("* Username non disponibile")
+		#try:
+			#User.objects.get(username=username_html)
+		#except User.DoesNotExist:
+			#return username_html
+		#raise forms.ValidationError("* Username non disponibile")
 		
 		
 			

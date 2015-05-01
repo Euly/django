@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block content %}      
       
-<form action="/accounts/cambio_username/" method="post">{% csrf_token %}
+<form action="/accounts/profilo_utente/cambio_username/" method="post">{% csrf_token %}
 	
 	<br>
 	<table width = "60%" cellpadding = "10" frame = "none" >
@@ -23,7 +23,7 @@
 	</table>
 	
 	<br>
-	<input  type="submit" name="submit" value="Cambia username"> </td>
+	<input  type="submit" name="submit" value="Cambia"> </td>
 </form>
 
 {% endblock %}     
