@@ -14,6 +14,7 @@ import hashlib, datetime, random
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def home(request):
@@ -225,3 +226,13 @@ def not_locali(request, dispensa_id, flag):
 		d.save()
 		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
+
+
+@login_required
+@staff_member_required
+def dispense_globali(request):
+	
+	return render_to_response('dispense_globali.html', {'Dispense': Dispensa.objects.all(),
+							   'request': request})
+
+

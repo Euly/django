@@ -1,17 +1,15 @@
 
 
 
+
 <!--
 	Profilo di obelix.
 	- Deve vedere tutto.
 	- Nella pagina principale vede le sue pubblicazioni.
+	
 	In una pagina secondaria in una tabella opportunatamente gestita,
 	vede tutte le pubblicazioni.
 	
-	
-	Superpoteri di obelix:
-	Deve potere cancellare tutto, dispense e commenti.
-	Aggiungere if superuser in apparizione bottone cancella per d/c.
 	-------------------------------------------------------------------- 
 	 
 
@@ -19,6 +17,7 @@
 	Segnalare una dispensa o un commento, con una descrizione.
 	Se segnalato, l'oggetto in questione non puo' essere cancellato da utenti normali.
 	
+	Avviso segnalazioni ad obelix.
 	Campo rimovibile: su dispensa -> blocca cancellazione anche dei commenti
 	
 	
@@ -48,6 +47,44 @@
 	Visualliza Ban Studenti
 	 -------------------------------------------------------------------
 -->
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}      
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+			{%if request.user.is_superuser %}
+			<br><br>
+			<li><b>SuperUser</b></li>
+			<li><a href="/accounts/profilo_utente/superuser/dispense/"></a>Dispense Globali</li>
+			<li><a href="/accounts/profilo_utente/superuser/segnalazioni/">Segnalazioni</a></li>
+			<li><a href="/accounts/profilo_utente/superuser/ban/">Banna Studenti</a></li>
+			<li><a href="/accounts/profilo_utente/superuser/bannati/">Studenti Bannati</a></li>
+			{% endif %}
+		{% endif %}
+	</ul>
+{% endblock %}
+
+
 
 
 

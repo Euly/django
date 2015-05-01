@@ -257,8 +257,6 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 			
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 
-
-
 	
 
 

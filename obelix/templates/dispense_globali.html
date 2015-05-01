@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+
+{% block content %}      
+
+<table>
+	<tr>
+		<td width = "20%">Nome</td><td width = "20%">Insegnamento</td><td width = "20%">Corso</td><td width="20%">Autore"</td>
+		{% for disp in Dispense %}
+		<tr>	
+			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
+			<td>{{disp.insegnamento}}</td><td>{{disp.insegnamento.corso}}</td><td>{{disp.utente.email}}</td>
+		</tr>			
+		{% endfor %}
+</table>
+
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+			{%if request.user.is_superuser %}
+			<br><br>
+			<li><b>SuperUser</b></li>
+			<li><a href="/accounts/profilo_utente/superuser/dispense/">Dispense Globali</a></li>
+			<li><a href="/accounts/profilo_utente/superuser/segnalazioni/">Segnalazioni</a></li>
+			<li><a href="/accounts/profilo_utente/superuser/ban/">Banna Studenti</a></li>
+			<li><a href="/accounts/profilo_utente/superuser/bannati/">Studenti Bannati</a></li>
+			{% endif %}
+		{% endif %}
+	</ul>
+{% endblock %}
