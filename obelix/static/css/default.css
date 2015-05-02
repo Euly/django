@@ -157,7 +157,7 @@ p {
 }
 
 table {
-	width: 80% ;
+	width: 100% ;
 	border-collapse: collapse ;
 }
 
@@ -229,4 +229,21 @@ option {
 #navbar li a:hover {
 	color: #fff ;
 	background-color: rgba(0,100,0,0.8) ;
+}
+
+#navbar ul ul {
+	display: none ;
+}
+
+#navbar ul li + li:hover {
+	background-color: transparent ;
+}
+
+#navbar ul li:hover > ul li {
+	background-color: rgba(34,139,34,0.5) ;
+}
+
+#navbar ul li:hover > ul {
+	display: block ;
+	background-color: rgba(100,180,34,0) ;
 }

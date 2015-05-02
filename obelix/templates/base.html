@@ -19,14 +19,22 @@
 		<div id="sidebar">
 			<div id="navbar">
 				{% block sidebar %}
-					<ul>
-						{% if request.user.is_superuser %}
-						<li><a href="/admin/">Admin</a></li>
-						{% endif %}
+					<ul id="navbar">
 						<li><a href="/home/">Home</a></li>
 						<li><a href="/cdl/all/">Corsi di Laurea</a></li>
 						<li><a href="/accounts/profilo_utente/">Profilo</a></li>
 						<li><a href="/volumica/">Volumica</a></li>
+						{% if request.user.is_superuser %}
+							<li style="background-color: rgba(100,180,34,0.5);"><a>SuperUser</a>
+								<ul>
+									<li><a href="/admin/">Admin</a></li>
+									<li><a href="/accounts/profilo_utente/superuser/dispense/">Dispense Globali</a></li>
+									<li><a href="/accounts/profilo_utente/superuser/segnalazioni/">Segnalazioni</a></li>
+									<li><a href="/accounts/profilo_utente/superuser/ban/">Banna Studenti</a></li>
+									<li><a href="/accounts/profilo_utente/superuser/bannati/">Studenti Bannati</a></li>
+								</ul>
+							</li>
+						{% endif %}
 					</ul>
 				{% endblock %}
 			</div>
