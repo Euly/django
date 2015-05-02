@@ -1,38 +1,32 @@
 
-<!--	
-	-------------------------------------------------------------------- 
-	 
-	Segnalazioni.
-	Segnalare una dispensa o un commento, con una descrizione.
-	Se segnalato, l'oggetto in questione non puo' essere cancellato da utenti normali.
-	
-	Avviso segnalazioni ad obelix.
-	Campo rimovibile: su dispensa -> blocca cancellazione anche dei commenti
-	
-	
-	Descrizione: max 500 caratteri.
-	onetoone user
-	onetone dispensa
-	id dispensa/commento
-	
-	--------------------------------------------------------------------
-	
-	
-	Ban.
-	Obelix puo' bannare utenti, su segnalazione.
-	Obelix puo' bannare utente, di propria iniziativa.
-	Ban:
-		-> settare a false user.is_active
-	
-	Campo bannati: -> Default = False
-	Attivazione se e solo ban = false altrimenti messaggio.
-	
-	Menu:
-	Visualizza Pubblicazioni
-	Visualizza Notifiche
-	
-	Visualizza Pubblicazioni Totali
-	Visualizza Studenti Bannati
-	Visualliza Ban Studenti
-	 -------------------------------------------------------------------
--->			
+<!---------------------------------------------------------------------- 
+
+Segnalazione:
+Un utente puo' segnalare una dispensa o un commento.
+In entrambi i casi, il flag "Eliminabile" della dispensa viene settato a false.
+Se il flag della dispensa e' settato a false, la dispensa e i commenti presenti, non possono essere eliminati, fino
+a quando non viene ripristinato.
+
+Quando viene segnalata una dispensa o un commento e' richiesto l'inserimento di una descrizione causale.
+A livello di db il sistema registra:
+- la descrizione
+- foreignkey con dispensa ()
+- foreignkey con commento (campo opzionale -> onetoone)
+
+Al superuser viene mostrata una tabella con le segnalazioni:
+- descrizione -link alla pagina della dispensa(nomefile)   banna utente  cancella
+
+Con banna utente si accede all'id dell'utente e si setta a false il flag_is_active.
+Inoltre si aggiorna il campo ban dell'user_profile a True.
+
+-> Nel database e' presente una tabella con i bannati.
+   - userprofile(one to one)	-sbanna
+
+   Modificare la richiesta del link di attivazione:
+   Si controlla se l'email del richiedente e' presente nei bannati, se non lo e' invia nuovo codice di attivazione,
+   altrimenti redirezione su pagina: contattare i rappresentati ecc.
+
+Con cancella, viene cancellata la segnalazione, con l'utente che rimane bannato o sbannato a seconda della scelta dell'amministratore del sistema.
+
+
+-->

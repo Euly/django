@@ -40,7 +40,7 @@
 				<td width="25%"><b>Nome file:</b></td>
 				<td width="25%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></td>
 				<td width = "25">
-					{% if d.utente.id == request.user.id or request.user.is_superuser %}
+					{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
 						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
 							<button type="submit">Cancella</button>
 						</form>
@@ -101,8 +101,7 @@
 					<tr>
 						<td>{{c.data_pub}}</td>
 					</tr>		
-					
-					{% if c.utente.id == request.user.id or request.user.is_superuser %}
+					{% if c.eliminabile and c.utente.id == request.user.id or request.user.is_superuser %}
 						<tr>
 						<td>
 						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/rimuovi/{{c.id}}"><button type="submit">Rimuovi</button></form>

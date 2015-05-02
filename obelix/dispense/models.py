@@ -42,6 +42,7 @@ class UserProfile(models.Model):
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField(default=datetime.date.today())
 	not_globali = models.BooleanField(default=True)
+	ban = models.BooleanField(default=False)
 	
 	def __str__(self):
 		return self.user.username
@@ -52,7 +53,7 @@ class UserProfile(models.Model):
 class Notifica (models.Model):
 	#ogni dispensa la collego agli user_profiles iscritti
 	destinatari = models.ManyToManyField(UserProfile)
-	controllo = models.IntegerField(default=True) ;
+	controllo = models.IntegerField(default=False) ;
 
 class Dispensa(models.Model):
 	insegnamento = models.ForeignKey(Insegnamento)
@@ -63,10 +64,11 @@ class Dispensa(models.Model):
 	descrizione = models.TextField()
 	data_pub = models.DateTimeField('Data pubblicazione')
 	documento = models.FileField(upload_to=get_upload_file_name)
-	
 	mi_piace = models.PositiveIntegerField(default=0)
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	notifica = models.OneToOneField(Notifica)
+	
+	eliminabile = models.BooleanField(default=True)
 		
 	def __unicode__(self):
 		return self.titolo
