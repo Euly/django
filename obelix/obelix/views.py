@@ -242,12 +242,16 @@ def segnalazioni(request):
 	
 @login_required
 @staff_member_required
-def segn_azioni(request, segn_id, flag):
+def segn_azioni(request, flag, segn_id):
+	
+	s = Segnalazione.objects.get(id=segn_id)
+		
 	if flag == "ban" :
-		pass ;
+		user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+		user_profile.ban = True
+		user_profile.save()
 		
 	if flag == "annulla" :
-		s = Segnalazione.objects.get(id=segn_id)
 		s.delete()
 	
 	return HttpResponseRedirect('/accounts/profilo_utente/superuser/segnalazioni/')
