@@ -78,13 +78,14 @@
 				</td>
 			</tr>
 			<tr><td><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Aggiunti commento</a></td></tr>
-			<tr>
-				<td width="90%"><a href="/accounts/profilo_utente/notifiche_locali/{{d.id}}/att">Commenta o clicca qui per attivare notifiche dispensa</a></td></tr></td>
-			</tr>
+			{% if up.not_globali %}
+				<tr>				
+					<td width="90%"><a href="/accounts/profilo_utente/notifiche_locali/{{d.id}}/att">Commenta o clicca qui per attivare notifiche dispensa</a></td></tr></td>
+				</tr>
+			{% endif%}
 		</table>
 		</div>
-		
-
+	
 	<div class="nascosto1">
 	<a href="#" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none';}" >  Mostra/Nascondi commenti &#9660;&#9650;</a>
 	</div><div><div class="nascosto1" style="display: none;">

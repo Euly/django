@@ -179,7 +179,7 @@ def profilo_utente(request):
 	
 	pubblicazioni = []  #dispense
 	notifiche = []		#dispense
-	ultimo_comm = []			#user
+	ultimo_comm = []	#user
 	
 	for d in Dispensa.objects.all():
 		if d.utente == user_profile.user:
@@ -216,14 +216,15 @@ def not_locali(request, dispensa_id, flag):
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	d = Dispensa.objects.get(id=dispensa_id)
 	
-	
-	if flag == "dis":
-		#rimuovere user da d.notifica.destinatari
-		d.notifica.destinatari.remove(user_profile)
-	
-	if flag == "att":
+	if flag == "att" :
 		d.notifica.destinatari.add(user_profile)
-		d.save()
+		if d.notifica.controllo and user_profile.user == d.utente :
+			d.notifica.controllo = False
+			d.notifica.save()
+			
+	if flag == "dis":
+		d.notifica.destinatari.remove(user_profile)
+		
 		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 
@@ -234,5 +235,3 @@ def dispense_globali(request):
 	
 	return render_to_response('dispense_globali.html', {'Dispense': Dispensa.objects.all(),
 							   'request': request})
-
-

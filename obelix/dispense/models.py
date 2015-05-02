@@ -40,7 +40,8 @@ def get_upload_file_name(istance, filename):
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
-	key_expires = models.DateTimeField(default=datetime.date.today())
+	key_expires = models.DateTimeField()
+	#key_expires = models.DateTimeField(default=datetime.date.today())
 	not_globali = models.BooleanField(default=True)
 	ban = models.BooleanField(default=False)
 	
@@ -53,7 +54,7 @@ class UserProfile(models.Model):
 class Notifica (models.Model):
 	#ogni dispensa la collego agli user_profiles iscritti
 	destinatari = models.ManyToManyField(UserProfile)
-	controllo = models.IntegerField(default=False) ;
+	controllo = models.IntegerField(default=True) ;
 
 class Dispensa(models.Model):
 	insegnamento = models.ForeignKey(Insegnamento)
@@ -62,7 +63,7 @@ class Dispensa(models.Model):
 	
 	titolo = models.CharField(max_length=100)
 	descrizione = models.TextField()
-	data_pub = models.DateTimeField('Data pubblicazione')
+	data_pub = models.DateTimeField()
 	documento = models.FileField(upload_to=get_upload_file_name)
 	mi_piace = models.PositiveIntegerField(default=0)
 	non_mi_piace = models.PositiveIntegerField(default=0)
