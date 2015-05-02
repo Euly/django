@@ -172,9 +172,6 @@ def cambio_username(request):
 @login_required
 def profilo_utente(request):
 	
-	#io voglio tutte le dispense corrispondenti a quell' utente
-	#da modificare modello dispense
-	
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	
 	pubblicazioni = []  #dispense
@@ -192,7 +189,7 @@ def profilo_utente(request):
 				c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
 				ultimo_comm.append(c)
 				break			
-	
+		
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
@@ -224,7 +221,6 @@ def not_locali(request, dispensa_id, flag):
 			
 	if flag == "dis":
 		d.notifica.destinatari.remove(user_profile)
-		
 		
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 

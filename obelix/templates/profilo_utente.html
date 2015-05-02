@@ -66,18 +66,30 @@
 	{% endfor %}
 </table>
 
+
+<b>Notifiche in:</b><br>
 {% if user_profile.not_globali == True %}
-	<br><b>Notizie da leggere in:</b><br>
-	{% for n in notifiche %}
-		<a href="/cdl/{{n.insegnamento.corso}}/{{n.insegnamento}}/">{{n.titolo}}</a> 
-		<form action="/accounts/profilo_utente/notifiche_locali/{{n.id}}/dis"><button type="submit">Disiscrivimi</button></form>
-		<br>
-	{% endfor%}
+	<table>
+	{% for disp in notifiche %}
+	<tr>
+		<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
+		<td>{{disp.insegnamento}}</td> 
+		<td>Ultimo commento di:</td>
+		<td>
+			{% for ultimo in ultimo_comm %}
+				{% if disp.id == ultimo.dispensa.id %}
+					{{ultimo.utente.username}}
+				{% endif %}
+			{% endfor %}
+ 		</td>
+		<td><form action="/accounts/profilo_utente/notifiche_locali/{{disp.id}}/dis"><button type="submit">Disiscrivimi</button></form></td>
+	</tr>
+	<tr><td><br></td></tr>
+	{% endfor %}
+	</table>
 {% endif %}
-
+ 
 {% endblock %}
-
-
 
 {% block sidebar-right %}
 	<ul>

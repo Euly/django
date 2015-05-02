@@ -32,10 +32,40 @@ Con cancella, viene cancellata la segnalazione, con l'utente che rimane bannato 
 -->
 
 BUG DA RISOLVERE:
-list index out of range quando l'utente che carica la dispensa attiva le notifiche locali,
-senza che sia stato ancora inserito alcun commento.
-Soluzione banale: disabilitare scelta.
-Bug risolto: ?
+-> sistemata la view 1
+-> sistemata la view 2
+
+Rimane la vie3:
+attiva funziona correttamente appendendo l'user e settando a false il controllo del caricante,
+funziona anche con un utente diverso.
+Nessun problema nella gestione della visualizzazione delle dispense.
+
+Problema nella gestione delle notifiche:
+
+{% if user_profile.not_globali == True %}
+	<br><b>Notizie da leggere in:</b><br>
+	<table cellpadding = "10" frame = "none" >
+	{% for disp in notifiche %}
+		<tr>
+			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{n.titolo}}</a></td>
+			<td>Ultimo commento di:</td>
+			<td>
+				{% for ultimo in ultimo_comm %}
+					{% if ultimo.dispensa.id == disp.id %}
+						{{ultimo.utente.username}}
+					{% endif %}
+				{% endfor %}
+			</td>
+		</tr>
+		<tr>
+			<td><form action="/accounts/profilo_utente/notifiche_locali/{{n.id}}/dis"><button type="submit">Disiscrivimi</button></form></td>
+		</tr>
+	{% endfor%}
+	</table>
+{% endif %}
+
+
+
 
 
 
