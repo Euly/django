@@ -1,0 +1,36 @@
+ 
+ {% extends "base.html" %}
+
+{% block content %}      
+
+<table>
+	<tr>
+		<td width = "20%">Nome</td><td width = "20%">Motivazione</td><td width = "20%">
+		{% for segn in Segnalazioni %}
+		<tr>	
+			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{segn.dispensa.titolo}}</a></td>
+			<td>{{segn.motivazione}}</td>
+		</tr>
+		<tr>
+			<td>Provvedimento richiesto</td>
+		</tr>
+		<tr>
+			<td>Da: {{segn.accusatore.user.email}}</td>
+			<td>Verso: {{segn.dispensa.utente.email}}</td>
+		</tr>			
+		{% endfor %}
+</table>
+
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+		{% endif %}
+	</ul>
+{% endblock %}
+

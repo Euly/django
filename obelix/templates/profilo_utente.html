@@ -97,14 +97,6 @@
 			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
 			<li><a href="/accounts/logout/">Esci</a></li>
 			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-			{%if request.user.is_superuser %}
-			<br><br>
-			<li><b>SuperUser</b></li>
-			<li><a href="/accounts/profilo_utente/superuser/dispense/">Dispense Globali</a></li>
-			<li><a href="/accounts/profilo_utente/superuser/segnalazioni/">Segnalazioni</a></li>
-			<li><a href="/accounts/profilo_utente/superuser/ban/">Banna Studenti</a></li>
-			<li><a href="/accounts/profilo_utente/superuser/bannati/">Studenti Bannati</a></li>
-			{% endif %}
 		{% endif %}
 	</ul>
 {% endblock %}

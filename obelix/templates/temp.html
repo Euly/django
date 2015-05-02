@@ -4,20 +4,23 @@
 Segnalazione:
 Un utente puo' segnalare una dispensa o un commento.
 In entrambi i casi, il flag "Eliminabile" della dispensa viene settato a false.
-Se il flag della dispensa e' settato a false, la dispensa e i commenti presenti, non possono essere eliminati, fino
-a quando non viene ripristinato.
+Fino a quando non viene ripristinato.
 
 Quando viene segnalata una dispensa o un commento e' richiesto l'inserimento di una descrizione causale.
 A livello di db il sistema registra:
 - la descrizione
 - foreignkey con dispensa ()
-- foreignkey con commento (campo opzionale -> onetoone)
+- foreignkey con commento (campo opzionale)
 
 Al superuser viene mostrata una tabella con le segnalazioni:
 - descrizione -link alla pagina della dispensa(nomefile)   banna utente  cancella
 
 Con banna utente si accede all'id dell'utente e si setta a false il flag_is_active.
 Inoltre si aggiorna il campo ban dell'user_profile a True.
+Con cancella non si banna nessuno.
+
+In entrambi i casi, il campo eliminabile torna settato a True.
+
 
 -> Nel database e' presente una tabella con i bannati.
    - userprofile(one to one)	-sbanna
@@ -25,33 +28,10 @@ Inoltre si aggiorna il campo ban dell'user_profile a True.
    Modificare la richiesta del link di attivazione:
    Si controlla se l'email del richiedente e' presente nei bannati, se non lo e' invia nuovo codice di attivazione,
    altrimenti redirezione su pagina: contattare i rappresentati ecc.
-
-Con cancella, viene cancellata la segnalazione, con l'utente che rimane bannato o sbannato a seconda della scelta dell'amministratore del sistema.
-
-
+   
+   Prima versione: segnalare dispensa
+   Dopo: Segnalare commento
 -->
-
-BUG DA RISOLVERE:
--> sistemata la view 1
--> sistemata la view 2
-
-Rimane la vie3:
-attiva funziona correttamente appendendo l'user e settando a false il controllo del caricante,
-funziona anche con un utente diverso.
-Nessun problema nella gestione della visualizzazione delle dispense.
-
-Problema nella gestione delle notifiche:
-Se A attiva le notifiche su stesso,
-o se B attiva le notifiche su A
-senza che sulla dispensa sia stato pubblicato alcun commento, crasha.
-
-Se e' presente un commento e faccio disiscrivi,iscrivi nessun problema.
-Se cancello il commento e faccio iscrivi, crasha.
-
-Il problema e' il fallimento della query se non ho oggetti in tabella.
-Se cancello la query l'iscrizione va a buon fine.
-
-Soluzioni : no query se commenti vuota.
 
 
 
