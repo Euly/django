@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium, Notifica
-from forms import DispensaForm, CommentariumForm
+from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium, Notifica, Segnalazione
+from forms import DispensaForm, CommentariumForm, SegnalazioneForm
 from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -256,5 +256,39 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	
 
 
+@login_required
+def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
+	
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
+	
+	args = {}
+	args.update(csrf(request))
+	
+	if request.method == 'POST':
+		form = SegnalazioneForm(request.POST)
+		args['form'] = form
 
+		if form.is_valid():			
+			motivazione_html = form.cleaned_data['motivazione']
+			d = Dispensa.objects.get(id=dispensa_id)
+			d.eliminabile = False
+			
+			user_profile = UserProfile.objects.get(user_id = request.user.id)
+			
+			s = Segnalazione.objects.create(accusatore=user_profile,
+											dispensa=d, motivazione=motivazione_html)
+														
+			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+	else:
+		args['form']= SegnalazioneForm()
+		
+	args['titolo_cdl'] = titolo_cdl
+	args['titolo_ins'] = titolo_ins
+	args['dispensa_id'] = dispensa_id
+	#args['commento_id'] = commento_id
+	args['request'] = request
+	
+	return render_to_response('segnalazione.html', args, context_instance=RequestContext(request))
+	
 

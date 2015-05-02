@@ -37,19 +37,22 @@
 		<div>
 		<table cellpadding = "10" frame = "none" >
 			<tr>
-				<td width="25%"><b>Nome file:</b></td>
-				<td width="25%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></td>
-				<td width = "25">
+				<td width="20%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></td>
+				<td width="20%">
 					{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
-						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">
+						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}/">
 							<button type="submit">Cancella</button>
 						</form>
 					{% endif %}
 				</td>
+				<td width="20%">
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.id}}/segnalazione/">
+							<button type="submit">Segnala Dispensa</button>
+					</form>
+				</td>
 			</tr>
 			
 			<tr>
-				<td width="40%"><b>Descrizione: </b></td>
 				<td width="60%" align = "justify">{{d.descrizione}}</td>
 			</tr>
 				<td width="40%"><b>Data pubblicazione:</b></td>
@@ -61,7 +64,7 @@
 		
 			<tr>
 				<td>
-					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}">
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}/">
 						<b>+ {{d.mi_piace}} </b>
 						<button type="submit" style="background-color:transparent; border-color:transparent;">
 						<img src="{% static 'assets/images/like.png' %}" width=56% height=50% align="absmiddle">

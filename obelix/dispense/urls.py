@@ -11,4 +11,5 @@ urlpatterns = patterns ('',
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/(?P<flag>like|unlike)/(?P<dispensa_id>\d+)/$', 'dispense.views.like_dispensa'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/commento/(?P<dispensa_id>\d+)/$', 'dispense.views.aggiungi_commento'),
 	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/rimuovi/(?P<commento_id>\d+)/$', 'dispense.views.rimuovi_commento'),
+	url(r'^(?P<titolo_cdl>\w+-\w+)/(?P<titolo_ins>[\w+|\s*|\']*)/(?P<dispensa_id>\d+)/segnalazione/$', 'dispense.views.segnalazione')	
 )

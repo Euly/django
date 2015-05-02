@@ -62,7 +62,7 @@ class Dispensa(models.Model):
 	utente = models.ForeignKey(User) 
 	
 	titolo = models.CharField(max_length=100)
-	descrizione = models.TextField()
+	descrizione = models.TextField(max_length=500)
 	data_pub = models.DateTimeField()
 	documento = models.FileField(upload_to=get_upload_file_name)
 	mi_piace = models.PositiveIntegerField(default=0)
@@ -87,4 +87,11 @@ class Commentarium (models.Model):
 	commento = models.TextField()
 	data_pub = models.DateTimeField(auto_now_add=True)
 	
-
+class Segnalazione (models.Model):
+	accusatore = models.OneToOneField(UserProfile)
+	dispensa = models.ForeignKey(Dispensa)
+	#commento = models.ForeignKey(Commentarium, blank=True, null=True)
+	motivazione = models.TextField()
+	
+	
+	

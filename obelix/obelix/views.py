@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm
 from django.db.models.query import RawQuerySet
-from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium	
+from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione
 from django.template import RequestContext
 from django.utils import timezone
 from forms import *
@@ -186,7 +186,7 @@ def profilo_utente(request):
 		for n in d.notifica.destinatari.all() : # n e' un user_profile 
 			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
-				if Commentarium.objects.all() is None:
+				if Commentarium.objects.all() is not None:
 					c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
 					ultimo_comm.append(c)
 				break			
@@ -232,3 +232,44 @@ def dispense_globali(request):
 	
 	return render_to_response('dispense_globali.html', {'Dispense': Dispensa.objects.all(),
 							   'request': request})
+
+@login_required
+@staff_member_required
+def segnalazioni(request):
+
+	return render_to_response('segnalazioni.html', {'Segnalazioni': Segnalazione.objects.all(),
+							   'request': request})
+	
+@login_required
+@staff_member_required
+def segn_azioni(request, segn_id, flag):
+	if flag == "ban" :
+		pass ;
+		
+	if flag == "annulla" :
+		s = Segnalazione.objects.get(id=segn_id)
+		s.delete()
+	
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/segnalazioni/')
+	
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

@@ -1,0 +1,36 @@
+ 
+{% extends "base.html" %}
+{% block content %}      
+
+{% block sidebar %}
+<ul>
+    <li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}">Cancella</a></li>
+</ul>
+{% endblock %}
+
+<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{dispensa_id}}/segnalazione/" method="post">{% csrf_token %}
+	<br>
+		<p>Spiegaci il motivo della tua segnalazione.</p>
+		<table width = "80%" cellpadding = "10" frame = "none" >
+		{% for field in form %} 
+			<tr>
+			<div class="fieldWrapper">
+			<td width="80%">{{ field }}</td>
+			</tr>
+			<tr>
+				<td width="50%" >
+				<font color="red">
+				{% if field.errors %}
+					{{ field.errors.as_text }}
+				{% endif %}
+				</font></td>
+			</tr>
+			</div>
+		{% endfor %}
+		</table>
+		
+	<input type="submit" name="submit" value="Invia segnalazione">
+	<br>
+</form>
+{% endblock %}
+
