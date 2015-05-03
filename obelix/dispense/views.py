@@ -273,9 +273,10 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 			motivazione_html = form.cleaned_data['motivazione']
 			d = Dispensa.objects.get(id=dispensa_id)
 			d.eliminabile = False
+			d.save()
 			
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
-			
+
 			s = Segnalazione.objects.create(accusatore=user_profile,
 											dispensa=d, motivazione=motivazione_html)
 														

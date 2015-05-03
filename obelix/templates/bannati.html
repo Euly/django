@@ -5,12 +5,13 @@
 
 {% if Bannati %}
 <table>
-	{% for ban in bannati %}
+	{% for ban in Bannati %}
 	<tr>	
-		<td>{{ban.user.email}</td>
-		<td>{{ban.user.nome}}</td>
-		<td>{{ban.user.cognome}}</td>
-		<td><form action="/accounts/profilo_utente/superuser/segnalazioni/sban/{{segn.id}}/">
+		<td width = "20%">{{ban.user.email}}</td>
+		<td width = "20%"></td>{{ban.user.first_name}}</td>
+		<td width = "20%"></td>{{ban.user.last_name}}</td>
+		<td width = "20%">
+			<form action="/accounts/profilo_utente/superuser/sban/{{ban.id}}">
 			<button type="submit">sbanna</button>
 			</form>
 		</td>
