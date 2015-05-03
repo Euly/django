@@ -15,7 +15,6 @@ class CommentariumForm(forms.ModelForm):
 		model = Commentarium
 		fields = ('commento',)
 		
-        
 class SegnalazioneForm(forms.ModelForm):
 	
 	class Meta:

@@ -246,7 +246,7 @@ def segn_azioni(request, flag, segn_id):
 	
 	s = Segnalazione.objects.get(id=segn_id)
 		
-	if flag == "ban" :
+	if flag == "ban" and s.dispensa.utente.is_superuser == False :
 		user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
 		user_profile.ban = True
 		user_profile.save()
@@ -277,8 +277,11 @@ def sban(request, user_profile_id):
 				
 	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
 							   'request': request})		
-		
-	
+
+#@login_required
+#@staff_member_required
+#
+#def ban(request):
 	
 	
 	
