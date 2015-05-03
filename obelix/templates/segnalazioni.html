@@ -10,7 +10,7 @@
 		<td width = "40%">Motivazione</td>
 		{% for segn in Segnalazioni %}
 		<tr>	
-			<td><a href="/cdl/{{segn.insegnamento.corso}}/{{segn.insegnamento}}/">{{segn.dispensa.titolo}}</a></td>
+			<td><a href="/cdl/{{segn.dispensa.insegnamento.corso}}/{{segn.dispensa.insegnamento}}">{{segn.dispensa.titolo}}</a></td>
 			<td>{{segn.motivazione}}</td>
 			
 			<td width="15%"><form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{segn.id}}/">

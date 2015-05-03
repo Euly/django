@@ -252,6 +252,9 @@ def segn_azioni(request, flag, segn_id):
 		user_profile.save()
 		
 	if flag == "annulla" :
+		for seg in Segnalazione.objects.all():
+			if seg.dispensa == s.dispensa:
+				seg.delete()
 		pass
 	
 	s.dispensa.eliminabile = True
