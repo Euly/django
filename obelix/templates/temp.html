@@ -1,43 +1,22 @@
 
 <!---------------------------------------------------------------------- 
 
-Segnalazione:
-Un utente puo' segnalare una dispensa o un commento.
-In entrambi i casi, il flag "Eliminabile" della dispensa viene settato a false.
-Fino a quando non viene ripristinato.
+Visualizzare tabella bannati.
+Nuova tabella?
 
-Quando viene segnalata una dispensa o un commento e' richiesto l'inserimento di una descrizione causale.
-A livello di db il sistema registra:
-- la descrizione
-- foreignkey con dispensa ()
-- foreignkey con commento (campo opzionale)
+   Passo utenti filtrati con ban = True.
+	
 
-Al superuser viene mostrata una tabella con le segnalazioni:
-- descrizione -link alla pagina della dispensa(nomefile)   banna utente  cancella
-
-Con banna utente si accede all'id dell'utente e si setta a false il flag_is_active.
-Inoltre si aggiorna il campo ban dell'user_profile a True.
-Con cancella non si banna nessuno.
-
-In entrambi i casi, il campo eliminabile torna settato a True.
-
-
--> Nel database e' presente una tabella con i bannati.
-   - userprofile(one to one)	-sbanna
-
-   Modificare la richiesta del link di attivazione:
-   Si controlla se l'email del richiedente e' presente nei bannati, se non lo e' invia nuovo codice di attivazione,
-   altrimenti redirezione su pagina: contattare i rappresentati ecc.
+   Nuova versione:
+	inserire filtro ban nel login -> se e' bannato STOP ->LOGOUT
+   
    
    Prima versione: segnalare dispensa
    Dopo: Segnalare commento
 -->
 
 
-
-
-
-
+uno non puo'  segnalare se stesso.
 
 
 

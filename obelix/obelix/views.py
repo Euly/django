@@ -250,14 +250,20 @@ def segn_azioni(request, flag, segn_id):
 		user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
 		user_profile.ban = True
 		user_profile.save()
+		s.delete()
 		
 	if flag == "annulla" :
 		s.delete()
 	
+	s.dispensa.eliminabile = True
 	return HttpResponseRedirect('/accounts/profilo_utente/superuser/segnalazioni/')
 	
-		
-		
+@login_required
+@staff_member_required
+def bannati(request):
+			
+	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
+							   'request': request})		
 	
 	
 	

@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block content %}      
+
+{% if Bannati %}
+<table>
+	{% for ban in bannati %}
+	<tr>	
+		<td>{{ban.user.email}</td>
+		<td>{{ban.user.nome}}</td>
+		<td>{{ban.user.cognome}}</td>
+		<td><form action="/accounts/profilo_utente/superuser/segnalazioni/sban/{{segn.id}}/">
+			<button type="submit">sbanna</button>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+		{% endif %}
+	</ul>
+{% endblock %}
+

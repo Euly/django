@@ -88,7 +88,7 @@ class Commentarium (models.Model):
 	data_pub = models.DateTimeField(auto_now_add=True)
 	
 class Segnalazione (models.Model):
-	accusatore = models.OneToOneField(UserProfile)
+	accusatore = models.ForeignKey(UserProfile)
 	dispensa = models.ForeignKey(Dispensa)
 	#commento = models.ForeignKey(Commentarium, blank=True, null=True)
 	motivazione = models.TextField()
