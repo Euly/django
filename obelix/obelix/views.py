@@ -295,7 +295,7 @@ def sban(request, user_profile_id):
 @login_required
 @staff_member_required
 
-def database(request):
+def database(request, ordine):
 	
 	studente = []
 
@@ -305,7 +305,15 @@ def database(request):
 	for s in Studente.objects.all():
 		studente.append(s)
 	
-	bubble_sort_studente(studente)
+	indice = 0
+	
+	if ordine is not None:
+		if ordine == "nome":
+			indice = 1
+		elif ordine == "cognome":
+			indice = 2
+	
+	bubble_sort_studente(studente,indice)
 	
 	return render_to_response('database.html', {'Studente': studente, 'request': request})
 	

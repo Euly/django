@@ -1,5 +1,6 @@
 from dispense.models import UserProfile, Bannato
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from functools import wraps
 
 
@@ -11,14 +12,26 @@ def bubble_sort_dispense(dispense):
 				dispense[i] = dispense[i+1]
 				dispense[i+1] = temp
 
-def bubble_sort_studente(iscritti):
+def bubble_sort_studente(iscritti, ordine):
+	
 	for i in range(len(iscritti)-1,0,-1):
 		for i in range(i):
-			if iscritti[i].email < iscritti[i+1].email  :
-				temp = iscritti[i]
-				iscritti[i] = iscritti[i+1]
-				iscritti[i+1] = temp
-		
+			if ordine == 0:
+				if iscritti[i].email > iscritti[i+1].email  :
+					temp = iscritti[i]
+					iscritti[i] = iscritti[i+1]
+					iscritti[i+1] = temp
+			if ordine == 1:
+				if iscritti[i].nome > iscritti[i+1].nome  :
+					temp = iscritti[i]
+					iscritti[i] = iscritti[i+1]
+					iscritti[i+1] = temp
+			if ordine == 2:
+				if iscritti[i].cognome > iscritti[i+1].cognome  :
+					temp = iscritti[i]
+					iscritti[i] = iscritti[i+1]
+					iscritti[i+1] = temp
+			
 		
 def unbanned_only(function):
 	def wrap(request, *args, **kwargs):
