@@ -15,6 +15,9 @@ import subprocess
 import os.path
 Temp_Path = os.path.realpath('.')
 
+
+
+
 @login_required    
 def cdl(request):
 	return render_to_response('cdl.html',
@@ -287,7 +290,6 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['titolo_cdl'] = titolo_cdl
 	args['titolo_ins'] = titolo_ins
 	args['dispensa_id'] = dispensa_id
-	#args['commento_id'] = commento_id
 	args['request'] = request
 	
 	return render_to_response('segnalazione.html', args, context_instance=RequestContext(request))

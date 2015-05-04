@@ -1,22 +1,22 @@
-
+ 
+ 
 {% extends "base.html" %}
-
 {% block content %}      
-
-{% if Bannati %}
+      
 <table>
-	{% for ban in Bannati %}
-	<tr>	
-		<td width = "20%">{{ban.user.email}}</td>
-		<td width = "20%">
-			<form action="/accounts/profilo_utente/superuser/sban/{{ban.id}}">
-			<button type="submit">sbanna</button>
-			</form>
-		</td>
-	</tr>
-	{% endfor %}
+	<tr>
+		<td width="20%">Nome</td>
+		<td width = "20%">Cognome</td>
+		<td width = "20%">Email</td>
+		{% for stud in Studente %}
+		<tr>	
+			<td>{{stud.nome}}</td>
+			<td>{{stud.cognome}}</td>
+			<td>{{stud.email}}</td>
+		</tr>
+		{% endfor %}
 </table>
-{% endif %}
+
 
 {% endblock %}
 
@@ -29,4 +29,5 @@
 		{% endif %}
 	</ul>
 {% endblock %}
+
 

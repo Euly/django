@@ -41,7 +41,6 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	activation_key = models.CharField(max_length=40, blank=True)
 	key_expires = models.DateTimeField()
-	#key_expires = models.DateTimeField(default=datetime.date.today())
 	not_globali = models.BooleanField(default=True)
 	ban = models.BooleanField(default=False)
 	
@@ -90,7 +89,6 @@ class Commentarium (models.Model):
 class Segnalazione (models.Model):
 	accusatore = models.ForeignKey(UserProfile)
 	dispensa = models.ForeignKey(Dispensa)
-	#commento = models.ForeignKey(Commentarium, blank=True, null=True)
 	motivazione = models.TextField()
 	
 	

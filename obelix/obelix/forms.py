@@ -63,13 +63,22 @@ class ChangeUsernameForm(forms.Form):
 		#raise forms.ValidationError("* Username non disponibile")
 		
 		
-			
+class BanForm(UserCreationForm):			
+	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
+        
+	class Meta:
+		model = User
+		fields = ('email',)
         
         
-        
-        
-        
-        
+	def clean_email(self):
+		email = self.cleaned_data["email"]
+		return email
+		
+		if email.find("@studenti.unimore.it") == -1 :
+			raise forms.ValidationError("Utilizzare email universitaria")
+		else:
+			return email   
         
         
         

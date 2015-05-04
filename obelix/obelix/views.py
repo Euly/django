@@ -267,7 +267,16 @@ def segn_azioni(request, flag, segn_id):
 @staff_member_required
 def bannati(request):
 				
-	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
+	#bannati = []
+	
+	bannati = UserProfile.objects.all().filter(ban=True)
+	#for up in UserProfile.objects.all():
+	#	if (up.ban == True):
+	#		bannati.append(up)
+	
+	#bannati.sort()
+				
+	return render_to_response('bannati.html', {'Bannati': bannati,
 							   'request': request})		
 	
 @login_required
@@ -281,19 +290,41 @@ def sban(request, user_profile_id):
 	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
 							   'request': request})		
 
-#@login_required
-#@staff_member_required
-#
-#def ban(request):
+@login_required
+@staff_member_required
+
+def database(request):
+	
+	studente = []
+	studente = Studente.objects.all()
+	
+	return render_to_response('database.html', {'Studente': studente, 'request': request})
 	
 	
 	
+@login_required
+@staff_member_required
+
+def iscritti(request):
+	
+	iscritti = []
+	iscritti = UserProfile.objects.all()
+	
+	return render_to_response('iscritti.html', {'Iscritti': iscritti, 'request': request})
 	
 	
+@login_required
+@staff_member_required
+
+def ban (request, user_profile_id):
 	
+	user_profile = UserProfile.objects.get(id=user_profile_id)
+	user_profile.ban = True
+	user_profile.save()
 	
-	
-	
+	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
+							   'request': request})		
+
 	
 	
 	
