@@ -15,22 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from django.contrib.admin.views.decorators import staff_member_required
-from functools import wraps
-
-def unbanned_only(function):
-	def wrap(request, *args, **kwargs):
-
-		user_profile = UserProfile.objects.get(user_id = request.user.id)
-		if user_profile.ban == False:
-			return function(request, *args, **kwargs)
-		else:
-			#return HttpResponseRedirect('/cdl/all/')
-			return render_to_response('ban.html', {'request': request} )
-
-	#wrap.__doc__=function.__doc__
-	#wrap.__name__=function.__name__
-	return wrap
-
+from obelix.supportFunctions import unbanned_only
 
 
 def home(request):
@@ -144,7 +129,7 @@ def register_confirm(request, activation_key):
 	return HttpResponseRedirect('/accounts/login', {'request': request})
 
 
-
+@unbanned_only
 def nuova_attivazione(request, user_id):
 	
 	user_profile = UserProfile.objects.get(user_id = user_id)
@@ -164,6 +149,7 @@ def nuova_attivazione(request, user_id):
 
 		return render_to_response('nuova_attivazione.html', {'request': request}) 
 
+@unbanned_only
 @login_required
 def cambio_username(request):
 	args = {}
@@ -185,7 +171,8 @@ def cambio_username(request):
 	args['request'] = request
 	
 	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
-		
+	
+@unbanned_only		
 @login_required
 def profilo_utente(request):
 	
@@ -211,10 +198,12 @@ def profilo_utente(request):
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
-@login_required
 @unbanned_only
+@login_required
 def volumica(request):
 	return render_to_response('volumica.html',{'request': request})
+
+
 	
 @login_required
 def not_globali(request):
