@@ -186,7 +186,7 @@ def profilo_utente(request):
 		for n in d.notifica.destinatari.all() : # n e' un user_profile 
 			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
-				if Commentarium.objects.all() is not None:
+				if Commentarium.objects.all() is  None:
 					c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
 					ultimo_comm.append(c)
 				break			
