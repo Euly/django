@@ -15,6 +15,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from django.contrib.admin.views.decorators import staff_member_required
+from functools import wraps
+
+def unbanned_only(function):
+	def wrap(request, *args, **kwargs):
+
+		user_profile = UserProfile.objects.get(user_id = request.user.id)
+		if user_profile.ban == False:
+			return function(request, *args, **kwargs)
+		else:
+			#return HttpResponseRedirect('/cdl/all/')
+			return render_to_response('ban.html', {'request': request} )
+
+	#wrap.__doc__=function.__doc__
+	#wrap.__name__=function.__name__
+	return wrap
+
 
 
 def home(request):
@@ -196,6 +212,7 @@ def profilo_utente(request):
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
 @login_required
+@unbanned_only
 def volumica(request):
 	return render_to_response('volumica.html',{'request': request})
 	
