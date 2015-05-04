@@ -20,3 +20,4 @@ class SegnalazioneForm(forms.ModelForm):
 	class Meta:
 		model = Segnalazione
 		fields = ('motivazione',)
+

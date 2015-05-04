@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from dispense.models import Studente
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
@@ -61,29 +62,29 @@ class ChangeUsernameForm(forms.Form):
 		#except User.DoesNotExist:
 			#return username_html
 		#raise forms.ValidationError("* Username non disponibile")
-		
-		
-class BanForm(UserCreationForm):			
+        
+
+class StudenteForm(forms.ModelForm):
 	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
-        
+	
 	class Meta:
-		model = User
-		fields = ('email',)
-        
-        
+		model = Studente
+		fields = ('nome', 'cognome', 'email')
+    
 	def clean_email(self):
 		email = self.cleaned_data["email"]
-		return email
+		
 		
 		if email.find("@studenti.unimore.it") == -1 :
 			raise forms.ValidationError("Utilizzare email universitaria")
-		else:
-			return email   
-        
-        
-        
-        
-        
+		#else:
+		#	return email
+			 
+		try:
+			User._default_manager.get(email=email)
+		except User.DoesNotExist:
+			return email
+		raise forms.ValidationError("Email gia' utilizzata")
         
         
         

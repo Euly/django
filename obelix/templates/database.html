@@ -3,6 +3,10 @@
 {% extends "base.html" %}
 {% block content %}      
       
+<form action="/accounts/profilo_utente/superuser/database/inserisci/">
+	<button type="submit">Aggiungi studente</button>
+</form>
+      
 <table>
 	<tr>
 		<td width="20%">Nome</td>
@@ -16,6 +20,8 @@
 		</tr>
 		{% endfor %}
 </table>
+
+
 
 
 {% endblock %}

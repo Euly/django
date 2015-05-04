@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
-from forms import RegistrationForm
+from forms import RegistrationForm, StudenteForm
 from django.db.models.query import RawQuerySet
 from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione
 from django.template import RequestContext
@@ -315,7 +315,6 @@ def iscritti(request):
 	
 @login_required
 @staff_member_required
-
 def ban (request, user_profile_id):
 	
 	user_profile = UserProfile.objects.get(id=user_profile_id)
@@ -326,6 +325,32 @@ def ban (request, user_profile_id):
 							   'request': request})		
 
 	
+@login_required
+@staff_member_required
+def inserisci(request):
+	args = {}
+	args.update(csrf(request))
+	if request.method == 'POST':
+		form = StudenteForm(request.POST)
+		args['form'] = form
+		if form.is_valid() :
+			
+			nome_html = form.cleaned_data['nome']
+			cognome_html = form.cleaned_data['cognome']
+			email_html = form.cleaned_data['email']			
+			
+		
+			nuovo_studente = Studente.objects.create(nome=nome_html, cognome=cognome_html, email=email_html)
+			nuovo_studente.save()
+			#form.save()
+				
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/database/')
+	else :
+		args['form'] = StudenteForm()
+	
+	args['request'] = request
+	
+	return render_to_response('aggiungi_stud.html', args, context_instance=RequestContext(request))
 	
 	
 	
