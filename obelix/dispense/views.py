@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium, Notifica, Segnalazione
 from forms import DispensaForm, CommentariumForm, SegnalazioneForm
-from obelix.supportFunctions import unbanned_only
+from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse
@@ -58,7 +58,7 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 		if ordine == "cron_reverse":
 			dispense.reverse()
 		elif ordine == "likes":
-			bubble_sort(dispense)
+			bubble_sort_dispense(dispense)
 			
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	

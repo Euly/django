@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from django.contrib.admin.views.decorators import staff_member_required
-from obelix.supportFunctions import unbanned_only
+from obelix.supportFunctions import *
 
 
 def home(request):
@@ -286,8 +286,8 @@ def sban(request, user_profile_id):
 	#ordinare bannati		
 	
 	#tenere in memoria i ban passati?		
-	s = Bannato.objects.all().filter(user_profile = up)
-	s.delete()
+	#s = Bannato.objects.all().filter(user_profile = up)
+	#s.delete()
 	
 	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/')
 		
@@ -298,7 +298,14 @@ def sban(request, user_profile_id):
 def database(request):
 	
 	studente = []
-	studente = Studente.objects.all()
+
+	#   + veloce ma non supporta gli assegnamenti oggetto
+	#	studente = Studente.objects.all()
+	
+	for s in Studente.objects.all():
+		studente.append(s)
+	
+	bubble_sort_studente(studente)
 	
 	return render_to_response('database.html', {'Studente': studente, 'request': request})
 	
