@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from dispense.models import Studente
+from dispense.models import Studente, Bannato
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
@@ -85,6 +85,12 @@ class StudenteForm(forms.ModelForm):
 		except User.DoesNotExist:
 			return email
 		raise forms.ValidationError("Email gia' utilizzata")
+		
+class BanForm(forms.ModelForm):
+	
+	class Meta:
+		model = Bannato
+		fields = ('motivazione',)
         
         
         

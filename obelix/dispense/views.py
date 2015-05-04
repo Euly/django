@@ -15,14 +15,16 @@ import subprocess
 import os.path
 Temp_Path = os.path.realpath('.')
 
-@unbanned_only
+
 @login_required    
+@unbanned_only
 def cdl(request):
 	return render_to_response('cdl.html',
 							  {'corsi': Corso.objects.all(),
 							   'request': request})
-@unbanned_only
+
 @login_required
+@unbanned_only
 def insegnamento(request, titolo_cdl):
 	cdl = Corso.objects.get(titolo = titolo_cdl)
 	insegnamenti = []
@@ -35,8 +37,9 @@ def insegnamento(request, titolo_cdl):
 							  {'titolo': titolo_cdl, 
 							   'insegnamenti': insegnamenti,
 							   'request': request})
-@unbanned_only
+
 @login_required						  
+@unbanned_only
 def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -66,8 +69,9 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 							  'commenti': commenti, 
 							  'up' : user_profile,
 							  'request': request})
-@unbanned_only
-@login_required						  
+
+@login_required
+@unbanned_only						  
 def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -105,8 +109,9 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 	
 	return render_to_response('aggiungi_dispensa.html', args)
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -120,8 +125,9 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
@@ -146,8 +152,9 @@ def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 
 	return HttpResponseRedirect("/cdl/all")
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -160,8 +167,8 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
 			
 			# non posso mettere piu' di un like o unlike
-			#if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
-			#	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
+				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 			
 			# se ho cambiato idea tolgo l'opinione precendente
 			if flag == "like" and opinione.negativa == True:
@@ -201,8 +208,8 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 		
 	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
 
-@unbanned_only
 @login_required
+@unbanned_only
 def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -248,8 +255,9 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	return render_to_response('commento.html', args, context_instance=RequestContext(request))
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
@@ -263,8 +271,9 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
 	
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
@@ -298,5 +307,3 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['request'] = request
 	
 	return render_to_response('segnalazione.html', args, context_instance=RequestContext(request))
-	
-

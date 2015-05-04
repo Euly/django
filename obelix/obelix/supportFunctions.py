@@ -1,4 +1,4 @@
-from dispense.models import UserProfile
+from dispense.models import UserProfile, Bannato
 from django.shortcuts import render_to_response
 from functools import wraps
 
@@ -16,11 +16,16 @@ def unbanned_only(function):
 	def wrap(request, *args, **kwargs):
 
 		user_profile = UserProfile.objects.get(user_id = request.user.id)
+		
 		if user_profile.ban == False:
 			return function(request, *args, **kwargs)
 		else:
-			#return HttpResponseRedirect('/cdl/all/')
-			return render_to_response('ban.html', {'request': request} )
+			bannato = []
+			for ban in Bannato.objects.all():
+				if ban.user_profile == user_profile:
+					bannato.append(ban)
+					
+			return render_to_response('ban.html', {'Bannato': bannato, 'user_profile': user_profile, 'request': request})
 
 	#wrap.__doc__=function.__doc__
 	#wrap.__name__=function.__name__

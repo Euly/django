@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm, StudenteForm
 from django.db.models.query import RawQuerySet
-from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione
+from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione, Bannato
 from django.template import RequestContext
 from django.utils import timezone
 from forms import *
@@ -129,7 +129,7 @@ def register_confirm(request, activation_key):
 	return HttpResponseRedirect('/accounts/login', {'request': request})
 
 
-@unbanned_only
+
 def nuova_attivazione(request, user_id):
 	
 	user_profile = UserProfile.objects.get(user_id = user_id)
@@ -149,8 +149,9 @@ def nuova_attivazione(request, user_id):
 
 		return render_to_response('nuova_attivazione.html', {'request': request}) 
 
-@unbanned_only
+
 @login_required
+@unbanned_only
 def cambio_username(request):
 	args = {}
 	args.update(csrf(request))
@@ -171,9 +172,9 @@ def cambio_username(request):
 	args['request'] = request
 	
 	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
-	
-@unbanned_only		
+
 @login_required
+@unbanned_only
 def profilo_utente(request):
 	
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
@@ -198,8 +199,9 @@ def profilo_utente(request):
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
-@unbanned_only
+
 @login_required
+@unbanned_only
 def volumica(request):
 	return render_to_response('volumica.html',{'request': request})
 
@@ -249,21 +251,10 @@ def segnalazioni(request):
 	
 @login_required
 @staff_member_required
-def segn_azioni(request, flag, segn_id):
+def segn_annulla(request, segn_id):
 	
 	s = Segnalazione.objects.get(id=segn_id)
 		
-	if flag == "ban" and s.dispensa.utente.is_superuser == False :
-		user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
-		user_profile.ban = True
-		user_profile.save()
-		
-	if flag == "annulla" :
-		for seg in Segnalazione.objects.all():
-			if seg.dispensa == s.dispensa:
-				seg.delete()
-		pass
-	
 	s.dispensa.eliminabile = True
 	s.dispensa.save()
 	s.delete()
@@ -274,12 +265,10 @@ def segn_azioni(request, flag, segn_id):
 @staff_member_required
 def bannati(request):
 				
-	#bannati = []
+	bannati = Bannato.objects.all()
 	
-	bannati = UserProfile.objects.all().filter(ban=True)
-	#for up in UserProfile.objects.all():
-	#	if (up.ban == True):
-	#		bannati.append(up)
+	#for ban in Bannato.objects.all():
+	#	bannati.append(ban)
 	
 	#bannati.sort()
 				
@@ -293,9 +282,15 @@ def sban(request, user_profile_id):
 	up = UserProfile.objects.get(id=user_profile_id)
 	up.ban = False
 	up.save()
-				
-	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
-							   'request': request})		
+			
+	#ordinare bannati		
+	
+	#tenere in memoria i ban passati?		
+	s = Bannato.objects.all().filter(user_profile = up)
+	s.delete()
+	
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/')
+		
 
 @login_required
 @staff_member_required
@@ -322,14 +317,37 @@ def iscritti(request):
 	
 @login_required
 @staff_member_required
-def ban (request, user_profile_id):
+def segn_ban (request, segn_id):
+		
+	args = {}
+	args.update(csrf(request))
 	
-	user_profile = UserProfile.objects.get(id=user_profile_id)
-	user_profile.ban = True
-	user_profile.save()
+	if request.method == 'POST':
+		form = BanForm(request.POST)
+		args['form'] = form
+		if form.is_valid() :
 	
-	return render_to_response('bannati.html', {'Bannati': UserProfile.objects.all().filter(ban=True),
-							   'request': request})		
+			s = Segnalazione.objects.get(id=segn_id)
+			user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+	
+			user_profile.ban = True
+			user_profile.save()
+			s.delete()
+	
+	
+			motivazione_html = form.cleaned_data['motivazione']		
+			nuovo_bannato = Bannato.objects.create(user_profile = user_profile,
+												motivazione=motivazione_html)
+			nuovo_bannato.save()
+				
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/')
+	else :
+		args['form'] = BanForm()
+	
+	args['request'] = request
+	args['segn_id'] = segn_id
+	
+	return render_to_response('aggiungi_ban.html', args, context_instance=RequestContext(request))		
 
 	
 @login_required

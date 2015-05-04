@@ -1,6 +1,30 @@
- 
- <p>Sei stato bannato. Contatta gli amministratori di sistema per la risoluzione.<p>
+ {% extends "base.html" %}
 
-<!-- Sei stato bannato a causa del caricamento della dispensa [nome_dispensa]
-	 a causa del seguente motivo: [descrizione]
-	 -->
+{% block content %}      
+
+ 
+ 
+ Ciao {{user_profile.user.email}}, <br>siamo spiacenti di informarti che non puoi accedere al sito,
+    in quanto bannato per la seguente motivazione:<br>
+    <ul><li>
+    {% for ban in Bannato %}
+		{{ban.motivazione}}
+		</li>
+    {% endfor %}
+    </ul>
+    <br>
+    Contatta gli amministratori di sistema per risolvere il problema.
+    <br>Email di riferimento: obelix.fim@gmail.com
+ 
+	 
+{% endblock %}	 
+	 
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+		{% endif %}
+	</ul>
+{% endblock %}

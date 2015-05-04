@@ -7,9 +7,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
 
-# Create your models here.
-# Creo la classe Corso che contiene le informazioni relative al corso di
-# laurea
+
 
 class Corso(models.Model):
 	titolo = models.CharField(max_length=20)
@@ -61,7 +59,7 @@ class Dispensa(models.Model):
 	utente = models.ForeignKey(User) 
 	
 	titolo = models.CharField(max_length=100)
-	descrizione = models.TextField(max_length=500)
+	descrizione = models.TextField()
 	data_pub = models.DateTimeField()
 	documento = models.FileField(upload_to=get_upload_file_name)
 	mi_piace = models.PositiveIntegerField(default=0)
@@ -91,6 +89,11 @@ class Segnalazione (models.Model):
 	accusatore = models.ForeignKey(UserProfile)
 	dispensa = models.ForeignKey(Dispensa)
 	motivazione = models.TextField()
+	
+class Bannato (models.Model) :
+	user_profile = models.ForeignKey(UserProfile)
+	motivazione = models.TextField()
+	#cancella tupla da bannati
 	
 	
 	
