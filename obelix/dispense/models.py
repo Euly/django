@@ -68,6 +68,7 @@ class Dispensa(models.Model):
 	non_mi_piace = models.PositiveIntegerField(default=0)
 	notifica = models.OneToOneField(Notifica)
 	
+	num_com = models.IntegerField(default=0)
 	eliminabile = models.BooleanField(default=True)
 		
 	def __unicode__(self):

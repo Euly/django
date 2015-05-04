@@ -218,7 +218,9 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 			commento_html = form.cleaned_data['commento']
 			d = Dispensa.objects.get(id=dispensa_id)
 			c = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
-								
+			
+			d.num_com = d.num_com + 1	
+			d.save()				
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
 									
 			#ogni utente che commenta viene aggiunto alle notifiche
@@ -254,6 +256,8 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
 	c = Commentarium.objects.get(id=commento_id)
+	c.dispensa.num_com = c.dispensa.num_com - 1
+	c.dispensa.save()
 	c.delete()
 			
 	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
