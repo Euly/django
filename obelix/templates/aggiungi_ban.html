@@ -1,0 +1,43 @@
+ 
+ 
+{% extends "base.html" %}
+
+{% block content %}  
+
+
+<form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{segn_id}}/" method="post">{% csrf_token %}
+	<br>
+		<p>Spiegaci il motivo del ban.</p>
+		<table width = "80%" cellpadding = "10" frame = "none" >
+		{% for field in form %} 
+			<tr>
+			<div class="fieldWrapper">
+			<td width="80%">{{ field }}</td>
+			</tr>
+			<tr>
+				<td width="50%" >
+				<font color="red">
+				{% if field.errors %}
+					{{ field.errors.as_text }}
+				{% endif %}
+				</font></td>
+			</tr>
+			</div>
+		{% endfor %}
+		</table>
+	<input type="submit" name="submit" value="Inserisci Motivazione">
+	<br>
+</form>
+
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
+		{% endif %}
+	</ul>
+{% endblock %}
+

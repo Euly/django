@@ -3,20 +3,19 @@
 
 {% block content %}      
 
-{% if Bannati %}
+
 <table>
 	{% for ban in Bannati %}
 	<tr>	
-		<td width = "20%">{{ban.user.email}}</td>
-		<td width = "20%">
-			<form action="/accounts/profilo_utente/superuser/sban/{{ban.id}}">
-			<button type="submit">sbanna</button>
+		<td width = "30%">{{ban.user_profile.user.email}}</td>
+		<td width = "30%">
+			<form action="/accounts/profilo_utente/superuser/sban/{{ban.user_profile.id}}">
+			<input type="submit" name="submit" class="btn" value="Annulla Ban">
 			</form>
 		</td>
 	</tr>
 	{% endfor %}
 </table>
-{% endif %}
 
 {% endblock %}
 
