@@ -25,7 +25,7 @@
 		<td width = "20%">Nome</td><td width = "20%">Insegnamento</td><td width = "20%">Corso</td><td width="20%">Autore</td><td width="20%">Data</td>
 		{% for disp in Dispense %}
 		<tr>	
-			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
+			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/recenti/">{{disp.titolo}}</a></td>
 			<td>{{disp.insegnamento}}</td><td>{{disp.insegnamento.corso}}</td><td>{{disp.utente.email}}</td><td>{{disp.data_pub}}</td>
 		</tr>			
 		{% endfor %}
