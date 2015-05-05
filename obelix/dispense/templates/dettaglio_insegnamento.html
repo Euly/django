@@ -71,8 +71,12 @@
 								Non piace a {{d.non_mi_piace}} persone
 							{% endif %}
 						{% else %}
-							{% if commenti %}
-								{{commenti | length}} commenti
+							{% if d.num_com != 0 %}
+								{% if d.num_com != 1 %}
+									{{d.num_com}} commenti
+								{% else %}
+									{{d.num_com}} commento
+								{% endif %}
 							{% endif %}
 						{% endif %}
 					{% endif %}
@@ -86,15 +90,23 @@
 							Non piace a {{d.non_mi_piace}} persone
 						{% endif %}
 					{% else %}
-						{% if d.mi_piace and commenti or d.non_mi_piace and commenti %}
-							{{commenti | length}} commenti
+						{% if d.mi_piace and commenti or d.non_mi_piace and d.num_com != 0 %}
+							{% if d.num_com != 1 %}
+								{{d.num_com}} commenti
+							{% else %}
+								{{d.num_com}} commento
+							{% endif %}
 						{% endif%}
 					{% endif %}
 					</small>
 				</td>
 				<td width="33.333%" align="right"  class="cell" style="height: 10px;"><small>
-				{% if d.mi_piace and d.non_mi_piace and commenti %}
-					{{commenti | length}} commenti
+				{% if d.mi_piace and d.non_mi_piace and d.num_com != 0 %}
+					{% if d.num_com != 1 %}
+						{{d.num_com}} commenti
+					{% else %}
+						{{d.num_com}} commento
+					{% endif %}
 				{% endif %}
 				</small>
 				</td>
