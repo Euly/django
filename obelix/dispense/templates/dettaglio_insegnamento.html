@@ -8,10 +8,10 @@
 			<td width="9.999%">
 				{% if dispense %}
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-						<option value="">Seleziona ordine</option>
-						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse" class="opt">Recenti</option>
-						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes" class="opt">Gradimento</option>
-						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/" class="opt" selected>Data aggiunta</option>
+						<option  value="" selected>Seleziona ordine</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cronologico/" class="opt">Cronologico</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes/" class="opt">Gradimento</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/recenti/" class="opt" selected>Recenti</option>
 					</select>
 				{% endif%}
 			</td>

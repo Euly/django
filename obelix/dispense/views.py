@@ -54,11 +54,11 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 				if c.dispensa == d:
 					commenti.append(c)
 	
-	if ordine is not None:
-		if ordine == "cron_reverse":
-			dispense.reverse()
-		elif ordine == "likes":
-			bubble_sort_dispense(dispense)
+	
+	if ordine == "recenti":
+		dispense.reverse()
+	elif ordine == "likes":
+		bubble_sort_dispense(dispense)
 			
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	
@@ -69,6 +69,8 @@ def dettaglio_insegnamento(request, titolo_cdl, titolo_ins, ordine):
 							  'commenti': commenti, 
 							  'up' : user_profile,
 							  'request': request})
+
+
 
 @login_required
 @unbanned_only						  
@@ -94,7 +96,7 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										notifica=n)
 	
 			
-			return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
 			
 	else:
 		form = DispensaForm()
@@ -123,7 +125,7 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	d.notifica.delete()
 	d.delete()
 
-	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
 
 
 @login_required
