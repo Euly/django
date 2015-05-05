@@ -2,22 +2,23 @@
 {% extends "base.html" %}
 {% block content %}      
       
+      
 <form action="/accounts/profilo_utente/cambio_username/" method="post">{% csrf_token %}
 	
-	<br>
-	<table width = "60%" cellpadding = "10" frame = "none" >
-		
+	{% for field in form %} 
 		<tr>
-		<div class="fieldWrapper">
-			<td width="33.333%"><b><label>Nuovo username</label></b></td>	
-			<td width="33.333%"> {{ form.new_username }}</td>
-			<td width="33.333%"><font color="red">
-			{% for error in form.non_field_errors %}
-				{{error}}
-			{% endfor %}	
-			</font></td>	
-		</div>    
+			<div class="fieldWrapper">
+				<td width="33.333%">{{ field.label_tag }}</td>
+				<td width="33.333%">{{ field }} </td>
+				<td width="33.333%" >
+				<font color="red">
+				{% if field.errors %}
+					{{ field.errors.as_text }}
+				{% endif %}
+				</font></td>
+			</div>
 		</tr>
+	{% endfor %}
 		<tr>
 			<td width="33.333%"></td>
 			<td width="33.333%"></td>
@@ -32,4 +33,5 @@
 </form>
 
 {% endblock %}     
+
 

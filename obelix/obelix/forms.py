@@ -48,10 +48,10 @@ class RegistrationForm(UserCreationForm):
 
 
 class ChangeUsernameForm(forms.Form):
-	new_username = forms.CharField(required=True)
-	
+	username = forms.CharField(required=True)
+		
 	def clean_username(self):
-		username_html = self.cleaned_data.get('new_username')
+		username_html = self.cleaned_data.get('username')
 		
 		if not username_html:
 			raise forms.ValidationError("* Campo obbligatorio")
@@ -61,6 +61,7 @@ class ChangeUsernameForm(forms.Form):
 		except User.DoesNotExist:
 			return username_html
 		raise forms.ValidationError("* Username non disponibile")
+        
         
 
 class StudenteForm(forms.ModelForm):
@@ -76,8 +77,8 @@ class StudenteForm(forms.ModelForm):
 		
 		if email.find("@studenti.unimore.it") == -1 :
 			raise forms.ValidationError("Utilizzare email universitaria")
-		#else:
-		#	return email
+		else:
+			return email
 			 
 		try:
 			User._default_manager.get(email=email)
