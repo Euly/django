@@ -33,7 +33,7 @@
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 						<option value="">Menù</option>
 						{% if up.not_globali %}
-							<option value="/accounts/profilo_utente/notifiche_locali/{{titolo_cdl}}/{{titolo_ins}}/{{d.id}}/att">Attiva Notifiche</option>
+							<option value="/accounts/profilo_utente/notifiche_locali/{{titolo_cdl}}/{{titolo_ins}}/{{d.id}}/">Attiva Notifiche</option>
 						{% endif%}
 						{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
 							<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">Cancella</option>

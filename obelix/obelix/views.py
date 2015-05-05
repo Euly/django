@@ -219,7 +219,7 @@ def not_globali(request):
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 
 @login_required
-def not_locali(request, titolo_cdl, titolo_ins, dispensa_id, flag):
+def not_locali_att(request, titolo_cdl, titolo_ins, dispensa_id):
 	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
@@ -227,17 +227,23 @@ def not_locali(request, titolo_cdl, titolo_ins, dispensa_id, flag):
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	d = Dispensa.objects.get(id=dispensa_id)
 	
-	if flag == "att" :
-		d.notifica.destinatari.add(user_profile)
-		if d.notifica.controllo and user_profile.user == d.utente :
-			d.notifica.controllo = False
-			d.notifica.save()
-			
-	if flag == "dis":
-		d.notifica.destinatari.remove(user_profile)
+	d.notifica.destinatari.add(user_profile)
+	if d.notifica.controllo and user_profile.user == d.utente :
+		d.notifica.controllo = False
+		d.notifica.save()
 		
 	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
-	#return HttpResponseRedirect('/accounts/profilo_utente/')
+	
+
+def not_locali_dis(request,dispensa_id):
+
+	user_profile = UserProfile.objects.get(user_id = request.user.id)
+	d = Dispensa.objects.get(id=dispensa_id)
+	d.notifica.destinatari.remove(user_profile)
+	d.notifica.save()
+	
+	return HttpResponseRedirect('/accounts/profilo_utente/')
+
 
 
 @login_required
