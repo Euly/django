@@ -1,8 +1,6 @@
 
 <!---------------------------------------------------------------------- 
 	
-	Ordinare dispense globali per corso / autore.
-	
 	
 	
 	Commenta codice parallelo alla fase di test.	
@@ -23,34 +21,3 @@
 		Passare a user  -> fittizio?
 		utente non + presente.
 -->
-
-<form action="/accounts/profilo_utente/cambio_username/" method="post">{% csrf_token %}
-	
-	<br>
-	<table width = "60%" cellpadding = "10" frame = "none" >
-		
-		<tr>
-		<div class="fieldWrapper">
-			<td width="33.333%"><b><label>Nuovo username</label></b></td>	
-			<td width="33.333%"> {{ form.new_username }}</td>
-			<td width="33.333%"><font color="red">
-			{% for error in form.non_field_errors %}
-				{{error}}
-			{% endfor %}	
-			</font></td>	
-		</div>    
-		</tr>
-		<tr>
-			<td width="33.333%"></td>
-			<td width="33.333%"></td>
-			<td width="33.333%">
-				<div align="center">
-					<br>
-					<input  type="submit" name="submit" class="btn" value="Cambia username">
-				</div>
-			</td>
-		</tr>
-	</table>
-</form>
-
-{% endblock %}     

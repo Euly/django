@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import RegistrationForm, StudenteForm
 from django.db.models.query import RawQuerySet
-from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione, Bannato
+from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione, Bannato, Corso, Insegnamento
 from django.template import RequestContext
 from django.utils import timezone
 from forms import *
@@ -219,7 +219,10 @@ def not_globali(request):
 	return HttpResponseRedirect('/accounts/profilo_utente/')
 
 @login_required
-def not_locali(request, dispensa_id, flag):
+def not_locali(request, titolo_cdl, titolo_ins, dispensa_id, flag):
+	
+	corso_ins = Corso.objects.get(titolo=titolo_cdl)
+	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
 	user_profile = UserProfile.objects.get(user_id = request.user.id)
 	d = Dispensa.objects.get(id=dispensa_id)
@@ -233,7 +236,8 @@ def not_locali(request, dispensa_id, flag):
 	if flag == "dis":
 		d.notifica.destinatari.remove(user_profile)
 		
-	return HttpResponseRedirect('/accounts/profilo_utente/')
+	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+	#return HttpResponseRedirect('/accounts/profilo_utente/')
 
 
 @login_required
@@ -403,7 +407,6 @@ def inserisci(request):
 		
 			nuovo_studente = Studente.objects.create(nome=nome_html, cognome=cognome_html, email=email_html)
 			nuovo_studente.save()
-			#form.save()
 				
 			return HttpResponseRedirect('/accounts/profilo_utente/superuser/database/')
 	else :
