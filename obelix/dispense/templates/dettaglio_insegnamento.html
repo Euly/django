@@ -1,126 +1,189 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block sidebar %}
-	<ul>
-		{% if request.user.is_superuser %}
-			<li><a href="/admin/">Admin</a></li>
-		{% endif %}
-		
-		<li><a href="/home/">Home</a></li>
-		<li><a href="/cdl/all/">Corsi di Laurea</a></li>
-		<li><a href="/accounts/profilo_utente/">Profilo</a></li>
-		<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
-		<li><a href="/volumica/">Volumica</a></li>
-	</ul>
-{% endblock %}
-
 {% block content %}
-	<table>
+	<table name="header">
 		<tr>
 			<td width="90%"><h1>{{titolo_ins}}</h1></td>
 			<td width="9.999%">
 				{% if dispense %}
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-						<option value="" class="opt">Seleziona ordine</option>
+						<option value="">Seleziona ordine</option>
 						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cron_reverse" class="opt">Recenti</option>
 						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes" class="opt">Gradimento</option>
-						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/" class="opt" >Data aggiunta</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/" class="opt" selected>Data aggiunta</option>
 					</select>
 				{% endif%}
 			</td>
 		</tr>
 	</table>
 	<br>
-	
 	{% for d in dispense %}
-		<div>
-		<table cellpadding = "10" frame = "none" >
+	<div class="tbl">
+		<table class="tab_titolo" >
 			<tr>
-				<td width="20%"><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}">{{d.titolo}}</a></td>
-				<td width="20%">
-					{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
-						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}/">
-							<button type="submit">Cancella</button>
-						</form>
-					{% endif %}
-				</td>
-				<td width="20%">
-					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.id}}/segnalazione/">
-							<button type="submit">Segnala Dispensa</button>
-					</form>
-				</td>
-			</tr>
-			
-			<tr>
-				<td width="60%" align = "justify">{{d.descrizione}}</td>
-			</tr>
-				<td width="40%"><b>Data pubblicazione:</b></td>
-				<td width="60%">{{d.data_pub}}</td>
-			<tr>
-				<td width="40%"><b>Autore:</b></td>
-				<td width="60%">{{d.utente.email}}</td>
-			</tr>
-		
-			<tr>
-				<td>
-					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}/">
-						<b>+ {{d.mi_piace}} </b>
-						<button type="submit" style="background-color:transparent; border-color:transparent;">
-						<img src="{% static 'assets/images/like.png' %}" width=56% height=50% align="absmiddle">
-						</button>
-					</form>
-				</td>
-				<td>
-					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/unlike/{{d.id}}">
-						<b>− {{d.non_mi_piace}} </b>
-						<button type="submit" style="background-color:transparent; border-color:transparent;">
-						<img src="{% static 'assets/images/unlike.png' %}" width=50% height=45% align="absmiddle">
-						</button>
-					</form>
-				</td>
-			</tr>
-			<tr><td><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">Aggiunti commento</a></td></tr>
-			{% if up.not_globali %}
-				<tr>				
-					<td width="90%"><a href="/accounts/profilo_utente/notifiche_locali/{{d.id}}/att">Commenta o clicca qui per attivare notifiche dispensa</a></td></tr></td>
-				</tr>
-			{% endif%}
-		</table>
-		</div>
-	
-	<div class="nascosto1">
-	<a href="#" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none';}" >  Mostra/Nascondi commenti &#9660;&#9650;</a>
-	</div><div><div class="nascosto1" style="display: none;">
-
-	{% for c in commenti %}
-		<table>
-				{% if c.dispensa == d %}
-					<tr>
-						<td align = "justify">{{c.commento}} </td>
-					</tr>
-					<tr>
-						<td>Autore: {{c.utente.email}}</td>
-					</tr>
-					<tr>
-						<td>{{c.data_pub}}</td>
-					</tr>		
-					{% if c.eliminabile and c.utente.id == request.user.id or request.user.is_superuser %}
-						<tr>
-						<td>
-						<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/rimuovi/{{c.id}}"><button type="submit">Rimuovi</button></form>
-						</td>
-						</tr>
-					{%endif%}
+				<td width="66.666%" class="cell" style="vertical-align:middle;">
+					<div class="lbl" >
+					<a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}" >
+						{{d.titolo | capfirst}}
+					</a>
+					</div>
+					</td>
+				<td width="33.333%" align="right"  style="padding-right: 3px;">
+					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+						<option value="">Menù</option>
+						{% if up.not_globali %}
+							<option value="/accounts/profilo_utente/notifiche_locali/{{d.id}}/att">Notifiche</option>
+						{% endif%}
+						{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
+							<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">Cancella</option>
+						{% endif %}
+					</select>
 					
-				{% endif %}
-					</tr>
-					<tr><td></td></tr>
+				</td>
+			</tr>
 		</table>
-	{% endfor %}
-	</div></div>
+		<table class="tab_descrizione">
+			<tr>
+				<td width="99.999%" align = "justify" class="cell">{{d.descrizione | linebreaksbr }}</td>
+			</tr>
+		</table>
+		<table class="tab_autore">
+			<tr>
+				<td width="66.666%" class="cell" style="height: 10px;"><small>Pubblicata da <font color="#4099ff">{{d.utente.email}}</font> {{d.data_pub | timesince }} fa.</small></td>
+			</tr>
+		</table>	
+		<table id="mi_piace" >
+			<tr class="row" >
+				<td width="33.333%" align="left" class="cell" style="height: 10px;">
+					<small>
+					{% if d.mi_piace %}
+						{% if d.mi_piace == 1 %}
+							Piace a {{d.mi_piace}} persona
+						{% else %}
+							Piace a {{d.mi_piace}} persone
+						{% endif %}
+					{% else %}
+						{% if d.non_mi_piace %}
+							{% if d.non_mi_piace == 1 %}
+								Non piace a {{d.non_mi_piace}} persona
+							{% else %}
+								Non piace a {{d.non_mi_piace}} persone
+							{% endif %}
+						{% else %}
+							{% if commenti %}
+								{{commenti | length}} commenti
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					</small>
+				</td>	
+				<td width="33.333%" align="center" class="cell" style="height: 10px;"><small>
+					{% if d.mi_piace and d.non_mi_piace %}
+						{% if d.non_mi_piace == 1 %}
+							Non piace a {{d.non_mi_piace}} persona
+						{% else %}
+							Non piace a {{d.non_mi_piace}} persone
+						{% endif %}
+					{% else %}
+						{% if d.mi_piace and commenti or d.non_mi_piace and commenti %}
+							{{commenti | length}} commenti
+						{% endif%}
+					{% endif %}
+					</small>
+				</td>
+				<td width="33.333%" align="right"  class="cell" style="height: 10px;"><small>
+				{% if d.mi_piace and d.non_mi_piace and commenti %}
+					{{commenti | length}} commenti
+				{% endif %}
+				</small>
+				</td>
+			</tr>
+			<tr class="row">
+				<td width="33.333%" align="left" class="cell">
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/like/{{d.id}}">
+						<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/like.png' %}" height=30px align="absmiddle">
+						</button>
+					</form>
+				</td>
+				<td width="33.333%" align="center">
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/unlike/{{d.id}}">
+						<button type="submit" style="background-color:transparent; border-color:transparent;">
+						<img src="{% static 'assets/images/unlike.png' %}" height=30px align="absmiddle">
+						</button>
+					</form>
+				</td>
+				<td width="33.333%" align="right" class="cell">
+					<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{d.id}}">
+						<button class="btn" type="submit">Commenta</button>
+					</form>
+				</td>
+			</tr>
+			</table>
+		<table name="commento">
+			<tr class="row" style="border-bottom-width: 10px ;">
+				<td width="99.999%" class="cell" height="29px">
+					<a  onclick="if (this.parentNode.parentNode.parentNode.getElementsByTagName('tr')[1].getElementsByTagName('td')[0].style.display != '') { 
+							this.parentNode.parentNode.parentNode.getElementsByTagName('tr')[1].getElementsByTagName('td')[0].style.display = ''; 
+						} 
+						else { 
+							this.parentNode.parentNode.parentNode.getElementsByTagName('tr')[1].getElementsByTagName('td')[0].style.display = 'none';
+						}" class="btn">Mostra commenti &#9660;&#9650;</a>
+				</td>
+			</tr>
+			<tr >
+				<td width="99.999%" style="display: none;" >
+					{% for c in commenti %}
+						{% if c.dispensa == d %}
+							<table class="tab_commenti">
+								<tr>
+									<td width="32%" valign="top">
+										<table>
+											<tr><td class="cell"><b>{{c.utente.email}}:</b></td></tr>
+											<tr><td class="cell"><small>{{c.data_pub | timesince}} fa</small></td></tr>
+										</table>
+									</td>
+									<td width="65%" align="justify" valign="top">
+										<table><tr><td valign="top" style="padding: 10px 20px 10px 0;">{{c.commento | linebreaksbr}}</td></tr></table> 
+									</td>
+									<td width="2.998%" valign="top">
+										<table>
+											<tr>
+												<td valign="top" style="padding-right: 3px; padding-top: 3px;">
+													{% if c.eliminabile and c.utente.id == request.user.id or request.user.is_superuser %}
+														<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/rimuovi/{{c.id}}">
+															<button type="submit" class="btn" style="padding: 0 5px 0 5px;">x</button>
+														</form>
+													{%endif%}
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>		
+							</table>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+		</table>
+	</div>
 	
+	<br><br>
 	{% endfor %}
 
-<br><br>
+{% endblock %}
+
+{% block sidebar-right %}
+	<ul>
+		{% if request.user.is_authenticated %}
+			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
+			<li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/aggiungi">Aggiungi file</a></li>
+			<li><a href="/accounts/logout/">Esci</a></li>
+		{% else %}
+			<li><a href="/accounts/register/">Registrati</a></li>
+			<li><a href="/accounts/login/">Accedi</a></li>
+			<li><a href="/accounts/resetta_password/">Recupera dati</a></li>
+		{% endif %}	
+	</ul>
 {% endblock %}
