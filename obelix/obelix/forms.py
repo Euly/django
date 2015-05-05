@@ -16,17 +16,16 @@ class RegistrationForm(UserCreationForm):
 		email = self.cleaned_data["email"]
 		return email
 		
-		#if email.find("@studenti.unimore.it") == -1 :
-		#	raise forms.ValidationError("Utilizzare email universitaria")
-		#else:
-		#	return email
+		if email.find("@studenti.unimore.it") == -1 :
+			raise forms.ValidationError("Utilizzare email universitaria")
+		else:
+			return email
 		
-		#1 email <--> 1 account:	
-		#try:
-		#	User._default_manager.get(email=email)
-		#except User.DoesNotExist:
-		#	return email
-		#raise forms.ValidationError("Email gia' utilizzata")
+		try:
+			User._default_manager.get(email=email)
+		except User.DoesNotExist:
+			return email
+		raise forms.ValidationError("Email gia' utilizzata")
 		
 	def clean_username(self):
 		username_html = self.cleaned_data['username']
@@ -51,17 +50,17 @@ class RegistrationForm(UserCreationForm):
 class ChangeUsernameForm(forms.Form):
 	new_username = forms.CharField(required=True)
 	
-	#def clean(self):
-		#username_html = self.cleaned_data.get('new_username')
+	def clean_username(self):
+		username_html = self.cleaned_data.get('new_username')
 		
-		#if not username_html:
-			#raise forms.ValidationError("* Campo obbligatorio")
+		if not username_html:
+			raise forms.ValidationError("* Campo obbligatorio")
 
-		#try:
-			#User.objects.get(username=username_html)
-		#except User.DoesNotExist:
-			#return username_html
-		#raise forms.ValidationError("* Username non disponibile")
+		try:
+			User.objects.get(username=username_html)
+		except User.DoesNotExist:
+			return username_html
+		raise forms.ValidationError("* Username non disponibile")
         
 
 class StudenteForm(forms.ModelForm):

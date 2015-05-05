@@ -38,8 +38,8 @@
 						{% if d.eliminabile and d.utente.id == request.user.id or request.user.is_superuser %}
 							<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cancella/{{d.id}}">Cancella</option>
 						{% endif %}
-					</select>
-					
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.id}}/segnalazione/">Segnala</option>
+					</select>						
 				</td>
 			</tr>
 		</table>

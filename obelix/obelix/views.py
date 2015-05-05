@@ -308,13 +308,11 @@ def sban(request, user_profile_id):
 	up.ban = False
 	up.save()
 			
-	#ordinare bannati		
 	
-	#tenere in memoria i ban passati?		
-	#s = Bannato.objects.all().filter(user_profile = up)
-	#s.delete()
+	s = Bannato.objects.all().filter(user_profile = up)
+	s.delete()
 	
-	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/')
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
 		
 
 @login_required
@@ -378,7 +376,7 @@ def segn_ban (request, segn_id):
 												motivazione=motivazione_html)
 			nuovo_bannato.save()
 				
-			return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/')
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
 	else :
 		args['form'] = BanForm()
 	
