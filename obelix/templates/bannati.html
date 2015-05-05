@@ -5,14 +5,23 @@
 
 
 <table>
-	{% for ban in Bannati %}
-	<tr>	
-		<td width = "30%">{{ban.user_profile.user.email}}</td>
-		<td width = "30%">
-			<form action="/accounts/profilo_utente/superuser/sban/{{ban.user_profile.id}}">
-			<input type="submit" name="submit" class="btn" value="Annulla Ban">
-			</form>
-		</td>
+	
+	<tr>
+		<td width="20%">Nome</td>
+		<td width = "20%">Cognome</td>
+		<td width = "20%">Email</td>	
+		<td width = "20%">Azione</td>
+	</tr>
+	<tr>
+		{% for ban in Bannati %}
+			<td>{{ban.user_profile.user.first_name}}</td>
+			<td>{{ban.user_profile.user.last_name}}</td>
+			<td>{{ban.user_profile.user.email}}</td>
+			<td>
+				<form action="/accounts/profilo_utente/superuser/sban/{{ban.user_profile.id}}">
+				<input type="submit" name="submit" class="btn" value="Annulla Ban">
+				</form>
+			</td>
 	</tr>
 	{% endfor %}
 </table>

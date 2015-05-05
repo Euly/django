@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from obelix.settings import EMAIL_HOST_USER
 from django.contrib.admin.views.decorators import staff_member_required
 from obelix.supportFunctions import *
+from operator import attrgetter
 
 
 def home(request):
@@ -246,7 +247,11 @@ def dispense_globali(request):
 @staff_member_required
 def segnalazioni(request):
 
-	return render_to_response('segnalazioni.html', {'Segnalazioni': Segnalazione.objects.all(),
+	seg = Segnalazione.objects.all()
+	
+	seg = sorted(seg, key=attrgetter("dispensa.id"))
+	
+	return render_to_response('segnalazioni.html', {'Segnalazioni': seg,
 							   'request': request})
 	
 @login_required
@@ -263,14 +268,21 @@ def segn_annulla(request, segn_id):
 	
 @login_required
 @staff_member_required
-def bannati(request):
+def bannati(request, ordine):
 				
 	bannati = Bannato.objects.all()
 	
 	#for ban in Bannato.objects.all():
 	#	bannati.append(ban)
-	
 	#bannati.sort()
+				
+	if ordine == "nome":
+		bannati = sorted(bannati, key=attrgetter("user_profile.user.first_name"))
+	elif ordine == "cognome":
+		bannati = sorted(bannati, key=attrgetter("user_profile.user.last_name"))
+	else:
+		bannati = sorted(bannati, key=attrgetter("user_profile.user.email"))
+	
 				
 	return render_to_response('bannati.html', {'Bannati': bannati,
 							   'request': request})		
@@ -297,23 +309,15 @@ def sban(request, user_profile_id):
 
 def database(request, ordine):
 	
-	studente = []
-
-	#   + veloce ma non supporta gli assegnamenti oggetto
-	#	studente = Studente.objects.all()
+	studente = Studente.objects.all()
+		
 	
-	for s in Studente.objects.all():
-		studente.append(s)
-	
-	indice = 0
-	
-	if ordine is not None:
-		if ordine == "nome":
-			indice = 1
-		elif ordine == "cognome":
-			indice = 2
-	
-	bubble_sort_studente(studente,indice)
+	if ordine == "nome":
+		studente = sorted(studente, key=attrgetter("nome"))
+	elif ordine == "cognome":
+		studente = sorted(studente, key=attrgetter("cognome"))
+	else:
+		studente = sorted(studente, key=attrgetter("email"))
 	
 	return render_to_response('database.html', {'Studente': studente, 'request': request})
 	
@@ -322,10 +326,16 @@ def database(request, ordine):
 @login_required
 @staff_member_required
 
-def iscritti(request):
+def iscritti(request, ordine):
 	
-	iscritti = []
 	iscritti = UserProfile.objects.all()
+	 
+	if ordine == "nome":
+		iscritti = sorted(iscritti, key=attrgetter("user.first_name"))
+	elif ordine == "cognome":
+		iscritti = sorted(iscritti, key=attrgetter("user.last_name"))
+	else:
+		iscritti = sorted(iscritti, key=attrgetter("user.email"))
 	
 	return render_to_response('iscritti.html', {'Iscritti': iscritti, 'request': request})
 	

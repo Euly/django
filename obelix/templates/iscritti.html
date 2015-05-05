@@ -3,7 +3,23 @@
  
 {% extends "base.html" %}
 {% block content %}      
-       
+     
+<table>
+		<tr>
+			<td width="90%"><h1>{{titolo_ins}}</h1></td>
+			<td width="9.999%">
+					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+						<option value="" class="opt">Seleziona ordine</option>
+						<option value="/accounts/profilo_utente/superuser/iscritti/nome/" class="opt">Nome</option>
+						<option value="/accounts/profilo_utente/superuser/iscritti/cognome/" class="opt">Cognome</option>
+						<option value="/accounts/profilo_utente/superuser/iscritti/email/"  class="opt">Email</option>
+					</select>
+			</td>
+		</tr>
+</table>
+<br> 
+      
+      
  <table>
 	<tr>
 		<td width="20%">Nome</td>
@@ -11,7 +27,7 @@
 		<td width = "20%">Email</td>
 		<td width = "20%">Ban</td>
 		<td width = "20%"></td>
-		
+	</tr>	
 		{% for isc in Iscritti %}
 		<tr>	
 			<td>{{isc.user.first_name}}</td>
