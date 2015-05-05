@@ -10,7 +10,7 @@
 				{% if dispense %}
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 						<option value="" class="opt" selected>Seleziona ordine</option>
-						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/recenti/" class="opt" selected>Recenti</option>
+						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/recenti/" class="opt" >Recenti</option>
 						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/cronologico/" class="opt">Cronologico</option>
 						<option value="/cdl/{{titolo_cdl}}/{{titolo_ins}}/likes/" class="opt">Gradimento</option>
 					</select>
