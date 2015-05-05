@@ -163,7 +163,7 @@
 										<table>
 											<tr>
 												<td valign="top" style="padding-right: 3px; padding-top: 3px;">
-													{% if c.eliminabile and c.utente.id == request.user.id or request.user.is_superuser %}
+													{% if d.eliminabile and c.utente.id == request.user.id or request.user.is_superuser %}
 														<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/rimuovi/{{c.id}}">
 															<button type="submit" class="btn" style="padding: 0 5px 0 5px;">x</button>
 														</form>
