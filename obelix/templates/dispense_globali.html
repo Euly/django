@@ -4,12 +4,29 @@
 {% block content %}      
 
 <table>
+		<tr>
+			<td width="90%"><h1>{{titolo_ins}}</h1></td>
+			<td width="9.999%">
+					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+						<option value="" class="opt">Seleziona ordine</option>
+						<option value="/accounts/profilo_utente/superuser/dispense/insegnamento/" class="opt">Insegnamento</option>
+						<option value="/accounts/profilo_utente/superuser/dispense/autore/" class="opt">Autore</option>
+						<option value="/accounts/profilo_utente/superuser/dispense/pub/" class="opt">Pubblicazione</option>
+						<option value="/accounts/profilo_utente/superuser/dispense/pub_reverse/" class="opt">Pub_inverse</option>
+					</select>
+			</td>
+		</tr>
+</table>
+<br>
+
+
+<table>
 	<tr>
-		<td width = "20%">Nome</td><td width = "20%">Insegnamento</td><td width = "20%">Corso</td><td width="20%">Autore</td>
+		<td width = "20%">Nome</td><td width = "20%">Insegnamento</td><td width = "20%">Corso</td><td width="20%">Autore</td><td width="20%">Data</td>
 		{% for disp in Dispense %}
 		<tr>	
 			<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
-			<td>{{disp.insegnamento}}</td><td>{{disp.insegnamento.corso}}</td><td>{{disp.utente.email}}</td>
+			<td>{{disp.insegnamento}}</td><td>{{disp.insegnamento.corso}}</td><td>{{disp.utente.email}}</td><td>{{disp.data_pub}}</td>
 		</tr>			
 		{% endfor %}
 </table>

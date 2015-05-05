@@ -238,9 +238,22 @@ def not_locali(request, dispensa_id, flag):
 
 @login_required
 @staff_member_required
-def dispense_globali(request):
+def dispense_globali(request, ordine):
 	
-	return render_to_response('dispense_globali.html', {'Dispense': Dispensa.objects.all(),
+	disp = Dispensa.objects.all()
+
+	
+	if ordine == "insegnamento":
+		disp = sorted(disp, key=attrgetter("insegnamento.titolo"))
+	elif ordine == "autore" :
+		disp = sorted(disp, key=attrgetter("utente.email"))	
+	elif ordine == "pub":
+		disp = sorted(disp, key=attrgetter("data_pub"))
+	elif ordine == "pub_reverse":
+		disp = sorted(disp, key=attrgetter("data_pub"))
+		disp.reverse()
+	
+	return render_to_response('dispense_globali.html', {'Dispense': disp,
 							   'request': request})
 
 @login_required
