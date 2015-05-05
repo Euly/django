@@ -1,38 +1,42 @@
 {% extends "base.html" %}
-{% block content %}      
+{% load widget_tweaks %}
 
 {% block sidebar %}
 <ul>
-    <li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}">Cancella</a></li>
+    <li><a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}">Indietro</a></li>
 </ul>
 {% endblock %}
 
-
-<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{dispensa_id}}/" method="post">{% csrf_token %}
-	<br>
-		<p>Inserire commento</p>
-		<table width = "80%" cellpadding = "10" frame = "none" >
+{% block content %} 
+	
+	<table>
+		<tr>
+			<td width="66.666%">
+				<p><b>Inserisci commento</b></p>
+			</td>
+			<td width="33.333%" align="right"><small>{%now "j F Y H:i"%}</small></td>
+		</tr>
+	</table>
+	<form action="/cdl/{{titolo_cdl}}/{{titolo_ins}}/commento/{{dispensa_id}}/" method="post">{% csrf_token %}
+		<table>
 		{% for field in form %} 
 			<tr>
-			<div class="fieldWrapper">
-			<td width="80%">{{ field }}</td>
+				<td width="99.999%">{{ field | append_attr:"class:field_txt" }}</td>
 			</tr>
 			<tr>
-				<td width="50%" >
-				<font color="red">
-				{% if field.errors %}
-					{{ field.errors.as_text }}
-				{% endif %}
-				</font></td>
+				<td width="99.999%" >
+					<font color="red">
+					{% if field.errors %}
+						{{ field.errors.as_text }}
+					{% endif %}
+					</font>
+				</td>
 			</tr>
-			</div>
 		{% endfor %}
 		</table>
 		
-	<input type="submit" name="submit" value="Aggiungi Commento">
-	<br>
-</form>
+		<div class="cell" align="right">
+			<input type="submit" name="submit" class="btn" value="Aggiungi Commento">
+		</div>
+	</form>
 {% endblock %}
-
-
-					

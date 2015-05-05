@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'dispense',
     'django_extensions',
+    'widget_tweaks',
 )
 
 # A sample logging configuration. The only tangible logging
