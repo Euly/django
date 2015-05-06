@@ -374,7 +374,8 @@ def segn_ban (request, segn_id, up_id):
 		form = BanForm(request.POST)
 		args['form'] = form
 		if form.is_valid() :
-	
+				
+			s = Segnalazione.objects.get(id=segn_id)
 			user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
 			user_profile.ban = True
 			user_profile.save()
