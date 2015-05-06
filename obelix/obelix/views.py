@@ -375,11 +375,14 @@ def segn_ban (request, segn_id, us_id):
 		args['form'] = form
 		if form.is_valid() :
 			
-			if segn_id == "0":
+			if segn_id == "0": #ban che arriva da iscritti -> no segn.
 				user_profile = UserProfile.objects.get(user_id = us_id)
 			else:
 				s = Segnalazione.objects.get(id=segn_id)
-				user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+				if us_id == "":
+					user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+				else:
+					user_profile = UserProfile.objects.get(id = s.accusatore.id)
 				s.delete()
 	
 			user_profile.ban = True
