@@ -365,7 +365,7 @@ def iscritti(request, ordine):
 	
 @login_required
 @staff_member_required
-def segn_ban (request, segn_id, up_id):
+def segn_ban (request, segn_id, us_id):
 		
 	args = {}
 	args.update(csrf(request))
@@ -374,14 +374,16 @@ def segn_ban (request, segn_id, up_id):
 		form = BanForm(request.POST)
 		args['form'] = form
 		if form.is_valid() :
-				
-			s = Segnalazione.objects.get(id=segn_id)
-			user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+			
+			if segn_id == "0":
+				user_profile = UserProfile.objects.get(user_id = us_id)
+			else:
+				s = Segnalazione.objects.get(id=segn_id)
+				user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+				s.delete()
+	
 			user_profile.ban = True
 			user_profile.save()
-			
-			s.delete()
-	
 	
 			motivazione_html = form.cleaned_data['motivazione']		
 			nuovo_bannato = Bannato.objects.create(user_profile = user_profile,
@@ -394,6 +396,7 @@ def segn_ban (request, segn_id, up_id):
 	
 	args['request'] = request
 	args['segn_id'] = segn_id
+	args['us_id'] = us_id
 	
 	return render_to_response('aggiungi_ban.html', args, context_instance=RequestContext(request))		
 

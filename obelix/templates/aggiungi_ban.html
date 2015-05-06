@@ -5,7 +5,7 @@
 {% block content %}  
 
 
-<form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{segn_id}}/" method="post">{% csrf_token %}
+<form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{segn_id}}/{{us_id}}" method="post">{% csrf_token %}
 	<br>
 		<p>Spiegaci il motivo del ban.</p>
 		<table width = "80%" cellpadding = "10" frame = "none" >
