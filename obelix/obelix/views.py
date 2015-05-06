@@ -246,6 +246,7 @@ def not_locali_dis(request,dispensa_id):
 
 
 
+
 @login_required
 @staff_member_required
 def dispense_globali(request, ordine):
@@ -310,6 +311,7 @@ def bannati(request, ordine):
 	return render_to_response('bannati.html', {'Bannati': bannati,
 							   'request': request})		
 	
+
 @login_required
 @staff_member_required
 def sban(request, user_profile_id):
@@ -373,11 +375,10 @@ def segn_ban (request, segn_id):
 		args['form'] = form
 		if form.is_valid() :
 	
-			s = Segnalazione.objects.get(id=segn_id)
 			user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
-	
 			user_profile.ban = True
 			user_profile.save()
+			
 			s.delete()
 	
 	
