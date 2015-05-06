@@ -208,7 +208,7 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 		
 		d.save()
 		
-	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
 
 @login_required
 @unbanned_only
@@ -245,7 +245,7 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 					d.notifica.destinatari.add(user_profile)
 					d.notifica.save()
 			
-			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= CommentariumForm()
 		
@@ -299,7 +299,7 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 			s = Segnalazione.objects.create(accusatore=user_profile,
 											dispensa=d, motivazione=motivazione_html)
 														
-			return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= SegnalazioneForm()
 		
