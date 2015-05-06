@@ -1,43 +1,42 @@
- 
- 
 {% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block sidebar %}
+<ul>
+    <li><a href="/accounts/profilo_utente/superuser/segnalazioni/">Indietro</a></li>
+</ul>
+{% endblock %}
 
 {% block content %}  
-
+<table>
+		<tr>
+			<td width="66.666%">
+				<p><b>Spiegaci il motivo del ban:</b></p>
+			</td>
+			<td width="33.333%" align="right"><small>{%now "j F Y H:i"%}</small></td>
+		</tr>
+	</table>
 
 <form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{segn_id}}/{{us_id}}" method="post">{% csrf_token %}
-	<br>
-		<p>Spiegaci il motivo del ban.</p>
-		<table width = "80%" cellpadding = "10" frame = "none" >
+<table>
 		{% for field in form %} 
 			<tr>
-			<div class="fieldWrapper">
-			<td width="80%">{{ field }}</td>
+				<td width="99.999%">{{ field | append_attr:"class:field_txt" }}</td>
 			</tr>
 			<tr>
-				<td width="50%" >
-				<font color="red">
-				{% if field.errors %}
-					{{ field.errors.as_text }}
-				{% endif %}
-				</font></td>
+				<td width="99.999%" >
+					<font color="red">
+					{% if field.errors %}
+						{{ field.errors.as_text }}
+					{% endif %}
+					</font>
+				</td>
 			</tr>
-			</div>
 		{% endfor %}
-		</table>
-	<input type="submit" name="submit" value="Inserisci Motivazione">
-	<br>
+	</table>
+	<div class="cell" align="right">
+		<input type="submit" name="submit" class="btn" value="Inserisci motivazione">
+	</div>
 </form>
 
 {% endblock %}
-
-{% block sidebar-right %}
-	<ul>
-		{% if request.user.is_authenticated %}
-			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
-			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-		{% endif %}
-	</ul>
-{% endblock %}
-

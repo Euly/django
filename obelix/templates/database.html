@@ -1,15 +1,9 @@
- 
- 
 {% extends "base.html" %}
+
 {% block content %}      
-      
-<form action="/accounts/profilo_utente/superuser/database/inserisci/">
-	<button type="submit">Aggiungi studente</button>
-</form>
-      
 <table>
 		<tr>
-			<td width="90%"><h1>{{titolo_ins}}</h1></td>
+			<td width="90%"><h1>Studenti database LDAP</h1></td>
 			<td width="9.999%">
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 						<option value="" class="opt" selected>Seleziona ordine</option>
@@ -20,36 +14,27 @@
 			</td>
 		</tr>
 </table>
-<br>
-      
-      
 <table>
 	<tr>
-		<td width="20%">Nome</td>
-		<td width = "20%">Cognome</td>
-		<td width = "20%">Email</td>
+		<td>
+			<form action="/accounts/profilo_utente/superuser/database/inserisci/">
+				<button type="submit" class="btn">Aggiungi studente</button>
+			</form>
+		</td>
+	</tr>
+</table>    
+<br> 
+<table>
+	<tr>
+		<td width="33.333%"><b>NOME</b></td>
+		<td width="33.333%"><b>COGNOME</b></td>
+		<td width="33.333%"><b>EMAIL</b></td>
 		{% for stud in Studente %}
-		<tr>	
-			<td>{{stud.nome}}</td>
-			<td>{{stud.cognome}}</td>
+		<tr class="tbl_row">	
+			<td>{{stud.nome | lower | capfirst}}</td>
+			<td>{{stud.cognome | lower | capfirst}}</td>
 			<td>{{stud.email}}</td>
 		</tr>
 		{% endfor %}
 </table>
-
-
-
-
 {% endblock %}
-
-{% block sidebar-right %}
-	<ul>
-		{% if request.user.is_authenticated %}
-			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
-			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-		{% endif %}
-	</ul>
-{% endblock %}
-
-
