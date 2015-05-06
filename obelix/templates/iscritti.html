@@ -25,20 +25,12 @@
 		<td width="20%">Nome</td>
 		<td width = "20%">Cognome</td>
 		<td width = "20%">Email</td>
-		<td width = "20%">Ban</td>
-		<td width = "20%"></td>
 	</tr>	
 		{% for isc in Iscritti %}
 		<tr>	
 			<td>{{isc.user.first_name}}</td>
 			<td>{{isc.user.last_name}}</td>
 			<td>{{isc.user.email}}</td>
-			<td>{{isc.ban}}</td>
-			<td width="15%">
-				<form action="/accounts/profilo_utente/superuser/segnalazioni/ban/{{isc.id}}/"> 
-					<button type="submit">Banna</button>
-				</form>
-			</td>
 		</tr>
 		{% endfor %}
 </table>

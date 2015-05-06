@@ -365,7 +365,7 @@ def iscritti(request, ordine):
 	
 @login_required
 @staff_member_required
-def segn_ban (request, segn_id):
+def segn_ban (request, segn_id, up_id):
 		
 	args = {}
 	args.update(csrf(request))
