@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-		<h1>{{titolo}}</h1>
+	<h1>{{titolo}}</h1>
+	<br>
 		{% for i in insegnamenti %}
-		<div>
-			<p><a href="/cdl/{{titolo}}/{{i}}/recenti/">{{i}}</a></p>
-		</div>
+			
+				<a href="/cdl/{{titolo}}/{{i}}/recenti/" style="text-decoration: none;">
+					<div width="99.999%" class="lbl" style="margin-bottom:20px;">
+						{{i}}
+					</div>
+				</a>
 		{% endfor %}
-
 {% endblock %}

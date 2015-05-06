@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-	
 	<table>
 		<tr>
 			<td width="90%"><h1>{{titolo_ins}}</h1></td>
@@ -18,21 +17,20 @@
 			</td>
 		</tr>
 	</table>
-	
-	
 	<br>
 	{% for d in dispense %}
 	<div class="tbl">
 		<table class="tab_titolo" >
 			<tr>
-				<td width="66.666%" class="cell" style="vertical-align:middle;">
-					<div class="lbl" >
-					<a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}" >
-						{{d.titolo | capfirst}}
+				<td width="80%" class="cell" style="vertical-align:middle;">
+
+					<a href="/cdl/{{titolo_cdl}}/{{titolo_ins}}/{{d.documento}}" download="{{d.documento}}" style="text-decoration: none;">
+						<div class="lbl" >
+							{{d.titolo | capfirst}}
+						</div>
 					</a>
-					</div>
 					</td>
-				<td width="33.333%" align="right"  style="padding-right: 3px;">
+				<td width="19.999%" align="right"  style="padding-right: 3px;">
 					<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 						<option value="">Menù</option>
 						{% if up.not_globali %}
@@ -183,10 +181,7 @@
 			</tr>
 		</table>
 	</div>
-	
-	<br><br>
 	{% endfor %}
-
 {% endblock %}
 
 {% block sidebar-right %}

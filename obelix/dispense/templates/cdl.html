@@ -3,11 +3,16 @@
 {% block content %}
 
 		<h1>Corsi di Laurea</h1>
+		<br>
 		{% for Corso in corsi %}
-		<div>
-			<h2><a href="/cdl/{{Corso.titolo}}/">{{Corso.titolo}}</a></h2>
-			<p>{{Corso.descrizione}}</p>
-		</div>
+			<a href="/cdl/{{Corso.titolo}}/" style="text-decoration: none ;">
+				<div width="99.999%" class="lbl">
+				<h3>{{Corso.titolo}}</h3>
+				</div>
+			</a>
+			<div class="riga" >
+				{{Corso.descrizione}}
+			</div>
 		{% endfor %}
-
+	
 {% endblock %}
