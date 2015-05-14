@@ -118,12 +118,12 @@ def register_failed(request):
 def register_confirm(request, activation_key):
 	user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
 		
-	if user_profile.key_expires < timezone.now():
-		return render_to_response('attivazione_scaduta.html', {'request': request})
-		
 	user = user_profile.user
 	if user.is_active :
 		return render_to_response('att_already_done.html', {'request': request})
+		
+	if user_profile.key_expires < timezone.now():
+		return render_to_response('attivazione_scaduta.html', {'request': request})
 
 	user.is_active = True
 	user.save()
@@ -192,10 +192,14 @@ def profilo_utente(request):
 		for n in d.notifica.destinatari.all() : # n e' un user_profile 
 			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
-				if Commentarium.objects.all() is  None:
-					c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
-					ultimo_comm.append(c)
-				break			
+				try:
+					Commentarium.objects.get(dispensa_id = d.id)
+					if Commentarium.objects.all() is not  None:
+						c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
+						ultimo_comm.append(c)
+					break
+				except Commentarium.DoesNotExist:
+					pass			
 		
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
@@ -232,7 +236,7 @@ def not_locali_att(request, titolo_cdl, titolo_ins, dispensa_id):
 		d.notifica.controllo = False
 		d.notifica.save()
 		
-	return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
 	
 
 def not_locali_dis(request,dispensa_id):

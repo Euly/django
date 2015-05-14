@@ -1,25 +1,23 @@
-
 {% extends "base.html" %}
 
 {% block content %}      
-
-
 <table>
-	
 	<tr>
-		<td width="20%">Nome</td>
-		<td width = "20%">Cognome</td>
-		<td width = "20%">Email</td>	
-		<td width = "20%">Azione</td>
+		<td width="25%"><b>NOME</b></td>
+		<td width="25%"><b>COGNOME</b></td>
+		<td width="35%"><b>EMAIL</b></td>	
+		<td width="14.999%"><b>AZIONE</b></td>
 	</tr>
-	<tr>
+	<tr class="tbl_row">
 		{% for ban in Bannati %}
-			<td>{{ban.user_profile.user.first_name}}</td>
-			<td>{{ban.user_profile.user.last_name}}</td>
-			<td>{{ban.user_profile.user.email}}</td>
-			<td>
+			<td width="25%">{{ban.user_profile.user.first_name  | capfirst}}</td>
+			<td width="25%">{{ban.user_profile.user.last_name  | capfirst}}</td>
+			<td width="35%"><small>{{ban.user_profile.user.email}}</small></td>
+			<td width="14.999%">
 				<form action="/accounts/profilo_utente/superuser/sban/{{ban.user_profile.id}}">
-				<input type="submit" name="submit" class="btn" value="Annulla Ban">
+					<div align="center">
+					<input type="submit" name="submit" class="btn" value="Annulla Ban">
+					</div>
 				</form>
 			</td>
 	</tr>
@@ -27,14 +25,3 @@
 </table>
 
 {% endblock %}
-
-{% block sidebar-right %}
-	<ul>
-		{% if request.user.is_authenticated %}
-			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
-			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-		{% endif %}
-	</ul>
-{% endblock %}
-

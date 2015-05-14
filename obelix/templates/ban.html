@@ -1,30 +1,17 @@
 {% extends "base.html" %}
 
-{% block content %}      
-
- 
- 
- Ciao {{user_profile.user.email}}, <br>siamo spiacenti di informarti che non puoi accedere al sito,
-    in quanto bannato per la seguente motivazione:<br>
-    <ul><li>
-    {% for ban in Bannato %}
-		{{ban.motivazione}}
-		</li>
-    {% endfor %}
-    </ul>
-    <br>
-    Contatta gli amministratori di sistema per risolvere il problema.
-    <br>Email di riferimento: obelix.fim@gmail.com
- 
+{% block content %}
+	<h2>Accesso negato</h2>
+	<div align="justify">
+		<p>Ciao <b>{{user_profile.user.username | capfirst}}</b>, siamo spiacenti di informarti che non puoi accedere al sito,
+		in quanto bannato per le seguenti motivazioni:
+			<li>
+				{% for ban in Bannato %}
+					{{ban.motivazione}}
+				{% endfor %}
+			</li>
+		</p>
+		Contatta gli amministratori di sistema all'indirizzo <strong>obelix.fim@gmail.com</strong> per risolvere il problema.
+	</div>
 	 
-{% endblock %}	 
-	 
-{% block sidebar-right %}
-	<ul>
-		{% if request.user.is_authenticated %}
-			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
-			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-		{% endif %}
-	</ul>
 {% endblock %}

@@ -5,8 +5,8 @@ from dispense.models import Studente, Bannato
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
-	first_name = forms.CharField(required=True)
-	last_name = forms.CharField(required=True)
+	first_name = forms.CharField(required=True, label="Nome")
+	last_name = forms.CharField(required=True, label="Cognome")
 	
 	class Meta:
 		model = User

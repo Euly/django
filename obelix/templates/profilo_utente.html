@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block content %}      
+{% block content %}
+<h2>Profilo utente</h2>    
 <table  cellpadding = "10" frame = "none" >
 	<div>
 		{% if request.user.is_superuser != True %}
@@ -50,42 +51,64 @@
 </table>
 
 <br><br>
-<table cellpadding = "10" frame = "none" >
+{% if pubblicazioni %}
+<table>
 	<tr>
 		<td width="100%">
-			<b>Questo è l'elenco delle tue pubblicazioni:</b>
+			<h3>Le tue pubblicazioni:</h3>
 		</td>
 	</tr>
+</table>
+<table>
+	<tr class="tbl_row">
+		<td width="33.333%" class="cell"><b>DISPENSA</b></td>
+		<td width="33.333%" class="cell"><b>CORSO</b></td>
+		<td width="33.333%" class="cell"><b>DATA</b></td>
+	</tr>
 	{% for p in pubblicazioni %}
-	<tr>
-		<td width="100%">
-			<a href="/cdl/{{p.insegnamento.corso}}/{{p.insegnamento}}/">{{p.titolo}}</a></a>
-		</td>				
+	<tr class="tbl_row">
+		<td width="33.333%" class="cell">
+			<a href="/cdl/{{p.insegnamento.corso}}/{{p.insegnamento}}/recenti" style="text-decoration: none;">
+				<div class="rif"><b>{{p.titolo}}</b></div>
+			</a>
+		</td>
+		<td width="33.333%" class="cell">{{p.insegnamento}}</td>	
+		<td width="33.333%" class="cell">{{p.data_pub | date:"SHORT_DATE_FORMAT"}}</td>	
 	</tr>
 	{% endfor %}
-</table>
-
-
-<b>Notifiche in:</b><br>
+	</table>
+{% endif %}
+<br>
+{% if notifiche %}
+<h3>Notifiche:</h3>
 {% if user_profile.not_globali == True %}
 	<table>
 	{% for disp in notifiche %}
-	<tr>
-		<td><a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/">{{disp.titolo}}</a></td>
-		<td>{{disp.insegnamento}}</td> 
-		<td>Ultimo commento di:</td>
-		<td>
-			{% for ultimo in ultimo_comm %}
-				{% if disp.id == ultimo.dispensa.id %}
-					{{ultimo.utente.username}}
+		<tr>
+			<td>
+				<a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/recenti" style="text-decoration: none;">
+				<div class="notifiche"> 
+				{% if ultimo_comm %}
+					{% if disp.num_com == 0 %}
+						Stai seguendo la dispensa <b>{{disp.titolo}}</b>.
+					{% else %}
+						{% for ultimo in ultimo_comm %}
+							{% if disp.id == ultimo.dispensa.id %}
+								<b>{{ultimo.utente.username | capfirst }}</b> ha pubblicato un commento in <b>{{disp.titolo}}</b>, {{ultimo.data_pub | timesince }} fa.
+							{% endif %}
+						{% endfor %}
+					{% endif%}
 				{% endif %}
-			{% endfor %}
- 		</td>
-		<td><form action="/accounts/profilo_utente/notifiche_locali/{{disp.id}}/dis"><button type="submit">Disiscrivimi</button></form></td>
-	</tr>
-	<tr><td><br></td></tr>
+			</div>
+			</a>
+			</td>
+			<td>
+				<form action="/accounts/profilo_utente/notifiche_locali/{{disp.id}}/dis"><button type="submit" class="btn">Disiscrivimi</button></form>
+			</td>
+		</tr>
 	{% endfor %}
 	</table>
+{% endif %}
 {% endif %}
  
 {% endblock %}

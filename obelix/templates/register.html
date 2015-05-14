@@ -10,16 +10,16 @@
 	<caption><p> <b> Compila i seguenti campi per la registrazione </b> </p></caption>	
 	{% for field in form %} 
 		<tr>
-			<div class="fieldWrapper">
-				<td width="33.333%">{{ field.label_tag }}</td>
-				<td width="33.333%">{{ field }} </td>
-				<td width="33.333%" >
+			<td width="33.333%">{{ field.label_tag }}
+			</td>
+			<td width="33.333%">{{ field }} </td>
+			<td width="33.333%">
 				<font color="red">
 				{% if field.errors %}
 					{{ field.errors.as_text }}
 				{% endif %}
-				</font></td>
-			</div>
+				</font>
+			</td>
 		</tr>
 	{% endfor %}
 		<tr>

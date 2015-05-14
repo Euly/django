@@ -3,39 +3,33 @@
 
 {% block content %}  
 <form action="/accounts/profilo_utente/superuser/database/inserisci/" method="post">{% csrf_token %}
-	<br>
-	<table width = "100%" cellpadding = "10" frame = "none" >
+	<div align="justify">
+		<p>Inserisci i dati dello studente che vuoi aggiungere al database per permettergli la registrazione.</p>
+	</div>
+	<table>
 		{% for field in form %} 
 		<tr>
-			<div class="fieldWrapper">
-				<td width="15%"> {{ field.label_tag }}</td>
-				<td width="25%">{{ field }} </td>
-				<td width="50"><font color="red">
+			<td width="33.333%"> {{ field.label_tag }}</td>
+			<td width="33.333%">{{ field }} </td>
+			<td width="33.333%">
+				<font color="red">
 					{% if field.errors %}
 						{{ field.errors.as_text }}
 					{% endif %}
 				</font>	
-				</td>
-			</div>
+			</td>
 		</tr>
 		{% endfor %}
+		<tr>
+			<td width="33.333%"></td>
+			<td width="33.333%"></td>
+			<td width="33.333%">
+				<div align="center">
+					<br>
+					<input type="submit" name="submit" class="btn" value="Aggiungi Studente">
+				</div>
+			</td>
+		</tr>
 	</table>
-	<br>
-	<input type="submit" name="submit" value="Aggiungi Studente">
 </form>
-{% endblock %}
-
-
-
-
-
-
-{% block sidebar-right %}
-	<ul>
-		{% if request.user.is_authenticated %}
-			<li>Ciao <strong>{{request.user.username | capfirst}}</strong>!</li>
-			<li><a href="/accounts/logout/">Esci</a></li>
-			<li><a href="/accounts/profilo_utente/cambio_username/">Cambio Username</a></li>
-		{% endif %}
-	</ul>
 {% endblock %}
