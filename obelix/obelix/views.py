@@ -192,15 +192,11 @@ def profilo_utente(request):
 		for n in d.notifica.destinatari.all() : # n e' un user_profile 
 			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
-				try:
-					Commentarium.objects.get(dispensa_id = d.id)
-					if Commentarium.objects.all() is not  None:
-						c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
-						ultimo_comm.append(c)
+				if d.num_com > 0:
+					c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
+					ultimo_comm.append(c)
 					break
-				except Commentarium.DoesNotExist:
-					pass			
-		
+				
 	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
 							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
 	
