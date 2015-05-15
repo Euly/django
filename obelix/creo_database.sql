@@ -1,5 +1,4 @@
-CREATE DATABASE obelixdb ;
-GRANT ALL PRIVILEGES ON obelixdb.* TO 'obelix'@'localhost';
-
+CREATE DATABASE IF NOT EXISTS obelixdb ;
+GRANT ALL PRIVILEGES ON obelixdb.* TO 'obelix'@'localhost' IDENTIFIED BY 'dbdjob@' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
