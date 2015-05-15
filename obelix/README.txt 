@@ -1,3 +1,10 @@
+PREREQUISITI
+sudo apt-get install python2.7				/* Python versione 2.7 */
+sudo apt-get install pip					/* Pip */
+sudo pip install django==1.5				/* Django versione 1.5 */
+sudo pip install django-widget-tweaks		/* Estensione di django per gestire i widget grafici */
+sudo apt-get install mysql-server-5.5		/* Mysql versione 5.5 */
+
 # cd Obelix-git/django/obelix
 # chmod a+x sito_obelix.sh
 # ./sito_obelix.sh
