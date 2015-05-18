@@ -1,16 +1,20 @@
 
+from dispense.models import Corso, Dispensa, Commentarium, UserProfile, Segnalazione, Notifica
 from django.contrib.auth.models import User
+from django.core.urlresolvers import resolve
+from django.http import HttpRequest
+from django.test.client import Client
 from django.test import TestCase
 from django.utils import unittest
-from dispense.models import Corso, Dispensa, Commentarium, UserProfile, Segnalazione, Notifica
+from obelix.views import profilo_utente, segnalazioni, dispense_globali, volumica
+from dispense.views import dettaglio_insegnamento
 
 
 class DispenseModelsTestCase(TestCase):
 	fixtures = ['obelixtest.json']
 	
-	
 	def test_corso(self):	
-		#test esistenza corso
+		#test esistenza corso		
 		self.assertTrue(Corso.objects.get(titolo="LT-INFORMATICA"))
 		
 		#test esistenza corso (non presente)
@@ -64,3 +68,53 @@ class DispenseModelsTestCase(TestCase):
 	def test_notifica(self):
 		#test attivazione notifica per SU per dispensa_1
 		self.assertTrue(Notifica.objects.get(pk=1).destinatari , 1)
+
+
+class DispenseViewsTestCase(TestCase):
+	fixtures = ['obelixtest.json']
+	
+	
+	#testa url non valida
+	def test_url_Not_Found(self):	
+		resp = self.client.get('/fuoricontrollo/')
+		self.assertEqual(resp.status_code, 404)
+	
+	#testa views di risposta 	
+	def test_url_profilo_utente(self):
+		found = resolve('/accounts/profilo_utente/')
+		self.assertEqual(found.func, profilo_utente)
+		
+	def test_url_dispense(self):
+		found = resolve('/cdl/LT-Informatica/Linguaggi dinamici/recenti/')
+		self.assertEqual(found.func, dettaglio_insegnamento )
+	
+	def test_url_segnalazione(self):
+		found = resolve('/accounts/profilo_utente/superuser/segnalazioni/')
+		self.assertEqual(found.func, segnalazioni)
+	
+	def test_url_dispense_globali(self):
+		found = resolve('/accounts/profilo_utente/superuser/dispense/pub/')
+		self.assertEqual(found.func, dispense_globali)
+	
+	def test_login (self):
+		c = Client()
+		
+		#post su login, indirizzo sbagliato
+		response = c.post('/login/', {'username': 'obelix', 'password': 'dbdjob@'})
+		self.assertEqual(response.status_code, 404)
+	
+		#post su login, indirizzo ok
+		response = c.post('/accounts/login/', {'username': 'obelix', 'password': 'dbdjob@'})
+		self.assertEqual(response.status_code, 200)
+	
+		#inserire template di ritorno
+	
+
+
+
+
+
+
+
+
+

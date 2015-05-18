@@ -35,9 +35,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/profilo_utente/superuser/dispense/(?P<ordine>|insegnamento|autore|pub|pub_reverse)/$', 'obelix.views.dispense_globali'),	   
 	url(r'^accounts/profilo_utente/superuser/segnalazioni/$', 'obelix.views.segnalazioni'),
 	url(r'^accounts/profilo_utente/superuser/segnalazioni/annulla/(?P<segn_id>\d+)/$', 'obelix.views.segn_annulla'),
-	
 	url(r'^accounts/profilo_utente/superuser/segnalazioni/ban/(?P<segn_id>\d+)/(?P<us_id>[\d+|]*)$', 'obelix.views.segn_ban'),
-	
 	url(r'^accounts/profilo_utente/superuser/database/(?P<ordine>|nome|cognome|email)/$', 'obelix.views.database'),
 	url(r'^accounts/profilo_utente/superuser/database/inserisci/$', 'obelix.views.inserisci'),
 	url(r'^accounts/profilo_utente/superuser/iscritti/(?P<ordine>|nome|cognome|email)/$', 'obelix.views.iscritti'),

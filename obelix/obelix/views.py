@@ -204,7 +204,7 @@ def profilo_utente(request):
 @login_required
 @unbanned_only
 def volumica(request):
-	return render_to_response('volumica.html',{'request': request})
+	return render_to_response('volumica.html', {'request': request})
 
 
 	
