@@ -8,7 +8,7 @@ from django.test import TestCase
 from django.utils import unittest
 from obelix.views import profilo_utente, segnalazioni, dispense_globali, volumica
 from dispense.views import dettaglio_insegnamento
-
+from forms import SegnalazioneForm
 
 class DispenseModelsTestCase(TestCase):
 	fixtures = ['obelixtest.json']
@@ -108,13 +108,19 @@ class DispenseViewsTestCase(TestCase):
 		self.assertEqual(response.status_code, 200)
 	
 		#inserire template di ritorno
+
+
+class DispenseFormsTestCase(TestCase):
 	
+	fixtures = ['obelixtest.json']
+	
+	def test_Segnalazione(self):  
+   		
+   
+		form = SegnalazioneForm(data={'accusatore': UserProfile.objects.get(pk=1) ,  
+								'dispensa': Dispensa.objects.get(pk=1),  
+                                  'motivazione': "prova",})
+  
+		self.assertTrue(form.is_valid())  
 
-
-
-
-
-
-
-
-
+   

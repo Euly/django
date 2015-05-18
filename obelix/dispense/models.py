@@ -55,7 +55,6 @@ class Notifica (models.Model):
 
 class Dispensa(models.Model):
 	insegnamento = models.ForeignKey(Insegnamento)
-	#di chi era la dispensa nella visualizzazione
 	utente = models.ForeignKey(User) 
 	
 	titolo = models.CharField(max_length=100)
@@ -93,7 +92,7 @@ class Segnalazione (models.Model):
 class Bannato (models.Model) :
 	user_profile = models.ForeignKey(UserProfile)
 	motivazione = models.TextField()
-	#cancella tupla da bannati
+	
 	
 	
 	
