@@ -1,0 +1,650 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_permission", 
+        "name": "Can add permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_permission", 
+        "name": "Can change permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_permission", 
+        "name": "Can delete permission", 
+        "content_type": [
+            "auth", 
+            "permission"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_group", 
+        "name": "Can add group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_group", 
+        "name": "Can change group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_group", 
+        "name": "Can delete group", 
+        "content_type": [
+            "auth", 
+            "group"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_user", 
+        "name": "Can add user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_user", 
+        "name": "Can change user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_user", 
+        "name": "Can delete user", 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_contenttype", 
+        "name": "Can add content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_contenttype", 
+        "name": "Can change content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_contenttype", 
+        "name": "Can delete content type", 
+        "content_type": [
+            "contenttypes", 
+            "contenttype"
+        ]
+    }
+},
+{
+    "pk": 13, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_session", 
+        "name": "Can add session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 14, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_session", 
+        "name": "Can change session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 15, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_session", 
+        "name": "Can delete session", 
+        "content_type": [
+            "sessions", 
+            "session"
+        ]
+    }
+},
+{
+    "pk": 16, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_site", 
+        "name": "Can add site", 
+        "content_type": [
+            "sites", 
+            "site"
+        ]
+    }
+},
+{
+    "pk": 17, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_site", 
+        "name": "Can change site", 
+        "content_type": [
+            "sites", 
+            "site"
+        ]
+    }
+},
+{
+    "pk": 18, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_site", 
+        "name": "Can delete site", 
+        "content_type": [
+            "sites", 
+            "site"
+        ]
+    }
+},
+{
+    "pk": 19, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_logentry", 
+        "name": "Can add log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 20, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_logentry", 
+        "name": "Can change log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 21, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_logentry", 
+        "name": "Can delete log entry", 
+        "content_type": [
+            "admin", 
+            "logentry"
+        ]
+    }
+},
+{
+    "pk": 22, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_corso", 
+        "name": "Can add corso", 
+        "content_type": [
+            "dispense", 
+            "corso"
+        ]
+    }
+},
+{
+    "pk": 23, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_corso", 
+        "name": "Can change corso", 
+        "content_type": [
+            "dispense", 
+            "corso"
+        ]
+    }
+},
+{
+    "pk": 24, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_corso", 
+        "name": "Can delete corso", 
+        "content_type": [
+            "dispense", 
+            "corso"
+        ]
+    }
+},
+{
+    "pk": 25, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_studente", 
+        "name": "Can add studente", 
+        "content_type": [
+            "dispense", 
+            "studente"
+        ]
+    }
+},
+{
+    "pk": 26, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_studente", 
+        "name": "Can change studente", 
+        "content_type": [
+            "dispense", 
+            "studente"
+        ]
+    }
+},
+{
+    "pk": 27, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_studente", 
+        "name": "Can delete studente", 
+        "content_type": [
+            "dispense", 
+            "studente"
+        ]
+    }
+},
+{
+    "pk": 28, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_insegnamento", 
+        "name": "Can add insegnamento", 
+        "content_type": [
+            "dispense", 
+            "insegnamento"
+        ]
+    }
+},
+{
+    "pk": 29, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_insegnamento", 
+        "name": "Can change insegnamento", 
+        "content_type": [
+            "dispense", 
+            "insegnamento"
+        ]
+    }
+},
+{
+    "pk": 30, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_insegnamento", 
+        "name": "Can delete insegnamento", 
+        "content_type": [
+            "dispense", 
+            "insegnamento"
+        ]
+    }
+},
+{
+    "pk": 31, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_userprofile", 
+        "name": "Can add user profile", 
+        "content_type": [
+            "dispense", 
+            "userprofile"
+        ]
+    }
+},
+{
+    "pk": 32, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_userprofile", 
+        "name": "Can change user profile", 
+        "content_type": [
+            "dispense", 
+            "userprofile"
+        ]
+    }
+},
+{
+    "pk": 33, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_userprofile", 
+        "name": "Can delete user profile", 
+        "content_type": [
+            "dispense", 
+            "userprofile"
+        ]
+    }
+},
+{
+    "pk": 34, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_notifica", 
+        "name": "Can add notifica", 
+        "content_type": [
+            "dispense", 
+            "notifica"
+        ]
+    }
+},
+{
+    "pk": 35, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_notifica", 
+        "name": "Can change notifica", 
+        "content_type": [
+            "dispense", 
+            "notifica"
+        ]
+    }
+},
+{
+    "pk": 36, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_notifica", 
+        "name": "Can delete notifica", 
+        "content_type": [
+            "dispense", 
+            "notifica"
+        ]
+    }
+},
+{
+    "pk": 37, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_dispensa", 
+        "name": "Can add dispensa", 
+        "content_type": [
+            "dispense", 
+            "dispensa"
+        ]
+    }
+},
+{
+    "pk": 38, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_dispensa", 
+        "name": "Can change dispensa", 
+        "content_type": [
+            "dispense", 
+            "dispensa"
+        ]
+    }
+},
+{
+    "pk": 39, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_dispensa", 
+        "name": "Can delete dispensa", 
+        "content_type": [
+            "dispense", 
+            "dispensa"
+        ]
+    }
+},
+{
+    "pk": 40, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_opinione", 
+        "name": "Can add opinione", 
+        "content_type": [
+            "dispense", 
+            "opinione"
+        ]
+    }
+},
+{
+    "pk": 41, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_opinione", 
+        "name": "Can change opinione", 
+        "content_type": [
+            "dispense", 
+            "opinione"
+        ]
+    }
+},
+{
+    "pk": 42, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_opinione", 
+        "name": "Can delete opinione", 
+        "content_type": [
+            "dispense", 
+            "opinione"
+        ]
+    }
+},
+{
+    "pk": 43, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_commentarium", 
+        "name": "Can add commentarium", 
+        "content_type": [
+            "dispense", 
+            "commentarium"
+        ]
+    }
+},
+{
+    "pk": 44, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_commentarium", 
+        "name": "Can change commentarium", 
+        "content_type": [
+            "dispense", 
+            "commentarium"
+        ]
+    }
+},
+{
+    "pk": 45, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_commentarium", 
+        "name": "Can delete commentarium", 
+        "content_type": [
+            "dispense", 
+            "commentarium"
+        ]
+    }
+},
+{
+    "pk": 46, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_segnalazione", 
+        "name": "Can add segnalazione", 
+        "content_type": [
+            "dispense", 
+            "segnalazione"
+        ]
+    }
+},
+{
+    "pk": 47, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_segnalazione", 
+        "name": "Can change segnalazione", 
+        "content_type": [
+            "dispense", 
+            "segnalazione"
+        ]
+    }
+},
+{
+    "pk": 48, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_segnalazione", 
+        "name": "Can delete segnalazione", 
+        "content_type": [
+            "dispense", 
+            "segnalazione"
+        ]
+    }
+},
+{
+    "pk": 49, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_bannato", 
+        "name": "Can add bannato", 
+        "content_type": [
+            "dispense", 
+            "bannato"
+        ]
+    }
+},
+{
+    "pk": 50, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_bannato", 
+        "name": "Can change bannato", 
+        "content_type": [
+            "dispense", 
+            "bannato"
+        ]
+    }
+},
+{
+    "pk": 51, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_bannato", 
+        "name": "Can delete bannato", 
+        "content_type": [
+            "dispense", 
+            "bannato"
+        ]
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "obelix", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2015-05-17T12:25:45Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$Lcg00yqMUe3r$8JA8lXXH4m0+5DawLMbGW0XKbr79j6rTN5sCsx3w3Sc=", 
+        "email": "obelix.fim@gmail.com", 
+        "date_joined": "2015-05-17T12:15:18Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "pap", 
+        "first_name": "massimiliano donato", 
+        "last_name": "tortoli", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2015-05-17T12:22:06Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$vhCHrrpm21Dy$hLyz/sMxIUreXU1/77mZiKubrh4ZysJaII7f2Bc1YeE=", 
+        "email": "77485@studenti.unimore.it", 
+        "date_joined": "2015-05-17T12:19:13Z"
+    }
+}
+]
