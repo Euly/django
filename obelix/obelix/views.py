@@ -138,6 +138,10 @@ def nuova_attivazione(request, user_id):
 	#if request.user.is_authenticated():
 	#se l'utente e' loggato e attivo (is.active == True) ritorna True alt. false
 	
+	#studente iscritto in precedenza, ora non piu' presente nel db universitario
+	if user_profile.registrabile == False :
+		return HttpResponseRedirect('/accounts/register_failed')
+	
 	if request.user.is_authenticated():		
 		return render_to_response('att_already_done.html', {'request': request})
 	
