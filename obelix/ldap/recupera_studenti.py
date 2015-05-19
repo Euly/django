@@ -3,13 +3,10 @@ from dispense.models import Studente
 
 file_ldap = ["ldap/fis.txt", "ldap/fis2.txt", "ldap/info.txt", "ldap/info2.txt", "ldap/mate.txt", "ldap/mate2.txt"]
 
-#with open("studenti.txt", "w") as s:
-#	for f in file_ldap:
-#		with open(f, 'r') as l:
-#			s.write(l.read())
 with open("studenti.txt", "w") as s:
-	with open(file_ldap[2], 'r') as l:
-		s.write(l.read())
+	for f in file_ldap:
+		with open(f, 'r') as l:
+			s.write(l.read())
 
 studenti = subprocess.check_output("sed -n 's/gecos: \|sn: \|unimoremailprincipale: \|^$//p' studenti.txt", shell=True)
 studenti = studenti[1:len(studenti)]
