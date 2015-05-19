@@ -118,7 +118,7 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$10000$rHNYuM69dagT$lASlr6kNC7lCBsiATE3WkEbDFEHN2h3fwHcofxYmkIs=','2015-05-15 12:18:04',1,'obelix','','','obelix.fim@gmail.com',1,1,'2015-05-05 12:43:57'),(2,'pbkdf2_sha256$10000$Y178sEPaa2E4$8+hiP3wWZ88xzOLZhm27ocv9wHqNkE/dznoRovUrazQ=','2015-05-14 15:48:02',0,'didi','Diana','Sighinolfi','176779@studenti.unimore.it',0,1,'2015-05-05 12:46:10');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$10000$xjeM72vKWAWz$hmmKMtaJWz9+ATZk3xkyN6OxcSdRj5/WO8QNuQmUduw=','2015-05-19 08:41:47',1,'obelix','','','obelix.fim@gmail.com',1,1,'2015-05-19 08:40:34');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,8 +146,8 @@ CREATE TABLE `auth_user_groups` (
   UNIQUE KEY `user_id` (`user_id`,`group_id`),
   KEY `auth_user_groups_6340c63c` (`user_id`),
   KEY `auth_user_groups_5f412f9a` (`group_id`),
-  CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-  CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -175,8 +175,8 @@ CREATE TABLE `auth_user_user_permissions` (
   UNIQUE KEY `user_id` (`user_id`,`permission_id`),
   KEY `auth_user_user_permissions_6340c63c` (`user_id`),
   KEY `auth_user_user_permissions_83d7f98b` (`permission_id`),
-  CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
-  CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,9 +231,9 @@ CREATE TABLE `dispense_commentarium` (
   PRIMARY KEY (`id`),
   KEY `dispense_commentarium_b2400c30` (`utente_id`),
   KEY `dispense_commentarium_aba965bd` (`dispensa_id`),
-  CONSTRAINT `dispensa_id_refs_id_bc5b3465` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`),
-  CONSTRAINT `utente_id_refs_id_13828653` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  CONSTRAINT `utente_id_refs_id_13828653` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `dispensa_id_refs_id_bc5b3465` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +242,6 @@ CREATE TABLE `dispense_commentarium` (
 
 LOCK TABLES `dispense_commentarium` WRITE;
 /*!40000 ALTER TABLE `dispense_commentarium` DISABLE KEYS */;
-INSERT INTO `dispense_commentarium` VALUES (1,1,2,'bla 1\r\n','2015-05-06 16:14:59'),(2,2,1,'ciao','2015-05-14 10:28:49'),(3,1,1,'voglio seguirti','2015-05-14 10:44:14'),(4,2,1,'anche io','2015-05-14 10:49:10'),(5,1,3,'ciao','2015-05-14 11:05:40'),(6,2,7,'Commento.','2015-05-14 11:19:49'),(7,2,8,'ciao','2015-05-14 11:26:07');
 /*!40000 ALTER TABLE `dispense_commentarium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,10 +294,10 @@ CREATE TABLE `dispense_dispensa` (
   UNIQUE KEY `notifica_id` (`notifica_id`),
   KEY `dispense_dispensa_b7033388` (`insegnamento_id`),
   KEY `dispense_dispensa_b2400c30` (`utente_id`),
+  CONSTRAINT `utente_id_refs_id_7867b37b` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `insegnamento_id_refs_id_34d3a700` FOREIGN KEY (`insegnamento_id`) REFERENCES `dispense_insegnamento` (`id`),
-  CONSTRAINT `notifica_id_refs_id_5cf25d33` FOREIGN KEY (`notifica_id`) REFERENCES `dispense_notifica` (`id`),
-  CONSTRAINT `utente_id_refs_id_7867b37b` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  CONSTRAINT `notifica_id_refs_id_5cf25d33` FOREIGN KEY (`notifica_id`) REFERENCES `dispense_notifica` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,7 +306,6 @@ CREATE TABLE `dispense_dispensa` (
 
 LOCK TABLES `dispense_dispensa` WRITE;
 /*!40000 ALTER TABLE `dispense_dispensa` DISABLE KEYS */;
-INSERT INTO `dispense_dispensa` VALUES (1,2,2,'paperino','una foto di paperino che ti solleverà il morale mentre studi analisi matematica.','2015-05-05 12:47:31','assets/uploaded_files/1430830051_19_donald.jpg',0,1,1,4,0),(2,2,2,'immagine random','Una foto trovata nel pc.','2015-05-05 12:49:13','assets/uploaded_files/1430830153_73_texture1.jpg',0,0,2,1,0),(3,2,2,'prova ','feronogbeor','2015-05-14 11:04:08','assets/uploaded_files/1431601448_61_reg_2013.pdf',0,0,3,1,1),(6,23,1,'ciao mamma','guarda','2015-05-14 11:15:12','assets/uploaded_files/1431602112_47_texture2.jpg',0,0,6,0,1),(7,47,1,'Prova 1','file di prova','2015-05-14 11:19:18','assets/uploaded_files/1431602358_86_texture5.jpg',0,0,7,1,1),(8,47,2,'dfdfdf','333esdfs','2015-05-14 11:25:09','assets/uploaded_files/1431602709_64_texture2.jpg',0,0,8,1,1);
 /*!40000 ALTER TABLE `dispense_dispensa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +347,7 @@ CREATE TABLE `dispense_notifica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `controllo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +356,6 @@ CREATE TABLE `dispense_notifica` (
 
 LOCK TABLES `dispense_notifica` WRITE;
 /*!40000 ALTER TABLE `dispense_notifica` DISABLE KEYS */;
-INSERT INTO `dispense_notifica` VALUES (1,0),(2,0),(3,0),(6,1),(7,0),(8,0);
 /*!40000 ALTER TABLE `dispense_notifica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,7 +376,7 @@ CREATE TABLE `dispense_notifica_destinatari` (
   KEY `dispense_notifica_destinatari_1be1924f` (`userprofile_id`),
   CONSTRAINT `notifica_id_refs_id_f610a274` FOREIGN KEY (`notifica_id`) REFERENCES `dispense_notifica` (`id`),
   CONSTRAINT `userprofile_id_refs_id_c6c3bb49` FOREIGN KEY (`userprofile_id`) REFERENCES `dispense_userprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +385,6 @@ CREATE TABLE `dispense_notifica_destinatari` (
 
 LOCK TABLES `dispense_notifica_destinatari` WRITE;
 /*!40000 ALTER TABLE `dispense_notifica_destinatari` DISABLE KEYS */;
-INSERT INTO `dispense_notifica_destinatari` VALUES (4,1,1),(2,2,1),(6,3,1),(17,6,2),(11,7,2),(14,8,2);
 /*!40000 ALTER TABLE `dispense_notifica_destinatari` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,9 +404,9 @@ CREATE TABLE `dispense_opinione` (
   PRIMARY KEY (`id`),
   KEY `dispense_opinione_b2400c30` (`utente_id`),
   KEY `dispense_opinione_aba965bd` (`dispensa_id`),
-  CONSTRAINT `dispensa_id_refs_id_95058a2f` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`),
-  CONSTRAINT `utente_id_refs_id_78ea025e` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `utente_id_refs_id_78ea025e` FOREIGN KEY (`utente_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `dispensa_id_refs_id_95058a2f` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +415,6 @@ CREATE TABLE `dispense_opinione` (
 
 LOCK TABLES `dispense_opinione` WRITE;
 /*!40000 ALTER TABLE `dispense_opinione` DISABLE KEYS */;
-INSERT INTO `dispense_opinione` VALUES (1,2,1,0,1);
 /*!40000 ALTER TABLE `dispense_opinione` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,9 +433,9 @@ CREATE TABLE `dispense_segnalazione` (
   PRIMARY KEY (`id`),
   KEY `dispense_segnalazione_0e134228` (`accusatore_id`),
   KEY `dispense_segnalazione_aba965bd` (`dispensa_id`),
-  CONSTRAINT `accusatore_id_refs_id_6ef3f631` FOREIGN KEY (`accusatore_id`) REFERENCES `dispense_userprofile` (`id`),
-  CONSTRAINT `dispensa_id_refs_id_3a5a4847` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  CONSTRAINT `dispensa_id_refs_id_3a5a4847` FOREIGN KEY (`dispensa_id`) REFERENCES `dispense_dispensa` (`id`),
+  CONSTRAINT `accusatore_id_refs_id_6ef3f631` FOREIGN KEY (`accusatore_id`) REFERENCES `dispense_userprofile` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +444,6 @@ CREATE TABLE `dispense_segnalazione` (
 
 LOCK TABLES `dispense_segnalazione` WRITE;
 /*!40000 ALTER TABLE `dispense_segnalazione` DISABLE KEYS */;
-INSERT INTO `dispense_segnalazione` VALUES (5,1,2,'vwe'),(6,1,1,'ewfegere');
 /*!40000 ALTER TABLE `dispense_segnalazione` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,10 +487,11 @@ CREATE TABLE `dispense_userprofile` (
   `key_expires` datetime NOT NULL,
   `not_globali` tinyint(1) NOT NULL,
   `ban` tinyint(1) NOT NULL,
+  `registrabile` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `user_id_refs_id_4ee9ef70` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -505,7 +500,7 @@ CREATE TABLE `dispense_userprofile` (
 
 LOCK TABLES `dispense_userprofile` WRITE;
 /*!40000 ALTER TABLE `dispense_userprofile` DISABLE KEYS */;
-INSERT INTO `dispense_userprofile` VALUES (1,1,'SU','2015-05-05 12:44:26',1,0),(2,2,'edcc9a546f17863a09ecba7ae22e18cf2e1c71c3','2015-05-07 12:46:10',1,0);
+INSERT INTO `dispense_userprofile` VALUES (1,1,'SU','2015-05-19 08:40:34',1,0,1);
 /*!40000 ALTER TABLE `dispense_userprofile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,8 +523,8 @@ CREATE TABLE `django_admin_log` (
   PRIMARY KEY (`id`),
   KEY `django_admin_log_6340c63c` (`user_id`),
   KEY `django_admin_log_37ef4eb4` (`content_type_id`),
-  CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
-  CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -591,7 +586,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('asffutprvkqaian2lekf232x4n5f8r6c','ZTk4MjYzZGIyY2VjMTUxOGJhNWYwNmY3YWQ2ZGQwYjU5OWEyZDUyYjqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==','2015-05-20 10:50:48'),('hac1kiyy9rrcl4082ke25kiwx9jdcki4','ZTk4MjYzZGIyY2VjMTUxOGJhNWYwNmY3YWQ2ZGQwYjU5OWEyZDUyYjqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==','2015-05-28 09:57:28'),('jgdg3cvy0pezy2kl2l555olmbh9joymu','YzM4NWViNGZjMWRiNjhkZWExYjM5ZDJiOWVkN2U5MTFlOTVjZjJmYTqAAn1xAS4=','2015-05-28 13:52:07'),('lfhqprybf6s5lhvp1rd5px34sxhrxe1g','ZTk4MjYzZGIyY2VjMTUxOGJhNWYwNmY3YWQ2ZGQwYjU5OWEyZDUyYjqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==','2015-05-29 12:18:04');
+INSERT INTO `django_session` VALUES ('ytryq1q83aol0rhs8mqzteeglrcaostn','ZTk4MjYzZGIyY2VjMTUxOGJhNWYwNmY3YWQ2ZGQwYjU5OWEyZDUyYjqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQSKAQF1Lg==','2015-06-02 08:41:47');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -629,4 +624,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-15 16:36:25
+-- Dump completed on 2015-05-19 10:49:50

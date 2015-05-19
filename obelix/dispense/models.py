@@ -41,6 +41,7 @@ class UserProfile(models.Model):
 	key_expires = models.DateTimeField()
 	not_globali = models.BooleanField(default=True)
 	ban = models.BooleanField(default=False)
+	registrabile = models.BooleanField(default=True)
 	
 	def __str__(self):
 		return self.user.username
