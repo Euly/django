@@ -270,7 +270,7 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	c.dispensa.save()
 	c.delete()
 			
-	return HttpResponseRedirect('/cdl/%s/%s' %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
 	
 
 
