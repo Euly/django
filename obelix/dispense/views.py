@@ -149,10 +149,11 @@ def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 	
 		if nome_file == titolo_file:
 			wrapper = FileWrapper(f.documento)
-			response = HttpResponse(wrapper)	
+			response = HttpResponse(wrapper)
+			response['Content-Disposition'] = 'attachment; filename=%s' %titolo_file
 			return response
 
-	return HttpResponseRedirect("/cdl/all")
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
 
 
 @login_required
