@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from dispense.models import Corso, UserProfile, Insegnamento, Dispensa, Opinione, Commentarium, Notifica, Segnalazione
+from dispense.models import *
 from forms import DispensaForm, CommentariumForm, SegnalazioneForm
 from obelix.supportFunctions import *
 from django.http import HttpResponseRedirect
@@ -96,7 +96,8 @@ def aggiungi_dispensa(request, titolo_cdl, titolo_ins):
 										notifica=n)
 	
 			
-			return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect("/cdl/%s/%s/recenti/" 
+										%(corso_ins.titolo, materia.titolo))
 			
 	else:
 		form = DispensaForm()
@@ -119,13 +120,15 @@ def cancella_dispensa(request, titolo_cdl, titolo_ins, dispensa_id):
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
 	d = Dispensa.objects.get(id=dispensa_id)
-	subprocess.check_output("rm "+Temp_Path+"/static/"+str(d.documento), shell=True)
+	subprocess.check_output("rm "+Temp_Path+"/static/"+str(d.documento), 
+							shell=True)
 	
 	#se non cancello la notifica rimane nel database
 	d.notifica.delete()
 	d.delete()
 
-	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' 
+								%(corso_ins.titolo, materia.titolo))
 
 
 @login_required
@@ -150,10 +153,12 @@ def scarica(request, titolo_cdl, titolo_ins, titolo_file):
 		if nome_file == titolo_file:
 			wrapper = FileWrapper(f.documento)
 			response = HttpResponse(wrapper)
-			response['Content-Disposition'] = 'attachment; filename=%s' %titolo_file
+			response['Content-Disposition'] = ('attachment; filename=%s' 
+												%titolo_file)
 			return response
 
-	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' 
+								%(corso_ins.titolo, materia.titolo))
 
 
 @login_required
@@ -170,8 +175,10 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 			opinione = Opinione.objects.get(dispensa=d, utente=request.user)
 			
 			# non posso mettere piu' di un like o unlike
-			if (flag == "like" and opinione.positiva == True) or (flag == "unlike" and opinione.negativa == True):
-				return HttpResponseRedirect("/cdl/%s/%s" %(corso_ins.titolo, materia.titolo))
+			if ((flag == "like" and opinione.positiva == True) or 
+				(flag == "unlike" and opinione.negativa == True)):
+				return HttpResponseRedirect("/cdl/%s/%s" 
+											%(corso_ins.titolo, materia.titolo))
 			
 			# se ho cambiato idea tolgo l'opinione precendente
 			if flag == "like" and opinione.negativa == True:
@@ -206,10 +213,10 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 		elif flag == "unlike":
 			d.non_mi_piace = d.non_mi_piace + 1
 		
-		
 		d.save()
 		
-	return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect("/cdl/%s/%s/recenti/" 
+								%(corso_ins.titolo, materia.titolo))
 
 @login_required
 @unbanned_only
@@ -227,18 +234,21 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 		if form.is_valid():			
 			commento_html = form.cleaned_data['commento']
 			d = Dispensa.objects.get(id=dispensa_id)
-			c = Commentarium.objects.create(utente=request.user,  dispensa=d, commento=commento_html)
+			c = Commentarium.objects.create(utente=request.user, 
+											dispensa=d, 
+											commento=commento_html)
 			
 			d.num_com = d.num_com + 1	
 			d.save()				
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
 									
-			#ogni utente che commenta viene aggiunto alle notifiche
+			# ogni utente che commenta viene aggiunto alle notifiche
 			if user_profile.not_globali :
 				d.notifica.destinatari.add(user_profile)			
 				
 				
-			#il creatore viene aggiunto alle notifiche solo all'inserimento del  1 commento
+			# il creatore viene aggiunto alle notifiche solo all'inserimento del 
+			# primo commento
 			if d.notifica.controllo == True :
 				user_profile = UserProfile.objects.get(user_id = d.utente.id)
 				if user_profile.not_globali:
@@ -246,7 +256,8 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 					d.notifica.destinatari.add(user_profile)
 					d.notifica.save()
 			
-			return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect('/cdl/%s/%s/recenti/' 
+										%(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= CommentariumForm()
 		
@@ -256,13 +267,13 @@ def aggiungi_commento(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['dispensa_id'] = dispensa_id
 	args['request'] = request
 	
-	return render_to_response('commento.html', args, context_instance=RequestContext(request))
+	return render_to_response('commento.html', args, 
+							  context_instance=RequestContext(request))
 
 
 @login_required
 @unbanned_only
 def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
-	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
@@ -271,14 +282,13 @@ def rimuovi_commento(request, titolo_cdl, titolo_ins, commento_id):
 	c.dispensa.save()
 	c.delete()
 			
-	return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect('/cdl/%s/%s/recenti/' 
+								%(corso_ins.titolo, materia.titolo))
 	
-
 
 @login_required
 @unbanned_only
 def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
-	
 	corso_ins = Corso.objects.get(titolo=titolo_cdl)
 	materia = Insegnamento.objects.get(titolo=titolo_ins, corso=corso_ins)
 	
@@ -298,9 +308,11 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 			user_profile = UserProfile.objects.get(user_id = request.user.id)
 
 			s = Segnalazione.objects.create(accusatore=user_profile,
-											dispensa=d, motivazione=motivazione_html)
+											dispensa=d, 
+											motivazione=motivazione_html)
 														
-			return HttpResponseRedirect('/cdl/%s/%s/recenti/' %(corso_ins.titolo, materia.titolo))
+			return HttpResponseRedirect('/cdl/%s/%s/recenti/' 
+										%(corso_ins.titolo, materia.titolo))
 	else:
 		args['form']= SegnalazioneForm()
 		
@@ -309,4 +321,5 @@ def segnalazione(request, titolo_cdl, titolo_ins, dispensa_id):
 	args['dispensa_id'] = dispensa_id
 	args['request'] = request
 	
-	return render_to_response('segnalazione.html', args, context_instance=RequestContext(request))
+	return render_to_response('segnalazione.html', args, 
+							  context_instance=RequestContext(request))

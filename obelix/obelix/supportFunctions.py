@@ -6,7 +6,8 @@ from functools import wraps
 def bubble_sort_dispense(dispense):
 	for i in range(len(dispense)-1,0,-1):
 		for i in range(i):
-			if dispense[i].mi_piace - dispense[i].non_mi_piace < dispense[i+1].mi_piace - dispense[i+1].non_mi_piace :
+			if (dispense[i].mi_piace - dispense[i].non_mi_piace < 
+				dispense[i+1].mi_piace - dispense[i+1].non_mi_piace) :
 				temp = dispense[i]
 				dispense[i] = dispense[i+1]
 				dispense[i+1] = temp
@@ -25,7 +26,9 @@ def unbanned_only(function):
 				if ban.user_profile == user_profile:
 					bannato.append(ban)
 					
-			return render_to_response('ban.html', {'Bannato': bannato, 'user_profile': user_profile, 'request': request})
+			return render_to_response('ban.html', {'Bannato': bannato,
+												   'user_profile': user_profile, 
+												   'request': request})
 
 	#wrap.__doc__=function.__doc__
 	#wrap.__name__=function.__name__

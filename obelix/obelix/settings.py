@@ -14,14 +14,18 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'obelixdb',                   # Or path to database file if using sqlite3.
+		# Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', 
+        # Or path to database file if using sqlite3.
+        'NAME': 'obelixdb',                   
         'TEST_NAME': 'obelixtest',
         # The following settings are not used with sqlite3:
         'USER': 'obelix',
         'PASSWORD': 'dbdjob@',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '',   
+        # Set to empty string for default.                   
+        'PORT': '',                      
     }
 }
 
@@ -132,7 +136,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'dispense',
-    'django_extensions',
     'widget_tweaks',
 )
 

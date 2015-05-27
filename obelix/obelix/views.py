@@ -1,14 +1,12 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
-from forms import RegistrationForm, StudenteForm
+from forms import *
 from django.db.models.query import RawQuerySet
-from dispense.models import Studente, UserProfile, Dispensa, Notifica, Commentarium, Segnalazione, Bannato, Corso, Insegnamento
+from dispense.models import *
 from django.template import RequestContext
 from django.utils import timezone
-from forms import *
 from django.core.mail import send_mail
 import hashlib, datetime, random
 from django.contrib.auth.models import User
@@ -42,7 +40,8 @@ def auth_view(request):
 			return HttpResponseRedirect('/accounts/loggedin')
 		else:
 			user_id = user.id
-			return render_to_response('not_active.html', {'user_id': user_id, 'request': request})
+			return render_to_response('not_active.html', {'user_id': user_id, 
+														  'request': request})
 	else:
 		return HttpResponseRedirect('/accounts/invalid')
 		
@@ -77,7 +76,8 @@ def register_user(request):
 						
 			for m in Studente.objects.raw('SELECT * FROM dispense_studente'):
 				if (m.email) == email_html :
-					if (m.nome).upper() == nome_html.upper() and (m.cognome).upper() == cognome_html.upper() :
+					if ((m.nome).upper() == nome_html.upper() and 
+						(m.cognome).upper() == cognome_html.upper()) :
 						form.save()
 						ok = True
 						break
@@ -92,13 +92,18 @@ def register_user(request):
 			activation_key = hashlib.sha1(salt+email_html).hexdigest()            
 			key_expires = timezone.now() + datetime.timedelta(2)
 			
-			new_profile = UserProfile(user=user, activation_key=activation_key, key_expires=key_expires)
+			new_profile = UserProfile(user=user, activation_key=activation_key, 
+									  key_expires=key_expires)
 			new_profile.save()
 
 			email_subject = 'Attiva Account'
-			email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (username_html, activation_key)
+			email_body = "Hey %s, grazie per esserti registrato.\nPer attivare \
+						  il tuo account, clicca sul link seguente entro 48 ore\
+						  \nhttp://127.0.0.1:8000/accounts/attivazione/\
+						  %s" % (username_html, activation_key)
 
-			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], fail_silently=False)
+			send_mail(email_subject, email_body, EMAIL_HOST_USER, [email_html], 
+					  fail_silently=False)
 
 			return HttpResponseRedirect('/accounts/register_success')
 	else :
@@ -106,7 +111,8 @@ def register_user(request):
 	
 	args['request'] = request
 	
-	return render_to_response('register.html', args, context_instance=RequestContext(request))
+	return render_to_response('register.html', args, 
+							  context_instance=RequestContext(request))
 
 def register_success(request):
     return render_to_response('register_success.html', {'request': request})
@@ -123,16 +129,15 @@ def register_confirm(request, activation_key):
 		return render_to_response('att_already_done.html', {'request': request})
 		
 	if user_profile.key_expires < timezone.now():
-		return render_to_response('attivazione_scaduta.html', {'request': request})
+		return render_to_response('attivazione_scaduta.html', 
+								  {'request': request})
 
 	user.is_active = True
 	user.save()
 	return HttpResponseRedirect('/accounts/login', {'request': request})
 
 
-
 def nuova_attivazione(request, user_id):
-	
 	user_profile = UserProfile.objects.get(user_id = user_id)
 	
 	#if request.user.is_authenticated():
@@ -149,11 +154,14 @@ def nuova_attivazione(request, user_id):
 		utente = User.objects.get(id = user_id)
 		user_profile.key_expires = timezone.now() + datetime.timedelta(2)		
 		email_subject = 'Attiva Account'
-		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il tuo account, clicca sul link seguente entro 48 ore\nhttp://127.0.0.1:8000/accounts/attivazione/%s" % (utente.username, user_profile.activation_key)
-		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], fail_silently=False)
+		email_body = "Hey %s, grazie per esserti registrato.\nPer attivare il \
+					 tuo account, clicca sul link seguente entro 48 ore\n\
+					 http://127.0.0.1:8000/accounts/attivazione/\
+					 %s" % (utente.username, user_profile.activation_key)
+		send_mail(email_subject, email_body, EMAIL_HOST_USER, [utente.email], 
+				  fail_silently=False)
 
-		return render_to_response('nuova_attivazione.html', {'request': request}) 
-
+		return render_to_response('nuova_attivazione.html',{'request': request}) 
 
 @login_required
 @unbanned_only
@@ -176,7 +184,9 @@ def cambio_username(request):
 
 	args['request'] = request
 	
-	return render_to_response('cambio_username.html', args, context_instance=RequestContext(request))
+	return render_to_response('cambio_username.html', args, 
+							  context_instance=RequestContext(request))
+
 
 @login_required
 @unbanned_only
@@ -197,13 +207,20 @@ def profilo_utente(request):
 			if n.user == user_profile.user : 
 				notifiche.append(d) #lista di dispense
 				if d.num_com > 0:
-					c = Commentarium.objects.raw('SELECT * FROM dispense_commentarium WHERE data_pub=(SELECT max(data_pub) FROM dispense_commentarium where dispensa_id="'+str(d.id)+'")')[0]
+					c = Commentarium.objects.raw('SELECT * FROM \
+					dispense_commentarium WHERE data_pub=(SELECT max(data_pub) \
+					FROM dispense_commentarium \
+					WHERE dispensa_id="'+str(d.id)+'")')[0]
 					ultimo_comm.append(c)
 					break
 				
-	return render_to_response('profilo_utente.html', {'pubblicazioni': pubblicazioni, 'user_profile': user_profile,
-							  'notifiche' : notifiche, 'ultimo_comm': ultimo_comm, 'request': request})	
-	
+	return render_to_response('profilo_utente.html', 
+							 {'pubblicazioni': pubblicazioni, 
+							  'user_profile': user_profile,
+							  'notifiche' : notifiche, 
+							  'ultimo_comm': ultimo_comm, 
+							  'request': request})	
+
 
 @login_required
 @unbanned_only
@@ -211,7 +228,6 @@ def volumica(request):
 	return render_to_response('volumica.html', {'request': request})
 
 
-	
 @login_required
 def not_globali(request):
 	
@@ -221,6 +237,7 @@ def not_globali(request):
 	user_profile.save()
 	
 	return HttpResponseRedirect('/accounts/profilo_utente/')
+
 
 @login_required
 def not_locali_att(request, titolo_cdl, titolo_ins, dispensa_id):
@@ -236,7 +253,8 @@ def not_locali_att(request, titolo_cdl, titolo_ins, dispensa_id):
 		d.notifica.controllo = False
 		d.notifica.save()
 		
-	return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, materia.titolo))
+	return HttpResponseRedirect("/cdl/%s/%s/recenti/" %(corso_ins.titolo, 
+														materia.titolo))
 	
 
 def not_locali_dis(request,dispensa_id):
@@ -247,8 +265,6 @@ def not_locali_dis(request,dispensa_id):
 	d.notifica.save()
 	
 	return HttpResponseRedirect('/accounts/profilo_utente/')
-
-
 
 
 @login_required
@@ -269,19 +285,19 @@ def dispense_globali(request, ordine):
 		disp.reverse()
 	
 	return render_to_response('dispense_globali.html', {'Dispense': disp,
-							   'request': request})
+							  'request': request})
+
 
 @login_required
 @staff_member_required
 def segnalazioni(request):
-
 	seg = Segnalazione.objects.all()
-	
 	seg = sorted(seg, key=attrgetter("dispensa.id"))
 	
 	return render_to_response('segnalazioni.html', {'Segnalazioni': seg,
-							   'request': request})
-	
+							  'request': request})
+
+
 @login_required
 @staff_member_required
 def segn_annulla(request, segn_id):
@@ -292,12 +308,13 @@ def segn_annulla(request, segn_id):
 	s.dispensa.save()
 	s.delete()
 	
-	return HttpResponseRedirect('/accounts/profilo_utente/superuser/segnalazioni/')
-	
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
+								segnalazioni/')
+
+
 @login_required
 @staff_member_required
 def bannati(request, ordine):
-				
 	bannati = Bannato.objects.all()
 	
 	#for ban in Bannato.objects.all():
@@ -328,17 +345,16 @@ def sban(request, user_profile_id):
 	s = Bannato.objects.all().filter(user_profile = up)
 	s.delete()
 	
-	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/\
+								nome/')
 		
 
 @login_required
 @staff_member_required
 
 def database(request, ordine):
-	
 	studente = Studente.objects.all()
-		
-	
+
 	if ordine == "nome":
 		studente = sorted(studente, key=attrgetter("nome"))
 	elif ordine == "cognome":
@@ -346,15 +362,14 @@ def database(request, ordine):
 	else:
 		studente = sorted(studente, key=attrgetter("email"))
 	
-	return render_to_response('database.html', {'Studente': studente, 'request': request})
-	
+	return render_to_response('database.html', 
+							 {'Studente': studente, 'request': request})
 	
 	
 @login_required
 @staff_member_required
 
 def iscritti(request, ordine):
-	
 	iscritti = UserProfile.objects.all()
 	 
 	if ordine == "nome":
@@ -364,13 +379,13 @@ def iscritti(request, ordine):
 	else:
 		iscritti = sorted(iscritti, key=attrgetter("user.email"))
 	
-	return render_to_response('iscritti.html', {'Iscritti': iscritti, 'request': request})
+	return render_to_response('iscritti.html', 
+							 {'Iscritti': iscritti, 'request': request})
 	
 	
 @login_required
 @staff_member_required
 def segn_ban (request, segn_id, us_id):
-		
 	args = {}
 	args.update(csrf(request))
 	
@@ -384,7 +399,8 @@ def segn_ban (request, segn_id, us_id):
 			else:
 				s = Segnalazione.objects.get(id=segn_id)
 				if us_id == "":
-					user_profile = UserProfile.objects.get(user_id = s.dispensa.utente.id)
+					user_profile = UserProfile.objects.get(
+												user_id = s.dispensa.utente.id)
 				else:
 					user_profile = UserProfile.objects.get(id = s.accusatore.id)
 				s.delete()
@@ -397,7 +413,8 @@ def segn_ban (request, segn_id, us_id):
 												motivazione=motivazione_html)
 			nuovo_bannato.save()
 				
-			return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
+										bannati/nome/')
 	else :
 		args['form'] = BanForm()
 	
@@ -405,7 +422,8 @@ def segn_ban (request, segn_id, us_id):
 	args['segn_id'] = segn_id
 	args['us_id'] = us_id
 	
-	return render_to_response('aggiungi_ban.html', args, context_instance=RequestContext(request))		
+	return render_to_response('aggiungi_ban.html', args, 
+							  context_instance=RequestContext(request))		
 
 	
 @login_required
@@ -423,19 +441,17 @@ def inserisci(request):
 			email_html = form.cleaned_data['email']			
 			
 		
-			nuovo_studente = Studente.objects.create(nome=nome_html, cognome=cognome_html, email=email_html)
+			nuovo_studente = Studente.objects.create(nome=nome_html, 
+													 cognome=cognome_html, 
+													 email=email_html)
 			nuovo_studente.save()
 				
-			return HttpResponseRedirect('/accounts/profilo_utente/superuser/database/')
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
+										database/')
 	else :
 		args['form'] = StudenteForm()
 	
 	args['request'] = request
 	
-	return render_to_response('aggiungi_stud.html', args, context_instance=RequestContext(request))
-	
-	
-	
-	
-	
-
+	return render_to_response('aggiungi_stud.html', args, 
+							  context_instance=RequestContext(request))

@@ -4,13 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from dispense.models import Studente, Bannato
 
 class RegistrationForm(UserCreationForm):
-	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
+	email = forms.EmailField(required=True, widget=forms.TextInput(
+							 attrs={'placeholder': '@studenti.unimore.it '}))
 	first_name = forms.CharField(required=True, label="Nome")
 	last_name = forms.CharField(required=True, label="Cognome")
 	
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')   
+		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 
+				  'password2')   
 
 	def clean_email(self):
 		email = self.cleaned_data["email"]
@@ -30,7 +32,8 @@ class RegistrationForm(UserCreationForm):
 		username_html = self.cleaned_data['username']
 	
 		if username_html[0].isdigit():
-			raise forms.ValidationError('Numeri non consentiti come primo carattere.')
+			raise forms.ValidationError('Numeri non consentiti come primo \
+										carattere.')
 				
 		elif len(username_html) < 3 :
 			raise forms.ValidationError('Almeno 3 caratteri.')
@@ -64,7 +67,8 @@ class ChangeUsernameForm(forms.Form):
         
 
 class StudenteForm(forms.ModelForm):
-	email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': '@studenti.unimore.it '}))
+	email = forms.EmailField(required=True, widget=forms.TextInput(
+							 attrs={'placeholder': '@studenti.unimore.it '}))
 	
 	class Meta:
 		model = Studente

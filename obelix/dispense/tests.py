@@ -1,5 +1,5 @@
-
-from dispense.models import Corso, Dispensa, Commentarium, UserProfile, Segnalazione, Notifica
+from dispense.models import Corso, Dispensa, Commentarium, UserProfile
+from dispense.models import Segnalazione, Notifica
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.http import HttpRequest
@@ -100,11 +100,13 @@ class DispenseViewsTestCase(TestCase):
 		c = Client()
 		
 		#post su login, indirizzo sbagliato
-		response = c.post('/login/', {'username': 'obelix', 'password': 'dbdjob@'})
+		response = c.post('/login/', {'username': 'obelix', 
+									  'password': 'dbdjob@'})
 		self.assertEqual(response.status_code, 404)
 	
 		#post su login, indirizzo ok
-		response = c.post('/accounts/login/', {'username': 'obelix', 'password': 'dbdjob@'})
+		response = c.post('/accounts/login/', {'username': 'obelix', 
+											   'password': 'dbdjob@'})
 		self.assertEqual(response.status_code, 200)
 	
 		#inserire template di ritorno
@@ -115,12 +117,8 @@ class DispenseFormsTestCase(TestCase):
 	fixtures = ['obelixtest.json']
 	
 	def test_Segnalazione(self):  
-   		
-   
-		form = SegnalazioneForm(data={'accusatore': UserProfile.objects.get(pk=1) ,  
-								'dispensa': Dispensa.objects.get(pk=1),  
-                                  'motivazione': "prova",})
-  
+		form = SegnalazioneForm(
+							  data={'accusatore': UserProfile.objects.get(pk=1),  
+									'dispensa': Dispensa.objects.get(pk=1),  
+									'motivazione': "prova",})
 		self.assertTrue(form.is_valid())  
-
-   
