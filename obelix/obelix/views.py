@@ -302,8 +302,7 @@ def segn_annulla(request, segn_id):
 	s.dispensa.save()
 	s.delete()
 	
-	return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
-								segnalazioni/')
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/segnalazioni/')
 
 
 @login_required
@@ -339,8 +338,7 @@ def sban(request, user_profile_id):
 	s = Bannato.objects.all().filter(user_profile = up)
 	s.delete()
 	
-	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/\
-								nome/')
+	return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
 		
 
 @login_required
@@ -407,8 +405,7 @@ def segn_ban (request, segn_id, us_id):
 												motivazione=motivazione_html)
 			nuovo_bannato.save()
 				
-			return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
-										bannati/nome/')
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/bannati/nome/')
 	else :
 		args['form'] = BanForm()
 	
@@ -440,8 +437,7 @@ def inserisci(request):
 													 email=email_html)
 			nuovo_studente.save()
 				
-			return HttpResponseRedirect('/accounts/profilo_utente/superuser/\
-										database/')
+			return HttpResponseRedirect('/accounts/profilo_utente/superuser/database/')
 	else :
 		args['form'] = StudenteForm()
 	

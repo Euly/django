@@ -10,8 +10,8 @@
 	</tr>
 	<tr class="tbl_row">
 		{% for ban in Bannati %}
-			<td width="25%">{{ban.user_profile.user.first_name  | capfirst}}</td>
-			<td width="25%">{{ban.user_profile.user.last_name  | capfirst}}</td>
+			<td width="25%">{{ban.user_profile.user.first_name  |lower | capfirst}}</td>
+			<td width="25%">{{ban.user_profile.user.last_name  |lower | capfirst}}</td>
 			<td width="35%"><small>{{ban.user_profile.user.email}}</small></td>
 			<td width="14.999%">
 				<form action="/accounts/profilo_utente/superuser/sban/{{ban.user_profile.id}}">

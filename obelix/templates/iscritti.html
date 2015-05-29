@@ -25,8 +25,8 @@
 	</tr>	
 		{% for isc in Iscritti %}
 		<tr class="tbl_row">	
-			<td>{{isc.user.first_name | capfirst}}</td>
-			<td>{{isc.user.last_name | capfirst}}</td>
+			<td>{{isc.user.first_name | lower | capfirst}}</td>
+			<td>{{isc.user.last_name | lower | capfirst}}</td>
 			<td><small>{{isc.user.email}}</small></td>
 			<td align="center">
 				{% if isc.ban == False %}
