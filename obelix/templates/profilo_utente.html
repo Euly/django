@@ -88,7 +88,6 @@
 			<td>
 				<a href="/cdl/{{disp.insegnamento.corso}}/{{disp.insegnamento}}/recenti" style="text-decoration: none;">
 				<div class="notifiche"> 
-				{% if ultimo_comm %}
 					{% if disp.num_com == 0 %}
 						Stai seguendo la dispensa <b>{{disp.titolo}}</b>.
 					{% else %}
@@ -98,7 +97,6 @@
 							{% endif %}
 						{% endfor %}
 					{% endif%}
-				{% endif %}
 			</div>
 			</a>
 			</td>
