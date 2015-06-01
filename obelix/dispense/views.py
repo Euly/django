@@ -177,7 +177,7 @@ def like_dispensa(request, titolo_cdl, titolo_ins, flag, dispensa_id):
 			# non posso mettere piu' di un like o unlike
 			if ((flag == "like" and opinione.positiva == True) or 
 				(flag == "unlike" and opinione.negativa == True)):
-				return HttpResponseRedirect("/cdl/%s/%s" 
+				return HttpResponseRedirect("/cdl/%s/%s/recenti/" 
 											%(corso_ins.titolo, materia.titolo))
 			
 			# se ho cambiato idea tolgo l'opinione precendente
